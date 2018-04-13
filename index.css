@@ -1,6 +1,9 @@
 body {
-    background-color: #7700ff;
+    background-color: #ffffff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body h1 {
+    background-color: #ff3333;
 }
 #map {
     height: 400px;
@@ -12,8 +15,10 @@ body {
 button {
     border-radius: 3px;
     color: #000000;
-    background-color: #7700ff;
+    background-color: #ff3333;
     margin-left: 10px;
     margin-top: 10px;
     font-style: inherit;
+    height: 40px;
+    font-weight: bold;
 }
