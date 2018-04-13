@@ -8,16 +8,23 @@ body h1 {
 }
 #restList ul {
     list-style: none;
+    margin-top: 410px;
 }
 #restList li {
     border: solid 1px #000000;
+    border-radius: 3px;
+    float: left;
+    width: 300px;
+    height: auto;
+    margin: 5px;
+    padding-left: 10px;
 }
 #map {
     height: 400px;
-    width: 600px;
+    width: 630px;
     background-color: #c694ff;
     float: left;
-    margin-right:20px;
+    margin-left:45px;
 }
 button {
     border-radius: 3px;

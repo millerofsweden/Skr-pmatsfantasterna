@@ -1,6 +1,7 @@
 //Google map och SMAPI anrop test
 var map;
-var marker;
+// var marker;
+var userMarker;
 var latLng;
 
 function init () {
@@ -15,7 +16,7 @@ function init () {
 window.addEventListener("load", init);
 
 function getLocation () {
-    marker = new google.maps.Marker();
+    userMarker = new google.maps.Marker();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition (showYourPosition);
     } else {
@@ -39,6 +40,7 @@ function initMap () {
 
 function getRestaurants () {
     var request; // Object för Ajax-anropet
+    console.log(latLng);
     if (XMLHttpRequest) { request = new XMLHttpRequest(); } // Olika objekt (XMLHttpRequest eller ActiveXObject), beroende på webbläsare
     else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
     else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
@@ -51,40 +53,66 @@ function getRestaurants () {
 
 function showRestaurants (response) {
     var i;
-    var lat;
-    var lng;
-    var response;
-    var name;
-    var rating;
     var restList = document.getElementById("restList");
     var ul = document.createElement("ul");
     restList.appendChild(ul);
-    response = JSON.parse(response)
+    var response = JSON.parse(response);
+    var markers = [];
+    var infoWindows = [];
     for (i = 0; i < response.payload.length; i++) {
-        lat = parseFloat(response.payload[i].lat);
-        lng = parseFloat(response.payload[i].lng);
-        name = response.payload[i].name;
-        rating = response.payload[i].rating;
-        console.log(name + rating)
+        var lat = parseFloat(response.payload[i].lat);
+        var lng = parseFloat(response.payload[i].lng);
+        var name = response.payload[i].name;
+        var rating = response.payload[i].rating;
+        var price = response.payload[i].avg_lunch_pricing;
+        var tags = response.payload[i].search_tags;
         marker = new google.maps.Marker({lat,lng});
         marker.setPosition({lat,lng});
         marker.setMap(map);
         var li = document.createElement("li");
-        var textNode = document.createTextNode(name + " " + rating);
-        li.appendChild(textNode);
-        ul.appendChild(li); 
+        var br = document.createElement("br");
+        ul.appendChild(li);
+        var contentDiv = createInfoElements(name, tags, rating, price);
+        li.appendChild(contentDiv);
+        var infoWindow = new google.maps.InfoWindow ({content:contentDiv});
+        marker.addListener("click", openInfoWindow(marker, contentDiv)); 
+    }
+}
+
+function createInfoElements(name, rating, price, tags) {
+    var contentDiv = document.createElement("div");
+    var header = document.createElement("h5");
+    var ratingP = document.createElement("p");
+    var priceP = document.createElement("p");
+    var tagsP = document.createElement("p");
+    contentDiv.setAttribute("id", "content");
+    header.appendChild(document.createTextNode(name));
+    ratingP.appendChild(document.createTextNode(rating));
+    priceP.appendChild(document.createTextNode(price));
+    tagsP.appendChild(document.createTextNode(tags));
+    contentDiv.appendChild(header);
+    contentDiv.appendChild(ratingP);
+    contentDiv.appendChild(priceP);
+    contentDiv.appendChild(tagsP);
+    return contentDiv;
+}
+
+function openInfoWindow(marker, content) {
+    return function() {
+        var infoWindow = new google.maps.InfoWindow ({content});
+        infoWindow.open(map, marker);
     }
 }
 
 function showYourPosition (e) {
-    latLng = e.coords;
+    latLng = e.coords;  
     map = new google.maps.Map(
         document.getElementById("map"),
             {   center: {lat: latLng.latitude, lng: latLng.longitude},
             zoom: 15,
             })
-        marker.setPosition({lat:latLng.latitude,lng:latLng.longitude});
-        marker.setMap(map);
+        userMarker.setPosition({lat:latLng.latitude,lng:latLng.longitude});
+        userMarker.setMap(map);
 }
 
 
