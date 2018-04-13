@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="sv">
+<head>
+	<meta charset="UTF-8">
+	<title>Resultat</title>
+	<link rel="stylesheet" type="text/css" href="layout.css">
+</head>
+
+<body>
+	<div id="wrapper">
+		
+	<header>
+		<h1>Skräpmatsfantasterna.</h1>
+		<a href="about.html" id="contactBtn" class="button">Kontakta oss</a>
+	</header>
+		
+	<main>	
+		<nav>
+		<ul>
+			<a href="index.html">Index</a>
+			<a href="results.html">Resultat</a>
+			<a href="about.html">Kontakt</a>
+		</ul>
+		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
+
+			<a href="#" class="button" id="backBtn">Tillbaka</a> <!-- window.history.back JS -->
+			
+			<div id="popupHelp">
+				<a href="#" class="button">?</a> <!-- länk till popup fönster -->
+				<span id="helpWindow" class="popup">
+					<p>Popup! Här står information om sidan.</p>
+				</span> <!-- popup fönster -->
+			</div>
+			
+			<div id="content">
+				<ul id="resList">
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+				</ul> <!-- End ul resList -->
+
+				<div id="filters">
+					<div id="sliderFilter" class="filter">
+						<p>max. avstånd: <span id="valueDemo">5</span> (km)</p> <!-- Sätt in 'value' med JavaScript -->
+						<input type="range" min="1" max="30" value="5" id="distanceSlider">
+					</div> <!-- End slidercontainer -->
+
+					<div id="typeFilter" class="filter">
+						<p>Väl mattyp</p>
+						<select>
+							<option value="0" selected>Välj mattyp...</option>
+							<option value="1">Pizza</option>
+							<option value="2">Hamburgare</option>
+							<option value="3">Mer exempel</option>
+						</select>
+					</div>
+
+					<div id="priceFilter" class="filter">
+						<p>min. prisklass</p>
+						<form id="priceForm">
+						<input type="radio" name="price" value="1"> 1
+						<input type="radio" name="price" value="2"> 2
+						<input type="radio" name="price" value="3" checked> 3
+						</form>
+					</div>
+					<div id="starsFilter" class="filter">
+						<p>min. stjärnor</p>
+						<form id="starsForm">
+						<input type="radio" name="stars" value="1"> 1
+						<input type="radio" name="stars" value="2"> 2
+						<input type="radio" name="stars" value="3"> 3
+						<input type="radio" name="stars" value="4"> 4
+						<input type="radio" name="stars" value="5" checked> 5
+						</form>
+					</div>
+					<div id="deliveryFilter" class="filter">
+						<input type="checkbox" name="delivery" value="yes"> Endast med hemkörning
+					</div>
+				</div> <!-- End filters -->
+
+				<div id="map">Här är en karta</div><!-- End map -->
+			
+			<div id="resDisplay"> <!-- Detta är en tillfällig lösning, kommer ändras när en 'lightbox' ska skapas -->
+				<span id="resContent"> 
+					<p>Om man klickar på en restaurang står det info här!</p>
+				</span>
+			</div>
+		</div> <!-- End content -->
+	</main>
+		
+	<footer>
+		<p>Här är en fot. Här kanske man ska ha lite text?</p>
+	</footer>
+		
+	</div> <!-- End wrapper -->
+</body>
+</html>

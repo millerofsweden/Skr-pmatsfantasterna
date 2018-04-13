@@ -1,0 +1,114 @@
+@charset "UTF-8";
+/* CSS Document */
+
+html, body, header, nav, main, footer, div, section {padding:0; margin:0;}
+header, nav, main, footer, section {display:block;}
+
+/* -- layout --*/
+
+body {
+	background-color:#fff; 
+	color:#000; 
+	font-family:verdana, sans-serif; 
+	font-size:12px;
+}
+#wrapper {
+	background-color:#fff;  
+	margin:0 auto;
+}
+header {
+	padding:10px;
+	
+}
+header a {
+	position: absolute;
+	right: 30px;
+	top: 35px;
+}
+nav {
+	display: none;
+}
+main {
+	padding:10px;
+}
+
+footer {
+	height: 30px;
+	width: 100%;
+	clear: both;
+	text-align: center; 
+	font-size: 0.8em;
+	position: relative;
+ 	right: 0;
+ 	bottom: 0;
+ 	left: 0;
+}
+
+/* -- innehåll -- */
+
+#content {
+	max-width: 800px; 
+	margin: 0 auto; 
+	text-align: center;
+}
+#backBtn {
+	
+}
+#popupHelp {
+	float: left;
+	margin-right: 10px;
+}
+#resList {
+	width: 450px;
+	padding: 0px;
+	float: left;
+	margin-top: 0px;
+}
+#filters {
+	height: 200px;
+	width: 320px;
+	margin-left: 470px;
+	margin-top: 20px;
+}
+#map {
+	border: solid thin;
+	width: 320px;
+	height: 320px;
+	margin-left: 470px;
+	margin-top: 20px;
+}
+#resDisplay {
+	clear: both;
+}
+/* -- klasser -- */
+.popup {
+	display: none;
+}
+.button {
+	background-color: #77CAC8;
+	border-radius: 15px;
+	padding: 8px 20px;
+	text-decoration: none;
+	color: #000;
+	display: inline-block;
+}
+.button:hover {
+	background-color: #368C89;
+	-webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+}
+.resBox {
+	height: 120px;
+	border: solid 1px;
+	width: 450px;
+	margin-bottom: 20px;
+	list-style: none;
+}
+.resBox img {
+	float: left;
+}
+.filter {
+	display: inline-block;
+	padding: 8px;
+}
+

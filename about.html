@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
 	<meta charset="UTF-8">
-	<title>Startida</title>
+	<title>Kontakt</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
 </head>
 
@@ -23,23 +23,22 @@
 		</ul>
 		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 			
-			<div id="popupHelp">
+		<a href="#" class="button" id="backBtn">Tillbaka</a> <!-- window.history.back JS -->
+		
+		<div id="popupHelp">
 				<a href="#" class="button">?</a> <!-- länk till popup fönster -->
 				<span id="helpWindow" class="popup">
 					<p>Popup! Här står information om sidan.</p>
 				</span> <!-- popup fönster -->
 			</div>
-
-			<div id="content">
-				
-				<p>Sök platsbaserat.</p>
-				<button type="button" id="locSrchBtn">Sök platsbaserat</button>
-
-				<p>Sök med text/adress.</p>
-				<form id="txtSrch">
-					<input type="text" name="address" id="searchbar" size="45" placeholder="Gatunamn, stad, postnummer...">
-					<input type="button" value="Sök" name="txtSrchBtn">
-				</form>
+		
+		<div id="content">
+			<div id="info">
+				<p>Här står det information om oss och tjänsten.</p>
+			</div>
+			<div id="contactInfo">
+				<p>Här står det en mailadress.</p>
+			</div>
 			
 		</div> <!-- End content -->
 	</main>
