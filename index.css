@@ -4,6 +4,13 @@ body {
 }
 body h1 {
     background-color: #ff3333;
+    text-align: center;
+}
+#restList ul {
+    list-style: none;
+}
+#restList li {
+    border: solid 1px #000000;
 }
 #map {
     height: 400px;

@@ -38,32 +38,42 @@ function initMap () {
 }
 
 function getRestaurants () {
-        var request; // Object för Ajax-anropet
-        if (XMLHttpRequest) { request = new XMLHttpRequest(); } // Olika objekt (XMLHttpRequest eller ActiveXObject), beroende på webbläsare
-        else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
-        else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
-        request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getall&debug=true",true,);
-        request.send(null); // Skicka begäran till servern
-        request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
-            if ( (request.readyState == 4) && (request.status == 200) ) showRestaurants(request.responseText);
+    var request; // Object för Ajax-anropet
+    if (XMLHttpRequest) { request = new XMLHttpRequest(); } // Olika objekt (XMLHttpRequest eller ActiveXObject), beroende på webbläsare
+    else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
+    else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
+    request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getfromlatlng&debug=true&lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&radius=15",true,);
+    request.send(null); // Skicka begäran till servern
+    request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
+        if ( (request.readyState == 4) && (request.status == 200) ) showRestaurants(request.responseText);
     };
 }
 
 function showRestaurants (response) {
     var i;
-    var rest;
+    var lat;
+    var lng;
     var response;
-        response = JSON.parse(response)
-        for (i = 0; i < response.payload.length; i++) {
-            marker = new google.maps.Marker(response);
-            marker.setMap(map);
-            console.log(response.payload[i]);
-            if (response.payload[i].rating < 3) {
-                info.innerHTML = "Mindre än 3 i betyg"
-            } else {
-                info.innerHTML = "Mer än 3 i betyg";
-            }
-        }
+    var name;
+    var rating;
+    var restList = document.getElementById("restList");
+    var ul = document.createElement("ul");
+    restList.appendChild(ul);
+    response = JSON.parse(response)
+    for (i = 0; i < response.payload.length; i++) {
+        lat = parseFloat(response.payload[i].lat);
+        lng = parseFloat(response.payload[i].lng);
+        name = response.payload[i].name;
+        rating = response.payload[i].rating;
+        console.log(name + rating)
+        marker = new google.maps.Marker({lat,lng});
+        marker.setPosition({lat,lng});
+        marker.setMap(map);
+        var li = document.createElement("li");
+        var textNode = document.createTextNode(name + " " + rating);
+        li.appendChild(textNode);
+        ul.appendChild(li); 
+    }
 }
 
 function showYourPosition (e) {
