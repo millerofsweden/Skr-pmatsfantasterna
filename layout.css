@@ -51,9 +51,6 @@ footer {
 	margin: 0 auto; 
 	text-align: center;
 }
-#backBtn {
-	
-}
 #popupHelp {
 	float: left;
 	margin-right: 10px;
@@ -75,7 +72,7 @@ footer {
 	width: 320px;
 	height: 320px;
 	margin-left: 470px;
-	margin-top: 20px;
+	margin-top: 60px;
 }
 #resDisplay {
 	clear: both;
@@ -106,7 +103,7 @@ footer {
 }
 .resBox img {
 	float: left;
-}
+}*/
 .filter {
 	display: inline-block;
 	padding: 8px;
