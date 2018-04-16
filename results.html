@@ -4,6 +4,10 @@
 	<meta charset="UTF-8">
 	<title>Resultat</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
+	<script type="text/javascript" src="showMarkers.js"></script>
+	<script type="text/javascript" src="infoWindow.js"></script>
+    <script type="text/javascript" src="events.js"></script>
 </head>
 
 <body>
@@ -31,7 +35,6 @@
 					<p>Popup! Här står information om sidan.</p>
 				</span> <!-- popup fönster -->
 			</div>
-			
 			<div id="content">
 				<ul id="resList">
 					<li class="resBox">
@@ -88,9 +91,9 @@
 					<div id="deliveryFilter" class="filter">
 						<input type="checkbox" name="delivery" value="yes"> Endast med hemkörning
 					</div>
-				</div> <!-- End filters -->
+				</div><!--End filters-->
 
-				<div id="map">Här är en karta</div><!-- End map -->
+				<div id="map"></div><!-- End map -->
 			
 			<div id="resDisplay"> <!-- Detta är en tillfällig lösning, kommer ändras när en 'lightbox' ska skapas -->
 				<span id="resContent"> 
@@ -98,6 +101,7 @@
 				</span>
 			</div>
 		</div> <!-- End content -->
+		
 	</main>
 		
 	<footer>
