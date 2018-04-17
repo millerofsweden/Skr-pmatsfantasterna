@@ -7,7 +7,8 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
 	<script type="text/javascript" src="showMarkers.js"></script>
 	<script type="text/javascript" src="infoWindow.js"></script>
-    <script type="text/javascript" src="events.js"></script>
+	<script type="text/javascript" src="sliderValue.js"></script>
+	<script type="text/javascript" src="events.js"></script>
 </head>
 
 <body>
@@ -27,36 +28,23 @@
 		</ul>
 		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 
-			<a href="#" class="button" id="backBtn">Tillbaka</a> <!-- window.history.back JS -->
+			<button class="button" id="backBtn">Tillbaka</button> <!-- JS funktion för att backa, finns i Lisas JS-fil -->
 			
-			<div id="popupHelp">
-				<a href="#" class="button">?</a> <!-- länk till popup fönster -->
-				<span id="helpWindow" class="popup">
-					<p>Popup! Här står information om sidan.</p>
+			<div id="popup" class="popup"> ?
+				<span id="helpPop" class="popuptext">
+					<h3>Välkommen till Skräpmatsfantasterna!</h3>
+					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+					<p>(Klicka igen för att stänga)</p>
 				</span> <!-- popup fönster -->
 			</div>
+			
 			<div id="content">
 				<ul id="resList">
-					<li class="resBox">
-						<img src="test.jpg" alt="logga" height="120px">
-					</li>
-					<li class="resBox">
-						<img src="test.jpg" alt="logga" height="120px">
-					</li>
-					<li class="resBox">
-						<img src="test.jpg" alt="logga" height="120px">
-					</li>
-					<li class="resBox">
-						<img src="test.jpg" alt="logga" height="120px">
-					</li>
-					<li class="resBox">
-						<img src="test.jpg" alt="logga" height="120px">
-					</li>
-				</ul> <!-- End ul resList -->
+				</ul> 
 
 				<div id="filters">
 					<div id="sliderFilter" class="filter">
-						<p>max. avstånd: <span id="valueDemo">5</span> (km)</p> <!-- Sätt in 'value' med JavaScript -->
+						<p>max. avstånd: <span id="valueDemo">5</span> (km)</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
 						<input type="range" min="1" max="30" value="5" id="distanceSlider">
 					</div> <!-- End slidercontainer -->
 
@@ -64,9 +52,21 @@
 						<p>Väl mattyp</p>
 						<select>
 							<option value="0" selected>Välj mattyp...</option>
-							<option value="1">Pizza</option>
-							<option value="2">Hamburgare</option>
-							<option value="3">Mer exempel</option>
+							<option value="1">Falafel</option>
+							<option value="2">Fisk</option>
+							<option value="3">Gyros</option>
+							<option value="4">Hamburgare</option>
+							<option value="5">Kebab</option>
+							<option value="6">Kinesiskt</option>
+							<option value="7">Korv</option>
+							<option value="8">Kyckling</option>
+							<option value="9">Pasta</option>
+							<option value="10">Pizza</option>
+							<option value="11">Sallad</option>
+							<option value="12">Sushi</option>
+							<option value="13">Thai</option>
+							<option value="14">Veganskt</option>
+							<option value="15">Vegetariskt</option>
 						</select>
 					</div>
 
@@ -88,26 +88,21 @@
 						<input type="radio" name="stars" value="5" checked> 5
 						</form>
 					</div>
-					<div id="deliveryFilter" class="filter">
-						<input type="checkbox" name="delivery" value="yes"> Endast med hemkörning
-					</div>
-				</div><!--End filters-->
+				</div> <!-- End filters -->
 
-				<div id="map"></div><!-- End map -->
+				<div id="map">Karta</div><!-- End map -->
 			
 			<div id="resDisplay"> <!-- Detta är en tillfällig lösning, kommer ändras när en 'lightbox' ska skapas -->
-				<span id="resContent"> 
-					<p>Om man klickar på en restaurang står det info här!</p>
-				</span>
+				<span id="resContent">Om man klickar på en restaurang står det info här!</span>
 			</div>
+		<div class="push"></div> <!-- För sticky footer - https://css-tricks.com/couple-takes-sticky-footer/ -->
 		</div> <!-- End content -->
-		
 	</main>
-		
+	</div> <!-- End wrapper -->
+	
 	<footer>
 		<p>Här är en fot. Här kanske man ska ha lite text?</p>
 	</footer>
 		
-	</div> <!-- End wrapper -->
 </body>
 </html>

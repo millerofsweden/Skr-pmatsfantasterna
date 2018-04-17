@@ -6,15 +6,18 @@ header, nav, main, footer, section {display:block;}
 
 /* -- layout --*/
 
-body {
+body, html {
 	background-color:#fff; 
 	color:#000; 
 	font-family:verdana, sans-serif; 
 	font-size:12px;
+	height: 100%;
 }
 #wrapper {
 	background-color:#fff;  
-	margin:0 auto;
+	min-height: 100%;
+	margin: 0px 20px -40px;
+	
 }
 header {
 	padding:10px;
@@ -29,60 +32,100 @@ nav {
 	display: none;
 }
 main {
-	padding:10px;
+	padding:0px;
 }
 
 footer {
+	background-color: #77CAC8;
 	height: 30px;
 	width: 100%;
-	clear: both;
 	text-align: center; 
 	font-size: 0.8em;
-	position: relative;
- 	right: 0;
- 	bottom: 0;
- 	left: 0;
+	padding: 5px 0px;
 }
 
 /* -- innehåll -- */
 
 #content {
 	max-width: 800px; 
-	margin: 0 auto; 
+	margin: 0 auto -40px; 
 	text-align: center;
+}
+#backBtn {
+	
 }
 #popupHelp {
 	float: left;
 	margin-right: 10px;
 }
 #resList {
-	width: 450px;
-	padding: 0px;
 	float: left;
-	margin-top: 0px;
+	margin-top: 0;
+	list-style: none;
 }
 #filters {
-	height: 200px;
-	width: 320px;
-	margin-left: 470px;
+	height: 150px;
+	width: 340px;
+	margin-left: 460px;
 	margin-top: 20px;
 }
 #map {
 	border: solid thin;
-	width: 320px;
-	height: 320px;
-	margin-left: 470px;
-	margin-top: 60px;
+	width: 300px;
+	height: 340px;
+	margin-left: 460px;
+	margin-top: 20px;
 }
 #resDisplay {
-	clear: both;
+	clear: left;
+	padding: 10px;
 }
 /* -- klasser -- */
-.popup {
-	display: none;
+.push {
+	height: 40px;
 }
+.popup {
+	background-color: #77CAC8;
+	border-radius: 15px;
+	padding: 8px 20px;
+	text-decoration: none;
+	color: #000;
+	position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.popup .popuptext {
+	visibility: hidden;
+    width: 200px;
+	padding: 10px 15px;
+    background-color:#77CAC8;
+    color: #000;
+    text-align: left;
+    border-radius: 15px;
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    margin-left: -25px;
+}
+
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.5s;
+    animation: fadeIn 0.5s
+}
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
 .button {
 	background-color: #77CAC8;
+	border: none;
 	border-radius: 15px;
 	padding: 8px 20px;
 	text-decoration: none;
@@ -99,11 +142,18 @@ footer {
 	border: solid 1px;
 	width: 450px;
 	margin-bottom: 20px;
-	list-style: none;
+	margin-left: -40px;
+	text-align: left;
+}
+.reBox li {
+	margin-left: 125px;
 }
 .resBox img {
+	height: 120px;
+	width: 120px;
 	float: left;
-}*/
+	padding-right: 10px;
+}
 .filter {
 	display: inline-block;
 	padding: 8px;
