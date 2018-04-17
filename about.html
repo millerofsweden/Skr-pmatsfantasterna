@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>Kontakt</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
+	<script type="text/javascript" src="events.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
@@ -23,12 +25,13 @@
 		</ul>
 		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 			
-		<a href="#" class="button" id="backBtn">Tillbaka</a> <!-- window.history.back JS -->
+		<button class="button" id="backBtn">Tillbaka</button> <!-- window.history.back JS -->
 		
-		<div id="popupHelp">
-				<a href="#" class="button">?</a> <!-- länk till popup fönster -->
-				<span id="helpWindow" class="popup">
-					<p>Popup! Här står information om sidan.</p>
+		<div id="popup" class="popup"> ?
+				<span id="helpPop" class="popuptext">
+					<h3>Välkommen till Skräpmatsfantasterna!</h3>
+					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+					<p>(Klicka igen för att stänga)</p>
 				</span> <!-- popup fönster -->
 			</div>
 		
@@ -42,11 +45,11 @@
 			
 		</div> <!-- End content -->
 	</main>
-		
+	</div> <!-- End wrapper -->
 	<footer>
 		<p>Här är en fot. Här kanske man ska ha lite text?</p>
 	</footer>
 		
-	</div> <!-- End wrapper -->
+	
 </body>
 </html>
