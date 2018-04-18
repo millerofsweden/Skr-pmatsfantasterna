@@ -4,8 +4,11 @@
 	<meta charset="UTF-8">
 	<title>Startida</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
-	<script type="text/javascript" src="events.js"></script>
-	<script type="text/javascript" src="script.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
+	<script type="text/javascript" src="changePage.js"></script>
+	<script type="text/javascript" src="init.js"></script>
+	<script type="text/javascript" src="popUp.js"></script>
+    <script type="text/javascript" src="events.js"></script>
 </head>
 
 <body>
@@ -36,22 +39,21 @@
 			<div id="content">
 				
 				<p>Sök platsbaserat.</p>
-				<button id="locSrchBtn" class="button">Sök platsbaserat</button>
+				<button type="button" id="locSrchBtn">Sök platsbaserat</button>
 
 				<p>Sök med text/adress.</p>
 				<form id="txtSrch">
 					<input type="text" name="address" id="searchbar" size="45" placeholder="Gatunamn, stad, postnummer...">
-					<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="button">
+					<input type="button" value="Sök" name="txtSrchBtn">
 				</form>
 			
 		</div> <!-- End content -->
 	</main>
-	</div> <!-- End wrapper -->	
-	
+		
 	<footer>
 		<p>Här är en fot. Här kanske man ska ha lite text?</p>
 	</footer>
 		
-	
+	</div> <!-- End wrapper -->
 </body>
 </html>

@@ -1,10 +1,16 @@
 function initIndex () {
     var yourPosition = document.getElementById("locSrchBtn");
-    yourPosition.addEventListener("click", changePage);
+    addListener(yourPosition, "click", resultPage);
+    var aboutUs = document.getElementById("contactBtn");
+    addListener (aboutUs, "click", aboutPage);
 }
 window.addEventListener("load", initIndex);
 
 //Vid klick kommer användaren till results.html där användarens position hämtas och visas
-function changePage () {
-    location.replace("results.html");
+function resultPage () {
+    location.href = "results.html";
+}
+
+function aboutPage () {
+    location.href = "about.html";
 }
