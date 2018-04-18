@@ -2,23 +2,23 @@
 var map;
 var latLng;
 var userMarker;
-//Hämtar platsinformation frå användarens aktuella position
 
 function initMarker () {
-    var popUp = document.getElementById("popup");
-        addListener(popUp, "click", popUpFunc);
-    var slider = document.getElementById("distanceSlider");
-    var backBut = document.getElementById("backBtn");
-    var resList= document.getElementById("resList");
-        if (slider != null) {
-            addListener (slider, "input", sliderValue);}
-        if (backBut != null) {
+    var popUp = document.getElementById("popup");//popup för frågetecknet
+    addListener(popUp, "click", popUpFunc);
+    var slider = document.getElementById("distanceSlider");//avståndsslider
+    var backBut = document.getElementById("backBtn");//tillbakaknapp
+    var resList= document.getElementById("resList");//resultatlista
+    if (slider != null) {//vid förflyttning av slidern anropas funktion sliderValue
+        addListener (slider, "input", sliderValue);}
+        if (backBut != null) {//vid tryck på tillbakaknappen anropas funktion backFunc
             addListener (backBut, "click", backFunc);
         }
-        getLocation();
-}
-window.addEventListener("load", initMarker);
-
+        getLocation();//anropas direkt efter init för att få fram den aktuella positionen
+    }
+    window.addEventListener("load", initMarker);
+    
+//Hämtar platsinformation från användarens aktuella position
 function getLocation () {
     userMarker = new google.maps.Marker();
     if (navigator.geolocation) {
@@ -46,11 +46,11 @@ function showYourPosition (e) {
 //Hämtar restauranger som ligger inom den viss radie från användarens position
 function getRestaurants () {
     var request; // Object för Ajax-anropet
-        if (XMLHttpRequest) { request = new XMLHttpRequest(); } // Olika objekt (XMLHttpRequest eller ActiveXObject), beroende på webbläsare
+        if (XMLHttpRequest) { request = new XMLHttpRequest(); } 
         else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
         else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
         request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getfromlatlng&debug=true&lat=" + latLng.latitude + "&lng=" + latLng.longitude + "&radius=3&sort_in=DESC&order_by=distance_in_km",true,);
-        request.send(null); // Skicka begäran till servern
+        request.send(null);
         request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
     if ( (request.readyState == 4) && (request.status == 200) ) showRestaurants(request.responseText);
     };
@@ -66,21 +66,20 @@ function showRestaurants (response) {
         var rating = response.payload[i].rating;//Sparar restaurangens betyg
         var price = response.payload[i].avg_lunch_pricing;//Sparar restaurangens snittpris
         var tags = response.payload[i].search_tags;//Sparar restaurangens sök taggar
-        var li = document.createElement("li");
-        var img = document.createElement("img");
+        var li = document.createElement("li");//skapar ett li-element
+        var img = document.createElement("img");//skapar img-element
         var marker = new google.maps.Marker({lat,lng});
-            marker.setPosition({lat,lng});
-            marker.setMap(map);
-            img.setAttribute("src", "test.jpg");
-            img.setAttribute("alt", "logga");
-            img.setAttribute("height", "120px");           
-        var contentDiv = createInfoElements(name, tags, rating, price);
-            li.appendChild(img);
-            li.appendChild(contentDiv);
-            li.classList.add("resBox");
-            resList.appendChild(li);
+            marker.setPosition({lat,lng});//tillsätter koordinater på markörerna
+            marker.setMap(map);//sätter ut markörer för restaurangerna
+            img.setAttribute("src", "test.jpg");//tillsätter en bild till img-taggen
+            img.setAttribute("alt", "logga");//tillsätter alt-kommentar för img-taggen         
+        var contentDiv = createInfoElements(name, tags, rating, price);//lägger in info för resList och infoWindow
+            li.appendChild(img);//lägger in img i li
+            li.appendChild(contentDiv);//lägger in contentDiv i li
+            li.classList.add("resBox");//tillsätter li en class
+            resList.appendChild(li);//lägger in li i resList
         //Skickar med information om restauranger till en annan funktion som ligger på en annan Js-fil
-        var infoWindow = new google.maps.InfoWindow ({content:contentDiv});
-            marker.addListener("click", openInfoWindow(marker, contentDiv)); 
+        var infoWindow = new google.maps.InfoWindow ({content:contentDiv});//lägger in contentDiv i Div-elementet med id content
+            marker.addListener("click", openInfoWindow(marker, contentDiv));//lägger in contentDiv i markörens inforuta 
     }
 }

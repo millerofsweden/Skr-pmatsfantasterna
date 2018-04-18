@@ -16,7 +16,7 @@ function sliderValue() {
 
 function newResList (response) {
     var response = JSON.parse(response);
-    resList.innerHTML = "";
+    resList.innerHTML = "";//Tar bort all info från resList för att kunna lägga in ny vid förflyttning av slidern
     for (var i = 0; i < response.payload.length; i++) {
         var lat = parseFloat(response.payload[i].lat);//sparar latitude med dess decimaler
         var lng = parseFloat(response.payload[i].lng);//sparar longitud med dess decimaler
@@ -31,14 +31,13 @@ function newResList (response) {
             marker.setMap(map);
             img.setAttribute("src", "test.jpg");
             img.setAttribute("alt", "logga");
-            img.setAttribute("height", "120px");
         var contentDiv = createInfoElements(name, tags, rating, price);
             li.appendChild(img);
             li.appendChild(contentDiv);
             li.classList.add("resBox");
             resList.appendChild(li);
         //Skickar med information om restauranger till en annan funktion som ligger på en annan Js-fil
-        var infoWindow = new google.maps.InfoWindow ({content:contentDiv});
-            marker.addListener("click", openInfoWindow(marker, contentDiv)); 
+        var infoWindow = new google.maps.InfoWindow ({content:contentDiv});//lägger in contentDiv i Div-elementet med id content
+            marker.addListener("click", openInfoWindow(marker, contentDiv));//lägger in contentDiv i markörens inforuta 
     }
 }

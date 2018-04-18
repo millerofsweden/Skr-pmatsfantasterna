@@ -10,7 +10,7 @@ window.addEventListener("load", initIndex);
 function resultPage () {
     location.href = "results.html";
 }
-
+//vid klick kommer anvädnaren till about.html där det visas info om oss
 function aboutPage () {
     location.href = "about.html";
 }
