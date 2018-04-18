@@ -4,14 +4,12 @@
 	<meta charset="UTF-8">
 	<title>Resultat</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
-	<script type="text/javascript" src="showMarkers.js"></script>
-	<script type="text/javascript" src="init.js"></script>
-	<script type="text/javascript" src="infoWindow.js"></script>
-	<script type="text/javascript" src="sliderValue.js"></script>
-	<script type="text/javascript" src="backFunc.js"></script>
-	<script type="text/javascript" src="popUp.js"></script>
 	<script type="text/javascript" src="events.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
+	<script type="text/javascript" src="infoWindow.js"></script>
+	<script type="text/javascript" src="showMarkers.js"></script>
+	<script type="text/javascript" src="sliderValue.js"></script>
 </head>
 
 <body>
@@ -41,9 +39,36 @@
 				</span> <!-- popup fönster -->
 			</div>
 			
+			
+		
 			<div id="content">
-				<ul id="resList">
-				</ul> 
+				<ul id="resList"> <!--
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+						<p>Här kan det stå lite info om restaurangen.</p>
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li>
+					<li class="resBox">
+						<img src="test.jpg" alt="logga" height="120px">
+					</li> -->
+				</ul> <!-- End ul resList -->
+				
+				<div id="sortMenu"> Sortera:
+					<select>
+						<option value="distance" selected>Avstånd</option>
+						<option value="lowPrice">Lägst pris</option>
+						<option value="highPrice">Högst pris</option>
+						<option value="stars">Betyg</option>
+					</select> 
+				</div>
 
 				<div id="filters">
 					<div id="sliderFilter" class="filter">
