@@ -5,10 +5,9 @@
 	<title>Startida</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
-	<script type="text/javascript" src="changePage.js"></script>
-	<script type="text/javascript" src="init.js"></script>
-	<script type="text/javascript" src="popUp.js"></script>
     <script type="text/javascript" src="events.js"></script>
+	<script type="text/javascript" src="version/indexscript.js"></script>
+	<script type="text/javascript" src="searchValue.js"></script>
 </head>
 
 <body>
@@ -41,10 +40,10 @@
 				<p>Sök platsbaserat.</p>
 				<button type="button" id="locSrchBtn">Sök platsbaserat</button>
 
-				<p>Sök med text/adress.</p>
-				<form id="txtSrch">
-					<input type="text" name="address" id="searchbar" size="45" placeholder="Postnummer...">
-					<input type="button" value="Sök" name="txtSrchBtn">
+				<p id="searchInfo">Sök med postnummer</p>
+				<form id="txtSrch" onsubmit="return searchValue(this)">
+					<input type="text" name="address" id="searchbar" size="45" min="10000" max="99999" placeholder="Postnummer...">
+					<input type="button" value="Sök" id="button" name="txtSrchBtn">
 				</form>
 			
 		</div> <!-- End content -->
