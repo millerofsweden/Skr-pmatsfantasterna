@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="sv">
+<head>
+	<meta charset="UTF-8">
+	<title>Resultat</title>
+	<link rel="stylesheet" type="text/css" href="layout.css">
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
+	<script type="text/javascript" src="getUrl.js"></script>
+	<script type="text/javascript" src="searchValue.js"></script>
+	<script type="text/javascript" src="events.js"></script>
+</head>
+
+<body>
+	<div id="wrapper">
+
+	<header>
+		<h1>Skräpmatsfantasterna.</h1>
+		<a href="about.html" id="contactBtn" class="button">Kontakta oss</a>
+	</header>
+
+	<main>
+		<nav>
+		<ul>
+			<a href="index.html">Index</a>
+			<a href="results.html">Resultat</a>
+			<a href="about.html">Kontakt</a>
+		</ul>
+		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
+
+			<button class="button" id="backBtn">Tillbaka</button> <!-- JS funktion för att backa, finns i Lisas JS-fil -->
+
+			<div id="popup" class="popup"> ?
+				<span id="helpPop" class="popuptext">
+					<h3>Välkommen till Skräpmatsfantasterna!</h3>
+					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+					<p>(Klicka igen för att stänga)</p>
+				</span> <!-- popup fönster -->
+			</div>
+
+			<div id="pageContent">
+
+				<ul id="resList">
+				</ul> <!-- End ul resList -->
+
+				<div id="sortMenu"> Sortera:
+					<select>
+						<option value="distance" selected>Avstånd</option>
+						<option value="lowPrice">Lägst pris</option>
+						<option value="highPrice">Högst pris</option>
+						<option value="stars">Betyg</option>
+					</select>
+				</div>
+
+				<div id="filters">
+					<div id="sliderFilter" class="filter">
+						<p>max. avstånd: <span id="valueDemo">5</span> (km)</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
+						<input type="range" min="1" max="30" id="distanceSlider">
+					</div> <!-- End slidercontainer -->
+
+					<div id="typeFilter" class="filter">
+						<p>Väl mattyp</p>
+						<select id="typeList">
+							<option value="Välj" selected>Välj mattyp...</option>
+							<option value="Falafel">Falafel</option>
+							<option value="Fisk">Fisk</option>
+							<option value="Gyros">Gyros</option>
+							<option value="Hamburgare">Hamburgare</option>
+							<option value="Kebab">Kebab</option>
+							<option value="Kinesiskt">Kinesiskt</option>
+							<option value="Korv">Korv</option>
+							<option value="Kyckling">Kyckling</option>
+							<option value="Pasta">Pasta</option>
+							<option value="Pizza">Pizza</option>
+							<option value="Sallad">Sallad</option>
+							<option value="Sushi">Sushi</option>
+							<option value="Thai">Thai</option>
+							<option value="Veganskt">Veganskt</option>
+							<option value="Vegetariskt">Vegetariskt</option>
+						</select>
+					</div>
+					<!-- Filter som inte ska användas
+					<div id="priceFilter" class="filter">
+						<p>min. prisklass</p>
+						<form id="priceForm">
+						<input type="radio" name="price" value="1"> 1
+						<input type="radio" name="price" value="2"> 2
+						<input type="radio" name="price" value="3" checked> 3
+						</form>
+					</div>
+					<div id="starsFilter" class="filter">
+						<p>min. stjärnor</p>
+						<form id="starsForm">
+						<input type="radio" name="stars" value="1"> 1
+						<input type="radio" name="stars" value="2"> 2
+						<input type="radio" name="stars" value="3"> 3
+						<input type="radio" name="stars" value="4"> 4
+						<input type="radio" name="stars" value="5" checked> 5
+						</form>
+					</div> -->
+				</div> <!-- End filters -->
+
+				<div id="map">Karta</div><!-- End map -->
+
+			<div id="modalBox"> <!-- Detta är en tillfällig lösning, kommer ändras när en 'lightbox' ska skapas -->
+				<span id="modalContent">Om man klickar på en restaurang står det info här!</span>
+			</div> <!-- End modalBox -->
+
+		<div class="push"></div> <!-- För sticky footer - https://css-tricks.com/couple-takes-sticky-footer/ -->
+		</div> <!-- End pageContent -->
+	</main>
+	</div> <!-- End wrapper -->
+
+	<footer>
+		<p>Här är en fot. Här kanske man ska ha lite text?</p>
+	</footer>
+
+</body>
+</html>
