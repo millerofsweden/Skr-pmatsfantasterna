@@ -30,8 +30,8 @@ function changePageLoc (e) {
 function searchValue(form) {
     var input = document.getElementsByName("address");
     var searchInfo = document.getElementById("searchInfo");
-            location.href = "results.html";
-            zipCode(input);
+        location.href = "results.html";
+        zipCode(input);
         }
      
 
