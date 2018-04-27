@@ -1,14 +1,15 @@
 var zip;
 
 function init () {
+    sessionStorage.clear();
     var yourPosition = document.getElementById("locSrchBtn");
     yourPosition.addEventListener("click", getLocation);
     var searchBut = document.getElementById("button");
-    addListener(searchBut, "click", searchValue);
+    searchBut.addEventListener("click", searchInput);
+    var popUp = document.getElementById("popup");
+    popUp.addEventListener("click", popUpFunc);
 }
-
 window.addEventListener("load", init);
-
 
 function getLocation () {
     if (navigator.geolocation) {
@@ -24,14 +25,18 @@ function changePageLoc (e) {
     var lan;
     sessionStorage.setItem("lat", JSON.stringify(e.coords.latitude));
     sessionStorage.setItem("lan", JSON.stringify(e.coords.longitude));
-    location.href = "results.html";  
+    location.href = "results.html";
 }
 
-function searchValue(form) {
-    var input = document.getElementsByName("address");
-    var searchInfo = document.getElementById("searchInfo");
-        location.href = "results.html";
-        zipCode(input);
-        }
-     
+function searchInput() {
+    var zipCode = document.getElementById("searchbar").value
+    sessionStorage.setItem("zipCode", zipCode);
+    location.href = "results.html";
+    //var input = document.getElementsByName("address");
+    //var searchInfo = document.getElementById("searchInfo").value;
+    //sessionStorage.setItem("zippie", JSON.stringify(input));
+    //console.log(sessionStorage);
+    //zipCode(input);
+}
+    
 

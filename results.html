@@ -5,8 +5,10 @@
 	<title>Resultat</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
-	<script type="text/javascript" src="version/getUrl.js"></script>
+	<script type="text/javascript" src="getUrl.js"></script>
 	<script type="text/javascript" src="searchValue.js"></script>
+	<script type="text/javascript" src="backFunc.js"></script>
+	<script type="text/javascript" src="popUp.js"></script>
 	<script type="text/javascript" src="events.js"></script>
 </head>
 
@@ -43,7 +45,7 @@
 				</ul> <!-- End ul resList -->
 				
 				<div id="sortMenu"> Sortera:
-					<select>
+					<select onchange="sorting(lat, lng)">
 						<option value="distance" selected>Avstånd</option>
 						<option value="lowPrice">Lägst pris</option>
 						<option value="highPrice">Högst pris</option>
@@ -59,23 +61,23 @@
 
 					<div id="typeFilter" class="filter">
 						<p>Väl mattyp</p>
-						<select>
-							<option value="0" selected>Välj mattyp...</option>
-							<option value="1">Falafel</option>
-							<option value="2">Fisk</option>
-							<option value="3">Gyros</option>
-							<option value="4">Hamburgare</option>
-							<option value="5">Kebab</option>
-							<option value="6">Kinesiskt</option>
-							<option value="7">Korv</option>
-							<option value="8">Kyckling</option>
-							<option value="9">Pasta</option>
-							<option value="10">Pizza</option>
-							<option value="11">Sallad</option>
-							<option value="12">Sushi</option>
-							<option value="13">Thai</option>
-							<option value="14">Veganskt</option>
-							<option value="15">Vegetariskt</option>
+						<select id="filterChoice" class="filter">
+							<option value="välj" selected>Välj mattyp...</option>
+							<option value="falafel">Falafel</option>
+							<option value="fisk">Fisk</option>
+							<option value="gyros">Gyros</option>
+							<option value="hamburgare">Hamburgare</option>
+							<option value="kebab">Kebab</option>
+							<option value="kinesiskt">Kinesiskt</option>
+							<option value="korv">Korv</option>
+							<option value="kyckling">Kyckling</option>
+							<option value="pasta">Pasta</option>
+							<option value="pizza">Pizza</option>
+							<option value="sallad">Sallad</option>
+							<option value="sushi">Sushi</option>
+							<option value="thai">Thai</option>
+							<option value="veganskt">Veganskt</option>
+							<option value="vegetariskt">Vegetariskt</option>
 						</select>
 					</div>
 					<!-- Filter som inte ska användas

@@ -46,7 +46,7 @@ footer {
 
 /* -- innehåll -- */
 
-#content {
+#pageContent {
 	max-width: 800px; 
 	margin: 0 auto -40px; 
 	text-align: center;
@@ -75,7 +75,7 @@ footer {
 	margin-left: 460px;
 	margin-top: 0px;
 }
-#resDisplay {
+#modalBox {
 	clear: left;
 	padding: 10px;
 }
@@ -151,7 +151,6 @@ footer {
 	margin-bottom: 20px;
 	margin-left: -40px;
 	text-align: left;
-	
 }
 .resBox img {
 	float: left;

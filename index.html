@@ -6,8 +6,10 @@
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
     <script type="text/javascript" src="events.js"></script>
-	<script type="text/javascript" src="version/indexscript.js"></script>
 	<script type="text/javascript" src="searchValue.js"></script>
+	<script type="text/javascript" src="indexscript.js"></script>
+	<script type="text/javascript" src="backFunc.js"></script>
+	<script type="text/javascript" src="popUp.js"></script>
 </head>
 
 <body>
@@ -41,8 +43,8 @@
 				<button type="button" id="locSrchBtn">Sök platsbaserat</button>
 
 				<p id="searchInfo">Sök med postnummer</p>
-				<form id="txtSrch" onsubmit="return searchValue(this)">
-					<input type="text" name="address" id="searchbar" size="45" min="10000" max="99999" placeholder="Postnummer...">
+				<form id="txtSrch" onsubmit="searchInput">
+					<input type="text" name="address" id="searchbar" size="45" min="10000" max="99999" placeholder="Postnummer, gata, stad...">
 					<input type="button" value="Sök" id="button" name="txtSrchBtn">
 				</form>
 			
