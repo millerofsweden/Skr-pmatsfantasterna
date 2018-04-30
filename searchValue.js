@@ -1,4 +1,4 @@
-
+//funktionen hämtar ett json-dokiument från googles API utifrån vilken address användaren sökt på.
 function searchZipcode (zipCode) {
     var request; // Object för Ajax-anropet
         if (XMLHttpRequest) { request = new XMLHttpRequest(); } 
@@ -11,6 +11,7 @@ function searchZipcode (zipCode) {
         };
 }
 
+//funktinen hämtar ut koordinaterna från jsaon-filen och sparar värdet i variablar som sedan skickas vidare till getRestaurants
 function showZip (response) {
     var responseZip = JSON.parse(response);
     for (var i = 0; i < responseZip.results.length; i++) {

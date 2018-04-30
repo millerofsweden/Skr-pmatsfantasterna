@@ -7,8 +7,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
 	<script type="text/javascript" src="getUrl.js"></script>
 	<script type="text/javascript" src="searchValue.js"></script>
-	<script type="text/javascript" src="backFunc.js"></script>
-	<script type="text/javascript" src="popUp.js"></script>
+	<script type="text/javascript" src="smallFunctions.js"></script>
 	<script type="text/javascript" src="events.js"></script>
 </head>
 
@@ -16,7 +15,15 @@
 	<div id="wrapper">
 		
 	<header>
-		<h1>Skräpmatsfantasterna.</h1>
+		<h1>Snabbmatskartan</h1>
+		<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
+		<div id="popup" class="popup"> ?
+				<span id="helpPop" class="popuptext redPop">
+				<h3>Välkommen till Skräpmatsfantasterna!</h3>
+				<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+				<p>(Klicka igen för att stänga)</p>
+			</span> <!-- popup fönster -->
+		</div>
 		<a href="about.html" id="contactBtn" class="button">Kontakta oss</a>
 	</header>
 		
@@ -29,40 +36,16 @@
 		</ul>
 		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 
-			<button class="button" id="backBtn">Tillbaka</button> <!-- JS funktion för att backa, finns i Lisas JS-fil -->
-			
-			<div id="popup" class="popup"> ?
-				<span id="helpPop" class="popuptext">
-					<h3>Välkommen till Skräpmatsfantasterna!</h3>
-					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
-					<p>(Klicka igen för att stänga)</p>
-				</span> <!-- popup fönster -->
-			</div>
+			<button class="redButton" id="backBtn">Tillbaka</button> <!-- JS funktion för att backa, finns i Lisas JS-fil -->
 			
 			<div id="pageContent">
+			<div class="column left">
 				
-				<ul id="resList">
-				</ul> <!-- End ul resList -->
-				
-				<div id="sortMenu"> Sortera:
-					<select onchange="sorting(lat, lng)">
-						<option value="distance" selected>Avstånd</option>
-						<option value="lowPrice">Lägst pris</option>
-						<option value="highPrice">Högst pris</option>
-						<option value="stars">Betyg</option>
-					</select> 
-				</div>
-
 				<div id="filters">
-					<div id="sliderFilter" class="filter">
-						<p>max. avstånd: <span id="valueDemo">5</span> (km)</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
-						<input type="range" min="1" max="30" value="5" id="distanceSlider">
-					</div> <!-- End slidercontainer -->
-
-					<div id="typeFilter" class="filter">
-						<p>Väl mattyp</p>
-						<select id="filterChoice" class="filter">
-							<option value="välj" selected>Välj mattyp...</option>
+					<div class="typeFilter">
+						<p>Välj typ av mat</p>
+						<select id="typeList">
+							<option value="Valj mattyp..." selected>Välj mattyp...</option>
 							<option value="falafel">Falafel</option>
 							<option value="fisk">Fisk</option>
 							<option value="gyros">Gyros</option>
@@ -80,6 +63,12 @@
 							<option value="vegetariskt">Vegetariskt</option>
 						</select>
 					</div>
+					
+					<div class="sliderFilter">
+						<p>max. avstånd: <span id="valueDemo">5</span> km</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
+						<input type="range" min="1" max="30" value="5" id="distanceSlider">
+					</div> <!-- End sliderFilter -->
+					
 					<!-- Filter som inte ska användas
 					<div id="priceFilter" class="filter">
 						<p>min. prisklass</p>
@@ -100,20 +89,48 @@
 						</form>
 					</div> -->
 				</div> <!-- End filters -->
-
+				
 				<div id="map">Karta</div><!-- End map -->
-			
+			</div> <!-- End column left -->
+			<div class="column right">
+				<div id="sortMenu"> Sortera:
+					<select onchange="sorting(lat, lng)">
+						<option value="distance" selected>Avstånd</option>
+						<option value="lowPrice">Lägst pris</option>
+						<option value="highPrice">Högst pris</option>
+						<option value="stars">Betyg</option>
+					</select> 
+				</div>
+				
+				<ul id="resList">
+					<!-- li-elem. här används endast för stilsättning -->
+					<li class="resBox">
+						<img src="test.jpg" alt="logga">
+						<div class="info">
+							<h3 class="name">Restaurangnamn</h3>
+							<p class="tags">Taggar, taggar, taggar</p>
+							<!-- https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450 -->
+							<div class="rating-outer">OOOOO 
+								<div class="rating-inner">XXXXX</div>
+							</div>
+							<div class="price-outer">OOO
+								<div class="price-inner">XXX</div>
+							</div>
+						</div> <!-- end info-div -->
+					</li>
+				</ul> <!-- End ul resList -->
+			</div> <!-- End column right -->
+				
 			<div id="modalBox"> <!-- Detta är en tillfällig lösning, kommer ändras när en 'lightbox' ska skapas -->
 				<span id="modalContent">Om man klickar på en restaurang står det info här!</span>
 			</div> <!-- End modalBox -->
-				
-		<div class="push"></div> <!-- För sticky footer - https://css-tricks.com/couple-takes-sticky-footer/ -->
+
 		</div> <!-- End pageContent -->
 	</main>
 	</div> <!-- End wrapper -->
 	
 	<footer>
-		<p>Här är en fot. Här kanske man ska ha lite text?</p>
+		<p>Snabbmatskartan - 2018 - Kontakt: <a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a></p>
 	</footer>
 		
 </body>

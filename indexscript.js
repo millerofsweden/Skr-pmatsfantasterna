@@ -1,16 +1,17 @@
-var zip;
 
+//hämtar ut element från HTML-filen
 function init () {
     sessionStorage.clear();
     var yourPosition = document.getElementById("locSrchBtn");
     yourPosition.addEventListener("click", getLocation);
-    var searchBut = document.getElementById("button");
+    var searchBut = document.getElementById("txtSrchBtn");
     searchBut.addEventListener("click", searchInput);
     var popUp = document.getElementById("popup");
     popUp.addEventListener("click", popUpFunc);
 }
 window.addEventListener("load", init);
 
+//Hämtar användarens nuvarande position
 function getLocation () {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition (changePageLoc);
@@ -19,7 +20,7 @@ function getLocation () {
         alert("Platsåtkomst är inte kompatibelt med din webbläsare");
     };
 }
-
+//sparar koordinaterna från geolocation i sessionstorage
 function changePageLoc (e) {
     var lat;
     var lan;
@@ -28,15 +29,11 @@ function changePageLoc (e) {
     location.href = "results.html";
 }
 
+//sparar det som användaren skrivit i addressfältet i sessionstorage
 function searchInput() {
     var zipCode = document.getElementById("searchbar").value
     sessionStorage.setItem("zipCode", zipCode);
     location.href = "results.html";
-    //var input = document.getElementsByName("address");
-    //var searchInfo = document.getElementById("searchInfo").value;
-    //sessionStorage.setItem("zippie", JSON.stringify(input));
-    //console.log(sessionStorage);
-    //zipCode(input);
 }
     
 

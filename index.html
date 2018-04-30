@@ -5,30 +5,18 @@
 	<title>Startida</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
-    <script type="text/javascript" src="events.js"></script>
 	<script type="text/javascript" src="searchValue.js"></script>
 	<script type="text/javascript" src="indexscript.js"></script>
-	<script type="text/javascript" src="backFunc.js"></script>
-	<script type="text/javascript" src="popUp.js"></script>
+	<script type="text/javascript" src="smallFunctions.js"></script>
+    <script type="text/javascript" src="events.js"></script>
 </head>
 
-<body>
-	<div id="wrapper">
-		
-	<header>
-		<h1>Skräpmatsfantasterna.</h1>
-		<a href="about.html" id="contactBtn" class="button">Kontakta oss</a>
-	</header>
-		
-	<main>	
-		<nav>
-		<ul>
-			<a href="index.html">Index</a>
-			<a href="results.html">Resultat</a>
-			<a href="about.html">Kontakt</a>
-		</ul>
-		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
+<body class="index">
+		<div id="wrapper">
 			
+		<header class="opacity">
+			<h1>Snabbmatskartan</h1>
+			<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
 			<div id="popup" class="popup"> ?
 				<span id="helpPop" class="popuptext">
 					<h3>Välkommen till Skräpmatsfantasterna!</h3>
@@ -36,25 +24,35 @@
 					<p>(Klicka igen för att stänga)</p>
 				</span> <!-- popup fönster -->
 			</div>
-
-			<div id="content">
-				
-				<p>Sök platsbaserat.</p>
-				<button type="button" id="locSrchBtn">Sök platsbaserat</button>
-
-				<p id="searchInfo">Sök med postnummer</p>
-				<form id="txtSrch" onsubmit="searchInput">
-					<input type="text" name="address" id="searchbar" size="45" min="10000" max="99999" placeholder="Postnummer, gata, stad...">
-					<input type="button" value="Sök" id="button" name="txtSrchBtn">
-				</form>
+			<a href="about.html" id="contactBtn" class="button">Kontakta oss</a>
+		</header>
 			
-		</div> <!-- End content -->
-	</main>
+		<main>	
+			<nav>
+			<ul>
+				<a href="index.html">Index</a>
+				<a href="results.html">Resultat</a>
+				<a href="about.html">Kontakt</a>
+			</ul>
+			</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
+	
+				<div id="pageContent">
+					
+					<div id="btnBackground">
+						<button id="locSrchBtn" class="redButton">Sök</button>
+					</div>
+	
+					<form id="txtSrch">
+						<input type="text" name="address" id="searchbar" placeholder="Gatunamn, stad, postnummer...">
+						<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="redButton">
+					</form>
+			
+			</div> <!-- End pageContent -->
+		</main>
+		</div> <!-- End wrapper -->	
 		
-	<footer>
-		<p>Här är en fot. Här kanske man ska ha lite text?</p>
-	</footer>
-		
-	</div> <!-- End wrapper -->
-</body>
-</html>
+		<footer>
+			<p>Snabbmatskartan - 2018 - Kontakt: <a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a></p>
+		</footer>
+	</body>
+	</html>
