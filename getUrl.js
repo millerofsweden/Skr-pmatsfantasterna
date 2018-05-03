@@ -11,7 +11,7 @@ var styles = [{
         ]},
         {featureType: "road",
         elementType: "labels.text.fill",
-        stylers: [ 
+        stylers: [
             {color: "#000000"},
             {lightness: 10},
             {saturation: -40},
@@ -83,11 +83,11 @@ function showYourPosition (lat, lng) {
         document.getElementById("map"),{
             center: {lat:lat, lng:lng},
             zoom: 12,})
-            map.setOptions({styles: styles});  
+            map.setOptions({styles: styles});
         userMarker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,
             title: "Här är du",
-            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}); 
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});
         userMarker.setPosition({lat:lat,lng:lng});
         userMarker.setMap(map);
         getRestaurants(lat, lng);
@@ -96,7 +96,7 @@ function showYourPosition (lat, lng) {
 //Hämtar restauranger som ligger inom en viss radie från användarens position
 function getRestaurants (lat, lng) {
     var request; // Object för Ajax-anropet
-        if (XMLHttpRequest) { request = new XMLHttpRequest(); } 
+        if (XMLHttpRequest) { request = new XMLHttpRequest(); }
         else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
         else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
         request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getfromlatlng&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&takeout=Y&sort_in=DESC&order_by=distance_in_km",true,);
@@ -114,14 +114,16 @@ function restaurantObject(response){
       objectLength = 0;
       //resultObject.rating = [];
         for(i=0;i<response.payload.length;i++){
-            resultObject[i] = { 
-            distance_in_km:response.payload[i].distance_in_km, 
+            resultObject[i] = {
+            distance_in_km:response.payload[i].distance_in_km,
             lat: parseFloat(response.payload[i].lat),
             lng: parseFloat(response.payload[i].lng),
-            name: response.payload[i].name, 
-            rating: response.payload[i].rating, 
-            avg_lunch_pricing: response.payload[i].avg_lunch_pricing, 
-            search_tags: response.payload[i].search_tags, number: i
+            name: response.payload[i].name,
+            rating: response.payload[i].rating,
+            avg_lunch_pricing: response.payload[i].avg_lunch_pricing,
+            search_tags: response.payload[i].search_tags,
+            sub_types: "PIZZA",//FEL!!! inför variabel
+            number: i//FEL!!! kanske inte används
         };
             objectLength ++;
     }
@@ -132,6 +134,8 @@ function showRestaurants() {
     var i;
     var l;
     var typeList = document.getElementById("typeList").value;
+    var tagList = "";
+
     for (var i = 0; i < objectLength; i++) {
         var resList = document.getElementById("resList");
         var distance = resultObject[i].distance_in_km;
@@ -165,7 +169,16 @@ function showRestaurants() {
                     showInfoWindow (marker, content);
                 }//stänger if
             }//stänger if
-        }//stänger for                
+        }//stänger for
+        for(i=1;i<document.getElementById("typeList").length;i++){
+          tagList += resultObject[i].search_tags + ", ";
+          document.getElementsByTagName("option")[i].disabled = true;
+        }
+        for(i=1;i<document.getElementById("typeList").length;i++){
+          if(tagList.indexOf(document.getElementsByTagName("option")[i].innerHTML.toLowerCase()) >=0){
+            document.getElementsByTagName("option")[i].disabled = false;
+          }
+        }
     }
 //funktion för att visa inforutan
 function showInfoWindow (marker, content) {
@@ -178,10 +191,10 @@ function showInfoWindow (marker, content) {
 }
 
 function filter () {
-    resList.innerHTML = ""; 
+    resList.innerHTML = "";
             var output = document.getElementById("valueDemo");//span-elementet som visar antal km för användaren
             output.innerHTML = distanceSlider.value; //Ändrar värdet vid förändring
-        
+
     lat = sessionStorage.getItem("lat");
     lng = sessionStorage.getItem("lng");
     lat = parseFloat(lat);
@@ -197,7 +210,7 @@ function filter () {
       userMarker.setPosition({lat:lat,lng:lng});
       userMarker.setMap(map);
       map.setOptions({styles: styles});
-    showRestaurants(); 
+    showRestaurants();
 }
 //sorterar restaurangerna i den ordning som användaren valt.
 function sorting () {
@@ -205,7 +218,7 @@ function sorting () {
     var lng = sessionStorage.getItem("lng");
     var request; // Object för Ajax-anropet
     if (sortMenu.lastElementChild.value == "distance") {
-        if (XMLHttpRequest) { request = new XMLHttpRequest(); } 
+        if (XMLHttpRequest) { request = new XMLHttpRequest(); }
         else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
         else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
         request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getfromlatlng&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&&takeout=Y&sort_in=ASC&order_by=distance_in_km",true,);
@@ -214,7 +227,7 @@ function sorting () {
         if ( (request.readyState == 4) && (request.status == 200) ) restaurantObject(request.responseText);
     };
     }   if (sortMenu.lastElementChild.value == "lowPrice") {
-        if (XMLHttpRequest) { request = new XMLHttpRequest(); } 
+        if (XMLHttpRequest) { request = new XMLHttpRequest(); }
         else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
         else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
         request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getfromlatlng&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&takeout=Y&sort_in=ASC&order_by=avg_lunch_pricing",true,);
@@ -223,7 +236,7 @@ function sorting () {
         if ( (request.readyState == 4) && (request.status == 200) ) restaurantObject(request.responseText);
     };
     } if (sortMenu.lastElementChild.value == "highPrice") {
-        if (XMLHttpRequest) { request = new XMLHttpRequest(); } 
+        if (XMLHttpRequest) { request = new XMLHttpRequest(); }
         else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
         else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
         request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getfromlatlng&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&takeout=Y&sort_in=DESC&order_by=avg_lunch_pricing",true,);
@@ -232,7 +245,7 @@ function sorting () {
         if ( (request.readyState == 4) && (request.status == 200) ) restaurantObject(request.responseText);
     };
     } if (sortMenu.lastElementChild.value == "stars") {
-        if (XMLHttpRequest) { request = new XMLHttpRequest(); } 
+        if (XMLHttpRequest) { request = new XMLHttpRequest(); }
         else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
         else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
         request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=food&method=getfromlatlng&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&takeout=Y&sort_in=DESC&order_by=rating",true,);
@@ -240,7 +253,7 @@ function sorting () {
         request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ( (request.readyState == 4) && (request.status == 200) ) restaurantObject(request.responseText);
     };
-    }   
+    }
 }
 //Skapar info till den ruta som visas när användaren klickar på en restaurang-marker
 function createInfoElements(name, rating, price, tags) {//dessa parametrar skickades med genom ett klick på en marker
