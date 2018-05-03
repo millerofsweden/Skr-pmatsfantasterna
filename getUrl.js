@@ -1,11 +1,41 @@
 var map;
 var userMarker;
 var lat;
-var lng;
-var priceArray = [];
+var lng;;
 var resultObject = {};//Innehåller informationen som hämtas från SMAPI
 var objectLength;
-
+var styles = [{
+        elementType: "geometry",
+        stylers: [
+            {color: "#ffffff"}
+        ]},
+        {featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [ 
+            {color: "#000000"},
+            {lightness: 10},
+            {saturation: -40},
+        ]},
+    {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+        { color: "#CC0000" }
+    ]
+    },{
+        featureType: "road",
+        elementType: "labels",
+        stylers: [
+        { visibility: "on"}
+      ]
+    },{
+        featureType: "poi",
+        elementType: "all",
+        stylers: [
+        { visibility: "off"}
+    ]
+    }
+  ];
 //Startar initElement och initSearch
 function init () {
 
@@ -16,8 +46,8 @@ window.addEventListener("load", init);
 
 //funktionen hämtar ut element från HTML-filen
 function initElement () {
-    var distanceSlider = document.getElementById("distanceSlider").addEventListener("change", showRestaurants2);//ändra till showrestaurants
-    var typeList = document.getElementById("typeList").addEventListener("change", showRestaurants2);//ändra till showrestaurants
+    var distanceSlider = document.getElementById("distanceSlider").addEventListener("input", filter);//ändra till showrestaurants
+    var typeList = document.getElementById("typeList").addEventListener("change", filter);//ändra till showrestaurants
     var resList = document.getElementById("resList").innerHTML = "";
     var sortMenu = document.getElementById("sortMenu");
     var popUp = document.getElementById("popup");
@@ -25,7 +55,7 @@ function initElement () {
     var backBut = document.getElementById("backBtn");//tillbakaknapp
     if (backBut != null) {//vid tryck på tillbakaknappen anropas funktion backFunc
         backBut.addEventListener ("click", backFunc);
-    } 
+    }
 }
 
 //Funktionen kollar om det finns något sparat i sessionstorage. Finns det inte det startar index.html igen
@@ -52,10 +82,12 @@ function showYourPosition (lat, lng) {
     map = new google.maps.Map(
         document.getElementById("map"),{
             center: {lat:lat, lng:lng},
-            zoom: 12,})  
+            zoom: 12,})
+            map.setOptions({styles: styles});  
         userMarker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,
-            title: "Här är du"}); 
+            title: "Här är du",
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}); 
         userMarker.setPosition({lat:lat,lng:lng});
         userMarker.setMap(map);
         getRestaurants(lat, lng);
@@ -80,7 +112,7 @@ function restaurantObject(response){
     var response = JSON.parse(response);
     var i;//loopvariabel
       objectLength = 0;
-      resultObject.rating = [];
+      //resultObject.rating = [];
         for(i=0;i<response.payload.length;i++){
             resultObject[i] = { 
             distance_in_km:response.payload[i].distance_in_km, 
@@ -116,43 +148,57 @@ function showRestaurants() {
             if (resultObject[i].search_tags.indexOf(typeList) >= 0 || typeList == "Valj mattyp...") {//"Valj mattyp"... borde nog ändras till något bättre
                 var marker = new google.maps.Marker({lat,lng,
                     animation: google.maps.Animation.DROP,
-                    title: resultObject[i].name});
+                    title: resultObject[i].name,
+                    clickable: true,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'});
                     marker.setPosition({lat,lng});//tillsätter koordinater på markörerna
                     marker.setMap(map);//sätter ut markörer för restaurangerna
                     img.setAttribute("src", "pics/test.jpg");//tillsätter en bild till img-taggen
                     img.setAttribute("alt", "logga");//tillsätter alt-kommentar för img-taggen
-                var contentDiv = createInfoElements(name, tags, rating, price);//lägger in info för resList och infoWindow
+                var contentDiv = createInfoElements(name, rating, price);//lägger in info för resList och infoWindow
+                var content = createInfoElements(name, rating, price);//lägger in info för resList och infoWindow
+                //contentDiv.classList.add("info");
                     li.appendChild(img);//lägger in img i li
                     li.appendChild(contentDiv);//lägger in contentDiv i li
                     li.classList.add("resBox");//tillsätter li en class
                     resList.appendChild(li);//lägger in li i resList
-                    priceArray.push(price);
+                    showInfoWindow (marker, content);
                 }//stänger if
             }//stänger if
-        }//stänger for
-  }
+        }//stänger for                
+    }
+//funktion för att visa inforutan
+function showInfoWindow (marker, content) {
+        var markerInfo = new google.maps.InfoWindow ({
+            content: content
+        });
+        google.maps.event.addListener(marker, "click", function () {
+            markerInfo.open(map, marker);
+        });
+}
 
-function showRestaurants2() {
-    while (resList.firstChild) {
-    resList.removeChild(resList.firstChild);
-  }//FEL!!! kolla om resList.innerHTML = "" funkar
+function filter () {
+    resList.innerHTML = ""; 
+            var output = document.getElementById("valueDemo");//span-elementet som visar antal km för användaren
+            output.innerHTML = distanceSlider.value; //Ändrar värdet vid förändring
+        
     lat = sessionStorage.getItem("lat");
     lng = sessionStorage.getItem("lng");
     lat = parseFloat(lat);
     lng = parseFloat(lng);
-  map = new google.maps.Map(
-      document.getElementById("map"),
-      {center: {lat:lat, lng:lng},
-      zoom: 12,})
-      userMarker = new google.maps.Marker(
-      {title: "Här är du"});
+    map = new google.maps.Map(
+      document.getElementById("map"),{
+            center: {lat: lat, lng: lng},
+            zoom: 12,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'})
+      userMarker = new google.maps.Marker({
+            title: "Här är du",
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'});
       userMarker.setPosition({lat:lat,lng:lng});
       userMarker.setMap(map);
-  
-  
-    showRestaurants();
-  
-  }
+      map.setOptions({styles: styles});
+    showRestaurants(); 
+}
 //sorterar restaurangerna i den ordning som användaren valt.
 function sorting () {
     var lat = sessionStorage.getItem("lat");
@@ -202,15 +248,20 @@ function createInfoElements(name, rating, price, tags) {//dessa parametrar skick
     var header = document.createElement("h5");//H5 för att restaurangnamnet skall vara som en rubrik
     var ratingP = document.createElement("p");
     var priceP = document.createElement("p");
-    var tagsP = document.createElement("p");
-        contentDiv.setAttribute("id", "content");//Id hämtas från SMAPI
-        header.appendChild(document.createTextNode(name));//Restaurangens namn läggs in i h5-taggen
-        ratingP.appendChild(document.createTextNode(rating));//Restaurangens betyg läggs in i p-taggen
-        priceP.appendChild(document.createTextNode(price));//Restaurangens snittpris läggs in i p-taggen
-        tagsP.appendChild(document.createTextNode(tags));//Restaurangens söktaggar läggs in i p-taggen
+    //var tagsP = document.createElement("p");
+        contentDiv.setAttribute("id", "content");
+        contentDiv.classList.add("info");
+        header.appendChild(document.createTextNode(name));//Skapar en textnode för h5-taggen
+        header.classList.add("name");
+        //tagsP.appendChild(document.createTextNode(tags));//skapar en textnode för p-taggen
+        //tagsP.classList.add("tags");
+        ratingP.appendChild(document.createTextNode(rating));//skapar en textnode för p-taggen
+        ratingP.classList.add("rating-outer");
+        priceP.appendChild(document.createTextNode(price));//skapar en textnode för p-taggen
+        priceP.classList.add("price-outer");
         contentDiv.appendChild(header);//Info läggs in i div-elementet
         contentDiv.appendChild(ratingP);//Info läggs in i div-elementet
         contentDiv.appendChild(priceP);//Info läggs in i div-elementet
-        contentDiv.appendChild(tagsP);//Info läggs in i div-elementet
+        //contentDiv.appendChild(tagsP);//Info läggs in i div-elementet
     return contentDiv;
     };

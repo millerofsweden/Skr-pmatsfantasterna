@@ -9,95 +9,255 @@ header, nav, main, footer, section {display:block;}
 body, html {
 	background-color:#fff; 
 	color:#000; 
-	font-family:verdana, sans-serif; 
-	font-size:12px;
-	height: 100%;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";
+	font-size: 12px;
 }
-#wrapper {
-	background-color:#fff;  
-	min-height: 100%;
-	margin: 0px 20px -40px;
-	
+.index {
+	background-image: url(pics/back1.jpg);
+	background-repeat: no-repeat;
+    background-size: cover;
+}
+#wrapper {  
+	/* https://priteshgupta.com/2016/05/sticky-css-footer/ */
+	min-height: calc(100vh - 30px); 
+	padding: 0px 20px;
 }
 header {
-	padding:10px;
-	
+	padding: 10px;
+	background-color: #CC0000;
+	margin: 0 -20px;
+	height: 65px;
 }
-header a {
+header h1 {
+	color: #FFF;
+	font-family: proxima nova;
+	font-size: 3em;
+	font-weight: 400;
 	position: absolute;
-	right: 30px;
-	top: 35px;
+	top: -15px;
+}
+header h5 {
+	color: #FFF;
+	font-family: proxima nova;
+	font-size: 1.2em;
+	font-weight: 400;
+	position: relative;
+	top: 20px;
 }
 nav {
 	display: none;
 }
-main {
-	padding:0px;
-}
-
 footer {
-	background-color: #77CAC8;
+	background-color: #CC0000;
+	color: #FFF;
 	height: 30px;
-	width: 100%;
-	text-align: center; 
+	text-align: center;
 	font-size: 0.8em;
-	padding: 5px 0px;
 }
-
+footer a {
+	color: #FFF;
+}
+footer p {
+	margin: 0;
+	position: relative;
+	top: 8px;
+}
 /* -- innehåll -- */
 
 #pageContent {
-	max-width: 800px; 
-	margin: 0 auto -40px; 
+	max-width: 1000px; 
+	margin: 0 auto; 
 	text-align: center;
 }
-#backBtn {
-	
+#pageContent a {
+	color: #C10037;
 }
-#popupHelp {
-	float: left;
-	margin-right: 10px;
+#contactBtn {
+	position: absolute;
+	right: 30px;
+	top: 25px;
 }
-#resList {
+#info, #contactInfo {
+	max-width: 400px;
+	margin: 0 auto;
+}
+/* -- result.html innehåll --*/
+.column {
 	float: left;
-	margin-top: 30px;
-	list-style: none;
+}
+.column.left {
+	width: 55%;
+}
+.column.right {
+	width: 45%;
 }
 #filters {
-	height: 150px;
-	width: 340px;
-	margin-left: 460px;
-	margin-top: 20px;
+	width: 95%;
+	padding-bottom: 20px;
+}
+.sliderFilter, .typeFilter {
+	display: inline-block;
+	position: relative;
+	font-size: 1.1em;
+}
+.sliderFilter {
+	top: 5px;
+	max-width: 183px;
+}
+.typeFilter {
+	width: 150px;
 }
 #map {
-	border: solid thin;
-	height: 340px;
-	margin-left: 460px;
-	margin-top: 0px;
-}
-#modalBox {
-	clear: left;
-	padding: 10px;
+	margin: 0 20px;
+	height: 450px;
 }
 #sortMenu {
-	position: absolute;
-	margin-left: 320px;
+	text-align: left;
+	padding: 8px 0;
 }
-#sortMenu select {
-	height: 20px;
+#resList {
+	list-style: none;
+	padding: 10px 0;
+}
+.resBox {
+	height: 80px;
+	margin-bottom: 20px;
+	max-width: 400px;
+	border: solid #ccc;
+	border-width: thin;
+	border-radius: 15px;
+	box-shadow: 5px 5px 10px grey;
+}
+.resBox img {
+	height: 80px;
+	width: 30%;
+	float: left;
+	border-radius: 15px 0 0 15px;
+}
+.resBox h5 {
+	margin-top: 2px;
+	margin-bottom: 0px;
+}
+.resBox p {
+	margin-top: 0px;
+	margin: 1px;
+}
+.info {
+	float: right;
+	width: 70%;
+	margin-top: 8px;
+}
+.name, .tags {
+	margin: 0;
+	position: relative;
+	text-align: left;
+	left: 10px;
+}
+/*Källa för 'starsrating'-metod- https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450*/
+.rating-outer, .price-outer {
+	display: inline;
+	position: relative;
+	top: 5px;
+	left: 10px;
+}
+.price-outer {
+	left: 50px;
+}
+.rating-inner, .price-inner {
+	position: absolute;
+ 	top: 0;
+ 	left: 0;
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	width: 0;
+}
+#modalBox {
+	padding: 10px;
+	border: solid thin;
+	clear: both;
 }
 
-/* -- klasser -- */
-.push {
-	height: 40px;
+/* -- sökelement --*/
+#btnBackground {
+	background-color: rgba(255,255,255,0.80);
+	position: relative;
+	top: 80px;
+	margin: auto;
+	height: 120px;
+	width: 120px;
+	border-radius: 60px
 }
-.popup {
-	background-color: #77CAC8;
+#locSrchBtn {
+	text-align: center;
+	height: 40px;
+    position:relative;
+    top:40px; 
+}
+#txtSrch {
+	position: relative;
+	top: 150px;
+}
+#searchbar {
+	width: 360px;
+	height: 40px;
+	border: none;
+	border-radius: 10px 0 0px 10px;
+	padding: 0 12px;
+	font-size: 1.3em;
+}
+#txtSrchBtn {
+	height: 40px;
+	width: 80px;
+	margin: 0 -4px;
+	border-radius: 0px 10px 10px 0px;
+	font-size: 1.3em;
+}
+#backBtn {
+	position: relative;
+	top: 10px;
+	height: 60px;
+	width: 60px;
+	border-radius: 50px;
+}
+/* -- klasser -- */
+.opacity {
+	background: rgba(204, 0, 0, 0.8)
+}
+.button, .redButton {
+	background-color: #FFF;
+	border: none;
 	border-radius: 15px;
 	padding: 8px 20px;
 	text-decoration: none;
 	color: #000;
-	position: relative;
+	display: inline-block;
+}
+.redButton {
+	background-color: #CC0000;
+	color: #fff;
+}
+.button:hover, .popup:hover, .redButton:hover {
+	background-color: #CCC;
+	-webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+}
+.redButton:hover {
+	background-color: #FF0000;
+}
+.filter {
+	display: inline-block;
+	padding: 8px;
+}
+
+/* -- popup -- */
+.popup {
+	background-color: #FFFFFF;
+	color: #000;
+	position: absolute;
+	right: 150px;
+	top: 25px;
+	border-radius: 15px;
+	padding: 8px 20px;
     display: inline-block;
     cursor: pointer;
 }
@@ -105,16 +265,19 @@ footer {
 	visibility: hidden;
     width: 200px;
 	padding: 10px 15px;
-    background-color:#77CAC8;
+    background-color:rgba(255,255,255,0.8);
     color: #000;
     text-align: left;
     border-radius: 15px;
+	z-index: 1;
     position: absolute;
-    z-index: 1;
-    top: 120%;
-    margin-left: -25px;
+	right: -130px;
+    top: 80px;
 }
-
+.popuptext.redPop {
+	background-color: #CC0000;
+	color: #fff;
+}
 .popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 0.5s;
@@ -129,36 +292,3 @@ footer {
     from {opacity: 0;}
     to {opacity:1 ;}
 }
-
-.button {
-	background-color: #77CAC8;
-	border: none;
-	border-radius: 15px;
-	padding: 8px 20px;
-	text-decoration: none;
-	color: #000;
-	display: inline-block;
-}
-.button:hover {
-	background-color: #368C89;
-	-webkit-transition-duration: 0.3s; /* Safari */
-    transition-duration: 0.3s;
-}
-.resBox {
-	height: 120px;
-	border: solid 1px;
-	width: 450px;
-	margin-bottom: 20px;
-	margin-left: -40px;
-	text-align: left;
-}
-.resBox img {
-	float: left;
-	height: 120px;
-	padding-right: 10px;
-}
-.filter {
-	display: inline-block;
-	padding: 8px;
-}
-

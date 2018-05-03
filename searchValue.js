@@ -22,10 +22,12 @@ function showZip (response) {
             map = new google.maps.Map(
                 document.getElementById("map"),{
                 center: {lat:lat, lng:lng},
-                zoom: 12,})  
+                zoom: 12,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'})  
             userMarker = new google.maps.Marker({
                 animation: google.maps.Animation.DROP,
-                title: "Här är du"}); 
+                title: "Här är du",
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}); 
                 userMarker.setPosition({lat:lat,lng:lng});
                 userMarker.setMap(map); 
         getRestaurants(lat, lng);
