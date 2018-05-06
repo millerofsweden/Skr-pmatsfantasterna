@@ -38,7 +38,6 @@ var styles = [{
   ];
 //Startar initElement och initSearch
 function init () {
-
     initElement();
     initSearch();
 }
@@ -50,12 +49,6 @@ function initElement () {
     var typeList = document.getElementById("typeList").addEventListener("change", filter);//ändra till showrestaurants
     var resList = document.getElementById("resList").innerHTML = "";
     var sortMenu = document.getElementById("sortMenu");
-    var popUp = document.getElementById("popup");
-    popUp.addEventListener("click", popUpFunc);
-    var backBut = document.getElementById("backBtn");//tillbakaknapp
-    if (backBut != null) {//vid tryck på tillbakaknappen anropas funktion backFunc
-        backBut.addEventListener ("click", backFunc);
-    }
 }
 
 //Funktionen kollar om det finns något sparat i sessionstorage. Finns det inte det startar index.html igen
@@ -91,6 +84,7 @@ function showYourPosition (lat, lng) {
         userMarker.setPosition({lat:lat,lng:lng});
         userMarker.setMap(map);
         getRestaurants(lat, lng);
+        getRestaurants2(lat, lng);
 }
 
 //Hämtar restauranger som ligger inom en viss radie från användarens position
@@ -122,7 +116,7 @@ function restaurantObject(response){
             rating: response.payload[i].rating,
             avg_lunch_pricing: response.payload[i].avg_lunch_pricing,
             search_tags: response.payload[i].search_tags,
-            sub_types: "PIZZA",//FEL!!! inför variabel
+            //sub_types: "PIZZA",//FEL!!! inför variabel
             number: i//FEL!!! kanske inte används
         };
             objectLength ++;
@@ -157,7 +151,7 @@ function showRestaurants() {
                     icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'});
                     marker.setPosition({lat,lng});//tillsätter koordinater på markörerna
                     marker.setMap(map);//sätter ut markörer för restaurangerna
-                    img.setAttribute("src", "pics/test.jpg");//tillsätter en bild till img-taggen
+                //    img.setAttribute("src", "pics/" + resultObject[i].sub_type +".jpg");//tillsätter en bild till img-taggen
                     img.setAttribute("alt", "logga");//tillsätter alt-kommentar för img-taggen
                 var contentDiv = createInfoElements(name, rating, price);//lägger in info för resList och infoWindow
                 var content = createInfoElements(name, rating, price);//lägger in info för resList och infoWindow
@@ -255,6 +249,7 @@ function sorting () {
     };
     }
 }
+
 //Skapar info till den ruta som visas när användaren klickar på en restaurang-marker
 function createInfoElements(name, rating, price, tags) {//dessa parametrar skickades med genom ett klick på en marker
     var contentDiv = document.createElement("div");//Skapar ett div element där nedanstående information skall stå
@@ -278,3 +273,31 @@ function createInfoElements(name, rating, price, tags) {//dessa parametrar skick
         //contentDiv.appendChild(tagsP);//Info läggs in i div-elementet
     return contentDiv;
     };
+
+
+
+
+
+
+
+    function getRestaurants2 (lat, lng) {
+        var request; // Object för Ajax-anropet
+            if (XMLHttpRequest) { request = new XMLHttpRequest(); }
+            else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
+            else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
+            request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&takeout=Y&sort_in=DESC&order_by=distance_in_km",true,);
+            request.send(null);
+            request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
+            if ( (request.readyState == 4) && (request.status == 200) ) restaurantObject2(request.responseText);
+        };
+    }
+
+    function restaurantObject(response){
+        var response = JSON.parse(response);
+        var i;//loopvariabel
+            for(i=0;i<response.payload.length;i++){
+                resultObject[i] = {
+                sub_type: resultObject[i].sub_type
+            };
+        }
+    }
