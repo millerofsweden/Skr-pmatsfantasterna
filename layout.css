@@ -9,8 +9,8 @@ header, nav, main, footer, section {display:block;}
 body, html {
 	background-color:#fff; 
 	color:#000; 
-	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";
-	font-size: 12px;
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+	font-size: 10pt;
 }
 .index {
 	background-image: url(pics/back1.jpg);
@@ -67,17 +67,23 @@ footer p {
 #pageContent {
 	max-width: 1000px; 
 	margin: 0 auto; 
-	text-align: center;
+	/*text-align: center;*/
 }
 #pageContent a {
 	color: #C10037;
 }
 #contactBtn {
+	font-size: 4em;
+	color: #fff;
+	text-decoration: none;
 	position: absolute;
-	right: 30px;
-	top: 25px;
+	right: 90px;
+	top: 10px;
 }
-#info, #contactInfo {
+#contactBtn:hover {
+	opacity: 0.8;
+}
+.contactInfo {
 	max-width: 400px;
 	margin: 0 auto;
 }
@@ -128,15 +134,14 @@ footer p {
 	border-radius: 15px;
 	box-shadow: 5px 5px 10px grey;
 }
-.resBox img {
+#resImg {
 	height: 80px;
 	width: 30%;
 	float: left;
 	border-radius: 15px 0 0 15px;
 }
-.resBox h5 {
-	margin-top: 2px;
-	margin-bottom: 0px;
+.resBox h3 {
+
 }
 .resBox p {
 	margin-top: 0px;
@@ -153,15 +158,19 @@ footer p {
 	text-align: left;
 	left: 10px;
 }
-/*Källa för 'starsrating'-metod- https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450*/
+.tags {
+	max-width: 270px;
+	height: 19px;
+	overflow: hidden;
+}
+/*Källa för 'betyg'-metod: https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450*/
 .rating-outer, .price-outer {
+	font-family: mycons;
+	font-size: 1.5em;
 	display: inline;
 	position: relative;
-	top: 5px;
+	top: 2px;
 	left: 10px;
-}
-.price-outer {
-	left: 50px;
 }
 .rating-inner, .price-inner {
 	position: absolute;
@@ -169,8 +178,27 @@ footer p {
  	left: 0;
  	white-space: nowrap;
  	overflow: hidden;
- 	width: 0;
 }
+.rating-outer::before {
+	color: #cc0000;
+	content: "\64 \64 \64 \64 \64";
+}
+.rating-inner::before {
+	color: #cc0000;
+	content: "\65 \65 \65 \65 \65";
+}
+.price-outer {
+	left: 50px;
+}
+.price-outer::before {
+	color: #ccc;
+	content: "\63 \63 \63";
+}
+.price-inner::before {
+	color: #04C914;
+	content: "\63 \63 \63";
+}
+
 #modalBox {
 	padding: 10px;
 	border: solid thin;
@@ -189,12 +217,18 @@ footer p {
 }
 #locSrchBtn {
 	text-align: center;
-	height: 40px;
-    position:relative;
-    top:40px; 
+	font-size: 6em;
+	color: #cc0000;
+ 	position: relative;
+	top: 12px;
+	left:20px;
+}
+#locSrchBtn:hover {
+	color:#FF0000;
 }
 #txtSrch {
 	position: relative;
+	text-align: center;
 	top: 150px;
 }
 #searchbar {
@@ -214,12 +248,18 @@ footer p {
 }
 #backBtn {
 	position: relative;
+	color: #cc0000;
 	top: 10px;
-	height: 60px;
-	width: 60px;
-	border-radius: 50px;
+	font-size: 4em;
+}
+#backBtn:hover {
+	cursor: pointer;
+	color:#FF0000;
 }
 /* -- klasser -- */
+.icon-back {
+	height: 40px;
+}
 .opacity {
 	background: rgba(204, 0, 0, 0.8)
 }
@@ -236,7 +276,7 @@ footer p {
 	background-color: #CC0000;
 	color: #fff;
 }
-.button:hover, .popup:hover, .redButton:hover {
+.button:hover, .redButton:hover {
 	background-color: #CCC;
 	-webkit-transition-duration: 0.3s; /* Safari */
     transition-duration: 0.3s;
@@ -250,18 +290,20 @@ footer p {
 }
 
 /* -- popup -- */
-.popup {
-	background-color: #FFFFFF;
-	color: #000;
+#popup {
+	font-size: 4em;
+	color: #fff;
 	position: absolute;
+	top: 10px;
 	right: 150px;
-	top: 25px;
-	border-radius: 15px;
-	padding: 8px 20px;
     display: inline-block;
     cursor: pointer;
 }
-.popup .popuptext {
+#popup:hover {
+	opacity: 0.8;
+}
+.popuptext {
+	font-size: 12pt;
 	visibility: hidden;
     width: 200px;
 	padding: 10px 15px;

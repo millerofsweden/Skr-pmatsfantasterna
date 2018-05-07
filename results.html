@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Resultat</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
+	<link rel="stylesheet" type="text/css" href="mycons/styles.css">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
 	<script type="text/javascript" src="getUrl.js"></script>
 	<script type="text/javascript" src="searchValue.js"></script>
@@ -17,14 +18,14 @@
 	<header>
 		<h1>Snabbmatskartan</h1>
 		<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
-		<div id="popup" class="popup"> ?
+		<div id="popup" class="popup icon-help">
 				<span id="helpPop" class="popuptext redPop">
-				<h3>Välkommen till Skräpmatsfantasterna!</h3>
-				<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
-				<p>(Klicka igen för att stänga)</p>
-			</span> <!-- popup fönster -->
-		</div>
-		<a href="about.html" id="contactBtn" class="button">Kontakta oss</a>
+					<h3>Välkommen till Skräpmatsfantasterna!</h3>
+					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+					<p>(Klicka igen för att stänga)</p>
+				</span> <!-- popup fönster -->
+			</div>
+			<a href="about.html" id="contactBtn" class="icon-contact"></a>
 	</header>
 		
 	<main>	
@@ -36,7 +37,7 @@
 		</ul>
 		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 
-			<button class="redButton" id="backBtn">Tillbaka</button> <!-- JS funktion för att backa, finns i Lisas JS-fil -->
+			<i class="icon-back" id="backBtn"></i>
 			
 			<div id="pageContent">
 			<div class="column left">
@@ -94,7 +95,7 @@
 			</div> <!-- End column left -->
 			<div class="column right">
 				<div id="sortMenu"> Sortera:
-					<select onchange="sorting(lat, lng)">
+					<select onchange="sorting(lat, lng)" id="sortingDropDown">
 						<option value="distance" selected>Avstånd</option>
 						<option value="lowPrice">Lägst pris</option>
 						<option value="highPrice">Högst pris</option>
@@ -103,21 +104,22 @@
 				</div>
 				
 				<ul id="resList">
-					<!-- li-elem. här används endast för stilsättning -->
+					<!-- Mall för list-punkt
+					-- li-elem. här används endast för stilsättning --
 					<li class="resBox">
-						<img src="test.jpg" alt="logga">
+						<img id="resImg" src="test.jpg" alt="logga">
 						<div class="info">
-							<h5 class="name">Restaurangnamn</h3>
+							<h3 class="name">Restaurangnamn</h3>
 							<p class="tags">Taggar, taggar, taggar</p>
-							<!-- https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450 -->
-							<div class="rating-outer">OOOOO 
-								<div class="rating-inner">XXXXX</div>
+							-- https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450 --
+							<div class="rating-outer"><img alt="Empty stars" src="pics/emptyStar.png">
+								<div class="rating-inner"><img alt="Stars" src="pics/filledStar.png"></div>
 							</div>
 							<div class="price-outer">OOO
 								<div class="price-inner">XXX</div>
 							</div>
-						</div> <!-- end info-div -->
-					</li>
+						</div> -- end info-div --
+					</li> -->
 				</ul> <!-- End ul resList -->
 			</div> <!-- End column right -->
 				

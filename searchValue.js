@@ -23,11 +23,11 @@ function showZip (response) {
                 document.getElementById("map"),{
                 center: {lat:lat, lng:lng},
                 zoom: 12,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'})  
+                icon: "pics/burgerPin.png"})  
             userMarker = new google.maps.Marker({
                 animation: google.maps.Animation.DROP,
                 title: "Här är du",
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}); 
+                icon: 'pics/markerRed.png'}); 
                 userMarker.setPosition({lat:lat,lng:lng});
                 userMarker.setMap(map); 
         getRestaurants(lat, lng);

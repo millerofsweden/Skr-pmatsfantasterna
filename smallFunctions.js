@@ -1,4 +1,3 @@
-
 function init(){
 	var backBut = document.getElementById("backBtn");//tillbakaknapp
 	if (backBut != null) {//vid tryck på tillbakaknappen anropas funktion backFunc
