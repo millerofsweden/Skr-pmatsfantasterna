@@ -14,23 +14,24 @@ function searchZipcode (zipCode) {
 //funktinen hämtar ut koordinaterna från jsaon-filen och sparar värdet i variablar som sedan skickas vidare till getRestaurants
 function showZip (response) {
     var responseZip = JSON.parse(response);
-    for (var i = 0; i < responseZip.results.length; i++) {
-        lat = responseZip.results[i].geometry.location.lat;
-        lng = responseZip.results[i].geometry.location.lng;
-        sessionStorage.setItem("lat" ,lat);
-        sessionStorage.setItem("lng", lng);
-            map = new google.maps.Map(
-                document.getElementById("map"),{
-                center: {lat:lat, lng:lng},
-                zoom: 12,
-                icon: "pics/burgerPin.png"})  
-            userMarker = new google.maps.Marker({
-                animation: google.maps.Animation.DROP,
-                title: "Här är du",
-                icon: 'pics/markerRed.png'}); 
-                userMarker.setPosition({lat:lat,lng:lng});
-                userMarker.setMap(map); 
-        getRestaurants(lat, lng);
+        for (var i = 0; i < responseZip.results.length; i++) {
+            lat = responseZip.results[i].geometry.location.lat;
+            lng = responseZip.results[i].geometry.location.lng;
+            sessionStorage.setItem("lat" ,lat);
+            sessionStorage.setItem("lng", lng);
+                map = new google.maps.Map(
+                    document.getElementById("map"),{
+                    center: {lat:lat, lng:lng},
+                    zoom: 12,
+                    streetViewControl: false,
+                    icon: "pics/burgerPin.png"})  
+                userMarker = new google.maps.Marker({
+                    animation: google.maps.Animation.DROP,
+                    title: "Här är du",
+                    icon: 'pics/markerRed.png'}); 
+                    userMarker.setPosition({lat:lat,lng:lng});
+                    userMarker.setMap(map); 
+            getRestaurants(lat, lng);
     };
 }
 
