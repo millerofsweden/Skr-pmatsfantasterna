@@ -15,11 +15,11 @@
 <body class="index">
 		<div id="wrapper">
 			
-		<header class="opacity">
+		<header>
 			<h1>Snabbmatskartan</h1>
 			<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
 			<div id="popup" class="popup icon-help">
-				<span id="helpPop" class="popuptext redPop">
+				<span id="helpPop" class="popuptext">
 					<h3>Välkommen till Skräpmatsfantasterna!</h3>
 					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
 					<p>(Klicka igen för att stänga)</p>
@@ -43,10 +43,11 @@
 						<i id="locSrchBtn" class="icon-marker"></i>
 					</div>
 	
-					<form id="txtSrch">
-						<input type="text" name="address" id="searchbar" placeholder="Gatunamn, stad, postnummer...">
+					<div id="txtSrch">
+						<input type="text" name="address" id="searchbar"  placeholder="Gatunamn, stad, postnummer..." onkeydown = "if (event.keyCode == 13)
+                        document.getElementById('txtSrchBtn').click()">
 						<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="redButton">
-					</form>
+					</div>
 			
 			</div> <!-- End pageContent -->
 		</main>

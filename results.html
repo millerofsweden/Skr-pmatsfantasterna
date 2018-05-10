@@ -19,12 +19,12 @@
 		<h1>Snabbmatskartan</h1>
 		<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
 		<div id="popup" class="popup icon-help">
-				<span id="helpPop" class="popuptext redPop">
-					<h3>Välkommen till Skräpmatsfantasterna!</h3>
-					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
-					<p>(Klicka igen för att stänga)</p>
-				</span> <!-- popup fönster -->
-			</div>
+				<div id="helpPop" class="popuptext">
+				<h3>Välkommen till Skräpmatsfantasterna!</h3>
+				<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+				<p>(Klicka igen för att stänga)</p>
+			</div> <!-- popup fönster -->
+		</div>
 			<a href="about.html" id="contactBtn" class="icon-contact"></a>
 	</header>
 		
@@ -41,7 +41,6 @@
 			
 			<div id="pageContent">
 			<div class="column left">
-				
 				<div id="filters">
 					<div class="typeFilter">
 						<p>Välj typ av mat</p>
@@ -66,7 +65,7 @@
 					</div>
 					
 					<div class="sliderFilter">
-						<p>max. avstånd: <span id="valueDemo">5</span> km</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
+						<p>Sökavstånd: <span id="valueDemo">5</span> km</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
 						<input type="range" min="1" max="30" value="5" id="distanceSlider">
 					</div> <!-- End sliderFilter -->
 					
@@ -91,7 +90,9 @@
 					</div> -->
 				</div> <!-- End filters -->
 				
-				<div id="map">Karta</div><!-- End map -->
+				<div id="map">
+					<img alt="loading" src="pics/pizzagif.gif">
+				</div><!-- End map -->
 			</div> <!-- End column left -->
 			<div class="column right">
 				<div id="sortMenu"> Sortera:
@@ -122,10 +123,17 @@
 					</li> -->
 				</ul> <!-- End ul resList -->
 			</div> <!-- End column right -->
-				
-			<div id="modalBox"> <!-- Detta är en tillfällig lösning, kommer ändras när en 'lightbox' ska skapas -->
-				<span id="modalContent">Om man klickar på en restaurang står det info här!</span>
-			</div> <!-- End modalBox -->
+									
+			<!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
+			<div id="modalBox" class="modal">
+
+			  <!-- Modal content -->
+			  <div id="modalContent" class="modal-content">
+			 	<span class="close">&times;</span>
+				<p>Some text in the Modal..</p>
+			  </div>
+
+			</div>
 
 		</div> <!-- End pageContent -->
 	</main>

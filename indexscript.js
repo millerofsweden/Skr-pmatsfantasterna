@@ -8,13 +8,14 @@ function init () {
             searchBut.addEventListener("click", searchInput);
         var popUp = document.getElementById("popup");
             popUp.addEventListener("click", popUpFunc);
+
 }
 window.addEventListener("load", init);
 
 //Hämtar användarens nuvarande position
 function getLocation () {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition (changePageLoc);
+        navigator.geolocation.getCurrentPosition(changePageLoc);
         //om platsåtkomst godkänns och hittas skickas användaren till en annan funktion
     } else {
         alert("Platsåtkomst är inte kompatibelt med din webbläsare");
