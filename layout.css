@@ -135,14 +135,14 @@ footer p {
 	border-radius: 0;
 	box-shadow: 3px 3px 5px grey;
 }
+.resBox:hover {
+	background: #aaa;
+}
 #resImg {
 	height: 80px;
 	width: 30%;
 	float: left;
 	border-radius: 0;
-}
-.resBox h3 {
-
 }
 .resBox p {
 	margin-top: 0px;
@@ -213,9 +213,8 @@ footer p {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
@@ -224,7 +223,10 @@ footer p {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-
+.modal-content h5 {
+	background: #CC0000;
+	color: #FFFFFF;
+}
 /* The Close Button */
 .close {
     color: #aaa;

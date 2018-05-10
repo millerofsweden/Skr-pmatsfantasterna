@@ -28,6 +28,7 @@ function init () {
             sessionStorage.setItem("lng", lng);
                 showYourPosition(lat, lng);
         } else {
+            alert("ät skit och dö");
             location.href = "index.html";
         }
 }
