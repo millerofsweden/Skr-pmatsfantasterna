@@ -1,4 +1,3 @@
-
 //hämtar ut element från HTML-filen
 function init () {
     sessionStorage.clear();
@@ -21,13 +20,28 @@ function getLocation () {
         alert("Platsåtkomst är inte kompatibelt med din webbläsare");
     };
 }
+
 //sparar koordinaterna från geolocation i sessionstorage
 function changePageLoc (e) {
     var lat;
     var lan;
-        sessionStorage.setItem("lat", JSON.stringify(e.coords.latitude));
-        sessionStorage.setItem("lan", JSON.stringify(e.coords.longitude));
-        location.href = "results.html";
+  if (e.coords.latitude < "56.180545"){
+    alert("Tjänsten funkar inte om du inte befinner dig i Småland eller på Öland. Latitude < 56.180545.");
+    return;
+  } else if(e.coords.latitude > "57.386792"){
+      alert("Tjänsten funkar inte om du inte befinner dig i Småland eller på Öland. Latitude > 57.386792.");
+      return;
+    } else if(e.coords.longitude > "17.186522"){
+        alert("Tjänsten funkar inte om du inte befinner dig i Småland eller på Öland. Longitude > 17.186522.");
+        return;
+      } else if(e.coords.longitude < "13.235257"){
+          alert("Tjänsten funkar inte om du inte befinner dig i Småland eller på Öland. Longitude < 13.235257.");
+          return;
+        } else {
+            sessionStorage.setItem("lat", JSON.stringify(e.coords.latitude));
+            sessionStorage.setItem("lan", JSON.stringify(e.coords.longitude));
+            location.href = "results.html";
+          }
 }
 
 //sparar det som användaren skrivit i addressfältet i sessionstorage
@@ -36,7 +50,7 @@ function searchInput() {
         if (zipCode != "") {
             sessionStorage.setItem("zipCode", zipCode);
             location.href = "results.html";
-        } else {
+          } else {
             alert ("Sök på en address");
-        }
+          }
 }

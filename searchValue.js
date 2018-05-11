@@ -14,6 +14,25 @@ function searchZipcode (zipCode) {
 //funktinen hämtar ut koordinaterna från jsaon-filen och sparar värdet i variablar som sedan skickas vidare till getRestaurants
 function showZip (response) {
     var responseZip = JSON.parse(response);
+    lat1 = responseZip.results[0].geometry.location.lat;
+    lng1 = responseZip.results[0].geometry.location.lng;
+    if(lat1< "56.180545"){
+        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Latitude < 56.180545.");
+        location.href = "index.html";
+      }
+        else if(lat1 > "57.386792"){
+          alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Latitude > 57.386792.");
+          location.href = "index.html";
+        }
+          else if(lng1 > "17.186522"){
+            alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Longitude > 17.186522.");
+            location.href = "index.html";
+          }
+            else if(lng1 < "13.235257"){
+              alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Longitude < 13.235257.");
+              location.href = "index.html";
+            }
+            
         for (var i = 0; i < responseZip.results.length; i++) {
             lat = responseZip.results[i].geometry.location.lat;
             lng = responseZip.results[i].geometry.location.lng;
