@@ -33,8 +33,10 @@ function changePageLoc (e) {
 //sparar det som användaren skrivit i addressfältet i sessionstorage
 function searchInput() {
     var zipCode = document.getElementById("searchbar").value
-    sessionStorage.setItem("zipCode", zipCode);
-    location.href = "results.html";
+        if (zipCode != "") {
+            sessionStorage.setItem("zipCode", zipCode);
+            location.href = "results.html";
+        } else {
+            alert ("Sök på en address");
+        }
 }
-    
-
