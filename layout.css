@@ -7,8 +7,8 @@ header, nav, main, footer, section {display:block;}
 /* -- layout --*/
 
 body, html {
-	background-color:#fff; 
-	color:#000; 
+	background-color:#fff;
+	color:#000;
 	font-family: Rounded Elegance;
 	font-size: 10pt;
 }
@@ -17,9 +17,9 @@ body, html {
 	background-repeat: no-repeat;
     background-size: cover;
 }
-#wrapper {  
+#wrapper {
 	/* https://priteshgupta.com/2016/05/sticky-css-footer/ */
-	min-height: calc(100vh - 30px); 
+	min-height: calc(100vh - 30px);
 	padding: 0px 20px;
 }
 header {
@@ -64,8 +64,8 @@ footer p {
 /* -- innehåll -- */
 
 #pageContent {
-	max-width: 1000px; 
-	margin: 0 auto; 
+	max-width: 1000px;
+	margin: 0 auto;
 	/*text-align: center;*/
 }
 #pageContent a {
@@ -99,6 +99,7 @@ footer p {
 #filters {
 	text-align: center;
 	width: 95%;
+	height: 70px;
 	padding-bottom: 20px;
 }
 .sliderFilter, .typeFilter {
@@ -118,13 +119,20 @@ footer p {
 	height: 450px;
 	box-shadow: 3px 3px 5px grey;
 }
+.sticky {
+	position: fixed;
+	margin: 0 20px;
+	box-shadow: 3px 3px 5px grey;
+}
 #sortMenu {
 	text-align: left;
 	padding: 8px 0;
+	margin-top: 46px;
 }
 #resList {
 	list-style: none;
-	padding: 10px 0;
+	padding: 10px 0 10px 0;
+	margin: 0;
 }
 .resBox {
 	height: 80px;
@@ -135,14 +143,18 @@ footer p {
 	border-radius: 0;
 	box-shadow: 3px 3px 5px grey;
 }
-.resBox:hover {
-	background: #aaa;
-}
 #resImg {
 	height: 80px;
 	width: 30%;
 	float: left;
 	border-radius: 0;
+}
+.resBox h3 {
+	max-height: 19px;
+	overflow: hidden;
+}
+.resBox:hover {
+	background-color: rgb(223, 223, 223);
 }
 .resBox p {
 	margin-top: 0px;
@@ -213,19 +225,15 @@ footer p {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(255, 255, 255, 0.9); /* Black w/ opacity */
 }
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 8% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
-}
-.modal-content h5 {
-	background: #CC0000;
-	color: #FFFFFF;
 }
 /* The Close Button */
 .close {
@@ -234,6 +242,9 @@ footer p {
     font-size: 28px;
     font-weight: bold;
 }
+.close::before {
+	content: "\d7";
+}
 
 .close:hover,
 .close:focus {
@@ -241,10 +252,34 @@ footer p {
     text-decoration: none;
     cursor: pointer;
 }
-
+/* Slut på "lånad" kod */
+#modalMap {
+	height: 300px;
+	width: 300px;
+	margin: 20px;
+	background-color: #ccc;
+	float: left;
+}
+.modalInfo {
+	float: left;
+	width: 45%;
+	margin-top: 20px;
+}
+.modalInfo p {
+}
+.modalInfo .rating-outer, .modalInfo h3,
+.comment .rating-outer, .comment h4 {
+	display: inline;
+}
+.comment {
+	clear: both;
+	margin: 20px;
+	padding-top: 10px;
+	border-top: 1px solid black;
+}
 /* -- sökelement --*/
 #btnBackground {
-	background-color: rgba(255,255,255,0.80);
+	background-color: #fff;
 	position: relative;
 	top: 80px;
 	margin: auto;
@@ -313,6 +348,11 @@ footer p {
 	background-color: #CC0000;
 	color: #fff;
 }
+.infoContent {
+	height: 100px;
+	width: 230px;
+	font-family: Rounded Elegance;
+ }
 .button:hover, .redButton:hover {
 	background-color: #CCC;
 	-webkit-transition-duration: 0.3s; /* Safari */
@@ -325,15 +365,7 @@ footer p {
 	display: inline-block;
 	padding: 8px;
 }
- .infoContent {
-	height: 100px;
-	width: 230px;
-	font-family: Rounded Elegance;
- }
- .infoContent h3 {
-	 background-color: #CC0000;
-	 color: #FFFFFF;
- }
+
 /* -- popup -- */
 #popup {
 	font-size: 4em;

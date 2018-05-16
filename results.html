@@ -14,7 +14,7 @@
 
 <body>
 	<div id="wrapper">
-		
+
 	<header>
 		<h1 id="home">Snabbmatskartan</h1>
 		<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
@@ -27,8 +27,8 @@
 		</div>
 			<a href="about.html" id="contactBtn" class="icon-contact"></a>
 	</header>
-		
-	<main>	
+
+	<main>
 		<nav>
 		<ul>
 			<a href="index.html">Index</a>
@@ -38,7 +38,7 @@
 		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 
 			<i class="icon-back" id="backBtn"></i>
-			
+
 			<div id="pageContent">
 			<div class="column left">
 				<div id="filters">
@@ -63,33 +63,13 @@
 							<option value="vegetariskt">Vegetariskt</option>
 						</select>
 					</div>
-					
+
 					<div class="sliderFilter">
 						<p>Sökavstånd: <span id="valueDemo">5</span> km</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
 						<input type="range" min="1" max="30" value="5" id="distanceSlider">
 					</div> <!-- End sliderFilter -->
-					
-					<!-- Filter som inte ska användas
-					<div id="priceFilter" class="filter">
-						<p>min. prisklass</p>
-						<form id="priceForm">
-						<input type="radio" name="price" value="1"> 1
-						<input type="radio" name="price" value="2"> 2
-						<input type="radio" name="price" value="3" checked> 3
-						</form>
-					</div>
-					<div id="starsFilter" class="filter">
-						<p>min. stjärnor</p>
-						<form id="starsForm">
-						<input type="radio" name="stars" value="1"> 1
-						<input type="radio" name="stars" value="2"> 2
-						<input type="radio" name="stars" value="3"> 3
-						<input type="radio" name="stars" value="4"> 4
-						<input type="radio" name="stars" value="5" checked> 5
-						</form>
-					</div> -->
 				</div> <!-- End filters -->
-				
+
 				<div id="map">
 					<img alt="loading" src="pics/pizzagif.gif">
 				</div><!-- End map -->
@@ -101,47 +81,29 @@
 						<option value="lowPrice">Lägst pris</option>
 						<option value="highPrice">Högst pris</option>
 						<option value="stars">Betyg</option>
-					</select> 
+					</select>
 				</div>
-				
+
 				<ul id="resList">
-					<!-- Mall för list-punkt
-					-- li-elem. här används endast för stilsättning --
-					<li class="resBox">
-						<img id="resImg" src="test.jpg" alt="logga">
-						<div class="info">
-							<h3 class="name">Restaurangnamn</h3>
-							<p class="tags">Taggar, taggar, taggar</p>
-							-- https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450 --
-							<div class="rating-outer"><img alt="Empty stars" src="pics/emptyStar.png">
-								<div class="rating-inner"><img alt="Stars" src="pics/filledStar.png"></div>
-							</div>
-							<div class="price-outer">OOO
-								<div class="price-inner">XXX</div>
-							</div>
-						</div> -- end info-div --
-					</li> -->
 				</ul> <!-- End ul resList -->
 			</div> <!-- End column right -->
-									
+
 			<!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
 			<div id="modalBox" class="modal">
-
 			  <!-- Modal content -->
 			  <div id="modalContent" class="modal-content">
-			 	<span class="close">&times;</span>
-				<p>Some text in the Modal..</p>
-			  </div>
-
+					<div id="infoContent"></div>
+					<div id="revContent"></div>
+				</div>
 			</div>
 
 		</div> <!-- End pageContent -->
 	</main>
 	</div> <!-- End wrapper -->
-	
+
 	<footer>
 		<p>Snabbmatskartan - 2018 - Kontakt: <a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a></p>
 	</footer>
-		
+
 </body>
 </html>

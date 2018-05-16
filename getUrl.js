@@ -11,7 +11,7 @@ function init () {
     var resList = document.getElementById("resList").innerHTML = "";
     var sortMenu = document.getElementById("sortMenu");
     var homeButton = document.getElementById("home").addEventListener("click", home);
-    var modalContent = document.getElementById("modalContent");
+    //var modalContent = document.getElementById("modalContent");
   	var modal = document.getElementById("modalBox");//https://www.w3schools.com/howto/howto_css_modals.asp
   	    window.onclick = function(event) {
             if (event.target == modal) {
@@ -47,6 +47,7 @@ function showYourPosition (lat, lng) {
                 center: {lat:lat, lng:lng},
                 zoom: 13,
                 animation: google.maps.Animation.DROP,
+                gestureHandling: "greedy",
                 streetViewControl: false})
                     userMarker = new google.maps.Marker({
                     title: "Här är du",
@@ -125,17 +126,19 @@ function showRestaurants() {
                             title: resultObject[i].name,
                             clickable: true,
                             streetViewControl: false,
+                            gestureHandling: "greedy",
                             icon: "pics/burgerPin.png"});
                                 marker.setPosition({lat,lng});//tillsätter koordinater på markörerna
                                 marker.setMap(map);//sätter ut markörer för restaurangerna
                                 map.setOptions({ minZoom: 9, maxZoom: 18 });
-                                google.maps.event.addListener(marker, "click", showInfoWindow);
+                                google.maps.event.addListener(marker, "mouseover", showInfoWindow);
                                     li.appendChild(img);//lägger in img i li
                                     li.appendChild(contentDiv);//lägger in contentDiv i li
                                     li.classList.add("resBox");//tillsätter li en class
                                     resList.appendChild(li);//lägger in li i resList
                                     li.addEventListener("click", getDetailedInfo);
                                     li.addEventListener("click", getReviewInfo);
+                                    li.style.cursor = "pointer";
                                     }//stänger if
                                 }//stänger if
                             }//stänger for
@@ -152,7 +155,18 @@ function showRestaurants() {
                                 }
                             }
                         infoWindow = new google.maps.InfoWindow();
-}
+
+                            window.onscroll = function() {scroll()};
+
+                            
+                            function scroll() {
+                                console.log(scroll);
+                                var fixedMap = document.getElementById("map");
+                                var sticky = fixedMap.offsetTop;
+                                        fixedMap.classList.add("sticky");
+                        
+                        }
+                    }
 
 //funktion för att visa inforutan
 function showInfoWindow (marker, content) {
@@ -195,8 +209,12 @@ function getReviewInfo() {
         };
 }
 function getModalInfo (response) {
-    modalContent.innerHTML = "";//tömmer modalcontent för att inte fylla på med ny information
+        var infoContent = document.getElementById("infoContent");
+        infoContent.innerHTML = "";//tömmer infoContent för att fylla på med ny information
+
         var response = JSON.parse(response);
+        var lat = parseFloat(response.payload[0].lat);
+        var lng = parseFloat(response.payload[0].lng);
         var nameInfo = response.payload[0].name;//Sparar restaurangens namn
         var abstract = response.payload[0].abstract;
         var description = response.payload[0].description;
@@ -205,102 +223,144 @@ function getModalInfo (response) {
         var id = response.payload[0].id;//sparar restaurangens id
         var address = response.payload[0].address;
         var website = response.payload[0].website;//Sparar restaurangens webbsida
-        var modalbox = document.getElementById("modalBox");
-  			modalbox.style.display = "block";
-        var modalInfo = createModalElement(nameInfo, abstract, description, text, phone, address, website);
-            modalContent.appendChild(modalInfo);
-}
-
-function reviewInfo (response) {
-    var response = JSON.parse(response);
-    for (var i = 0; i < response.payload.length; i++) {
-        var name = response.payload[0].name;
-        var comment = response.payload[i].comment;
         var rating = response.payload[0].rating;
-        var time = response.payload[0].relative_time;
-    }
-        var modalInfo = createReviewElement(name, comment, rating, time);
-}
+        var modalbox = document.getElementById("modalBox");
+        modalbox.style.display = "block";
+ 
+        var closeElem = document.createElement("span");//Span för kryss-ruta (för att stänga rutan)
+            closeElem.setAttribute("class", "close");
+            addListener(closeElem, "click", function() {modalbox.style.display = "none"});
+            infoContent.appendChild(closeElem);
+ 
+        var modalMap = document.createElement("div"); //Div för karta
+            modalMap.setAttribute("id", "modalMap");
+            infoContent.appendChild(modalMap);
 
-function createModalElement (nameInfo, abstract, description, text, phone, address, website) {
+        var modalInfo = createModalElement(nameInfo, abstract, description, text, phone, address, website, rating);
+            infoContent.appendChild(modalInfo);
+            
+            map = new google.maps.Map(
+                document.getElementById("modalMap"),{
+                    center: {lat: lat, lng: lng},
+                    zoom: 16,
+                    animation: google.maps.Animation.DROP,
+                    gestureHandling: "greedy",
+                    streetViewControl: false})
+                    var marker = new google.maps.Marker({lat, lng,
+                        title: nameInfo,
+                        clickable: true,
+                        cursor: "default",
+                        icon: "pics/burgerPin.png"})
+                        marker.setPosition({lat,lng});//tillsätter koordinater på markörerna
+                        marker.setMap(map);//sätter ut markörer för restaurangerna
+                        map.setOptions({ minZoom: 9, maxZoom: 18 });
+ }
+
+ function reviewInfo (response) {
+    var revContent = document.getElementById("revContent");
+        revContent.innerHTML = "";
+    var modalReviews = document.createElement("div");
+        modalReviews.setAttribute("class", "modalReviews");
+  
+     var response = JSON.parse(response);
+     if (response.payload.length > 0) {
+         for (var i = 0; i < response.payload.length; i++) {
+             var name = response.payload[i].name;
+             var comment = response.payload[i].comment;
+             var rating = response.payload[i].rating;
+             var time = response.payload[i].relative_time;
+             var commentDiv = createReviewElement(name, comment, rating, time);
+             modalReviews.appendChild(commentDiv);
+         }
+         revContent.appendChild(modalReviews);
+      }
+      if (response.payload.length == 0) {
+        var commentDiv = document.createElement("div");
+            commentDiv.setAttribute("class", "comment");
+            commentDiv.appendChild(document.createTextNode("Tyvärr finns det inga recensioner än."));
+            revContent.appendChild(commentDiv);
+        }
+  }
+  
+  
+
+function createModalElement (nameInfo, abstract, description, text, phone, address, website, rating) {
     var modalbox = document.getElementById("modalBox");
-    var createModal = document.createElement("div");//Skapar ett div element där nedanstående information skall stå
-        createModal.setAttribute("class", "modal-content");
-
-    var closeElem = document.createElement("span");//Span för kryss-ruta (för att stänga rutan)
-        closeElem.setAttribute("class", "close");
-        addListener(closeElem, "click", function() {modalbox.style.display = "none"})
-        createModal.appendChild(closeElem);
-
-    var modalMap = document.createElement("div"); //Div för karta
-        modalMap.setAttribute("class", "modalMap");
-        createModal.appendChild(modalMap);
-
+    var ratingValue = Math.round((rating/5)*10)*10; //räknar ut betyget i procent
+ 
     var modalInfo = document.createElement("span"); //Span-elem för textinformation
         modalInfo.setAttribute("class", "modalInfo");
-        createModal.appendChild(modalInfo);
-
+        modalbox.appendChild(modalInfo);
+ 
     var nameInfoModal = document.createElement("h3");//H3 för restaurangnamn
         nameInfoModal.appendChild(document.createTextNode(nameInfo));//Skapar en textnode för h3-taggen
         modalInfo.appendChild(nameInfoModal);//Info läggs in i div-elementet
-
+ 
+    var ratingOut = document.createElement("div");
+        ratingOut.setAttribute("class", "rating-outer");
+        modalInfo.appendChild(ratingOut);
+ 
+    var ratingIn = document.createElement("div");
+        ratingIn.setAttribute("class", "rating-inner");
+        ratingIn.setAttribute("style", "width:" + ratingValue + "%");
+        ratingOut.appendChild(ratingIn);
+ 
     var descAddModal = document.createElement("p");//P-elem för beskrivning och adress
         descAddModal.appendChild(document.createTextNode(description + " - " + address));//Skapar en textnode för h5-taggen
         modalInfo.appendChild(descAddModal);//Info läggs in i div-elementet
-
+ 
     var phoneModal = document.createElement("p"); //P-elem för telefonnummer
         phoneModal.appendChild(document.createTextNode(phone));//skapar en textnode för p-taggen
         modalInfo.appendChild(phoneModal);//Info läggs in i div-elementet
-
+ 
     var websiteModal = document.createElement("p"); //P-elem för webbadress
         websiteModal.appendChild(document.createTextNode(website));
         var link = websiteModal.firstChild.data;
-        var result = link.link(link);
-        console.log(result);
-        console.log(websiteModal);
+        addListener(websiteModal,"click", function() {
+            window.open(link,"_blank")
+        });
+        websiteModal.style.cursor = "pointer";
         modalInfo.appendChild(websiteModal);//Info läggs in i div-elementet
-        websiteModal.addEventListener("click", function() {
-            location.href = link;
-        }
-    )
-
+ 
     var abstractInfoModal = document.createElement("p");//P-elem för abstrakt
         abstractInfoModal.appendChild(document.createTextNode(abstract));//Skapar en textnode för h5-taggen
         modalInfo.appendChild(abstractInfoModal);//Info läggs in i div-elementet
-
+ 
     var textModal = document.createElement("p"); //P-elem flr text
         textModal.appendChild(document.createTextNode(text));//skapar en textnode för p-taggen
         modalInfo.appendChild(textModal);//Info läggs in i div-elementet
+ 
+    return modalInfo;
+ }
 
-    var reviews = document.createElement("div");
-        reviews.setAttribute("class", "modalReviews");
-        createModal.appendChild(reviews);
+ function createReviewElement (name, comment, rating, time) {
+    var ratingValue = Math.round((rating/5)*10)*10; //räknar ut betyget i procent
 
-    var comment = document.createElement("div");
-        comment.setAttribute("class", "comment");
-        reviews.appendChild(comment);
+    var commentDiv = document.createElement("div");//Skapar ett div element där nedanstående information skall stå
+        commentDiv.setAttribute("class", "comment");
 
-    return createModal;
-}
+    var revName = document.createElement("h4");
+        revName.appendChild(document.createTextNode(name));
+        commentDiv.appendChild(revName);
 
-function createReviewElement (name, comment, rating, time) {
-    var createModal = document.createElement("div");//Skapar ett div element där nedanstående information skall stå
-        createModal.setAttribute("class", "modal-content");
+    var revRatingOut = document.createElement("div");
+        revRatingOut.setAttribute("class", "rating-outer");
+        commentDiv.appendChild(revRatingOut);
 
-    var closeElem = document.createElement("span");//Span för kryss-ruta (för att stänga rutan)
-        closeElem.setAttribute("class", "close");
-        addListener(closeElem, "click", function() {modalbox.style.display = "none"})
-        createModal.appendChild(closeElem);
-        
-    var reviews = document.createElement("div");
-        reviews.setAttribute("class", "modalReviews");
-        createModal.appendChild(reviews);
+    var revRatingIn = document.createElement("div");
+        revRatingIn.setAttribute("class", "rating-inner");
+        revRatingIn.setAttribute("style", "width:" + ratingValue + "%");
+        revRatingOut.appendChild(revRatingIn);
 
-    var comment = document.createElement("div");
-        comment.setAttribute("class", "comment");
-        reviews.appendChild(comment);
+    var revTime = document.createElement("p");
+        revTime.appendChild(document.createTextNode(time));
+        commentDiv.appendChild(revTime);
 
-    return createModal;
+    var revComment = document.createElement("p");
+        revComment.appendChild(document.createTextNode("\"" + comment + "\""));
+        commentDiv.appendChild(revComment);
+
+   return commentDiv;
 }
 
 function filter () {
@@ -316,6 +376,7 @@ function filter () {
                         center: {lat: lat, lng: lng},
                         zoom: 13,
                         streetViewControl: false,
+                        gestureHandling: "greedy",
                         icon: 'pics/burgerPin'})
                     userMarker = new google.maps.Marker({
                         title: "Här är du",
@@ -324,11 +385,14 @@ function filter () {
                             userMarker.setMap(map);
                             map.setOptions({ minZoom: 9, maxZoom: 18 });
                                 showRestaurants();
+                                if (resList.innerHTML === "") {
+                                    resList.innerHTML = "Hoppsan, din sökning gav inga träffar. Pröva att filtrera på något annat."
+                                }
 }
 //sorterar restaurangerna i den ordning som användaren valt.
 function sorting () {
     if (sortMenu.lastElementChild.value == "distance") {
-            for (var i = 0; i < objectLength; i++) {
+            for (var i = 0; i < objectLength-1; i++) {
                 if (resultObject[i].distance_in_km > resultObject[i+1].distance_in_km) {
                     var temp1 = resultObject[i];
                     var temp2 = resultObject[i+1];
