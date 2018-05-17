@@ -14,9 +14,9 @@
 
 <body class="index">
 		<div id="wrapper">
-			
+
 		<header>
-			<h1>Snabbmatskartan</h1>
+			<h1 id="home">Snabbmatskartan</h1>
 			<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
 			<div id="popup" class="popup icon-help">
 				<span id="helpPop" class="popuptext">
@@ -27,8 +27,8 @@
 			</div>
 			<a href="about.html" id="contactBtn" class="icon-contact"></a>
 		</header>
-			
-		<main>	
+
+		<main>
 			<nav>
 			<ul>
 				<a href="index.html">Index</a>
@@ -36,23 +36,26 @@
 				<a href="about.html">Kontakt</a>
 			</ul>
 			</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
-	
+
 				<div id="pageContent">
-					
+
+					<p id="locSrchTxt">Sök efter restauranger nära dig...</p>
 					<div id="btnBackground">
 						<i id="locSrchBtn" class="icon-marker"></i>
 					</div>
-	
+
 					<div id="txtSrch">
+						<p>...eller sök efter valfri adress eller stad</br>
+							i Småland och på Öland!</p>
 						<input type="text" name="address" id="searchbar"  placeholder="Gatunamn, stad, postnummer..." onkeydown = "if (event.keyCode == 13)
                         document.getElementById('txtSrchBtn').click()">
 						<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="redButton">
 					</div>
-			
+
 			</div> <!-- End pageContent -->
 		</main>
-		</div> <!-- End wrapper -->	
-		
+		</div> <!-- End wrapper -->
+
 		<footer>
 			<p>Snabbmatskartan - 2018 - Kontakt: <a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a></p>
 		</footer>

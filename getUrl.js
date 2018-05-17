@@ -1,11 +1,13 @@
-  var map;
-  var userMarker;
-  var lat;
-  var lng;
-  var resultObject = {};//Innehåller informationen som hämtas från SMAPI
-  var objectLength;
+var map;
+var userMarker;
+var lat;
+var lng;
+var resultObject = {};//Innehåller informationen som hämtas från SMAPI
+var objectLength;
+var li;
 
 function init () { 
+    var map = document.getElementById("map").style.position = "fixed";
     var distanceSlider = document.getElementById("distanceSlider").addEventListener("input", filter);//ändra till showrestaurants
     var typeList = document.getElementById("typeList").addEventListener("change", filter);//ändra till showrestaurants
     var resList = document.getElementById("resList").innerHTML = "";
@@ -36,7 +38,6 @@ window.addEventListener("load", init);
 //Får koordinater från sessionstorage och Centrerar avändarens nuvarande position. Skickar med koordinaterna till getRestaurants
 
 function home() {
-    console.log(home);
     location.href = "index.html";
 }
 function showYourPosition (lat, lng) {
@@ -125,6 +126,7 @@ function showRestaurants() {
                         var marker = new google.maps.Marker({lat, lng, content,
                             title: resultObject[i].name,
                             clickable: true,
+                            cursor: "default",
                             streetViewControl: false,
                             gestureHandling: "greedy",
                             icon: "pics/burgerPin.png"});
@@ -132,6 +134,7 @@ function showRestaurants() {
                                 marker.setMap(map);//sätter ut markörer för restaurangerna
                                 map.setOptions({ minZoom: 9, maxZoom: 18 });
                                 google.maps.event.addListener(marker, "mouseover", showInfoWindow);
+                                google.maps.event.addListener(marker, "click", getMarkerInfo);
                                     li.appendChild(img);//lägger in img i li
                                     li.appendChild(contentDiv);//lägger in contentDiv i li
                                     li.classList.add("resBox");//tillsätter li en class
@@ -155,17 +158,6 @@ function showRestaurants() {
                                 }
                             }
                         infoWindow = new google.maps.InfoWindow();
-
-                            window.onscroll = function() {scroll()};
-
-                            
-                            function scroll() {
-                                console.log(scroll);
-                                var fixedMap = document.getElementById("map");
-                                var sticky = fixedMap.offsetTop;
-                                        fixedMap.classList.add("sticky");
-                        
-                        }
                     }
 
 //funktion för att visa inforutan
@@ -175,6 +167,22 @@ function showInfoWindow (marker, content) {
     google.maps.event.addListener(map, "click", function () {
     infoWindow.close();
     });
+}
+
+function getMarkerInfo() {
+    var title = this.title;//sparar id i en ny variabbel som sedan förs in i smapi-anropet
+        lat = this.lat;//hämtar koordinat sparat i sessionstorage
+        lng = this.lng;//hämtar koordinat sparat i sessionstorage
+    var request; // Object för Ajax-anropet
+            if (XMLHttpRequest) { request = new XMLHttpRequest(); }
+            else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
+            else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
+            request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&debug=true&lat=" + lat + "&lng=" + lng, true);
+            //request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&types=food&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&sort_in=DESC&order_by=distance_in_km",true,);
+            request.send(null);
+            request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
+            if ( (request.readyState == 4) && (request.status == 200) ) getModalInfo(request.responseText);
+        };
 }
 
 function getDetailedInfo() {
@@ -211,7 +219,6 @@ function getReviewInfo() {
 function getModalInfo (response) {
         var infoContent = document.getElementById("infoContent");
         infoContent.innerHTML = "";//tömmer infoContent för att fylla på med ny information
-
         var response = JSON.parse(response);
         var lat = parseFloat(response.payload[0].lat);
         var lng = parseFloat(response.payload[0].lng);
@@ -243,6 +250,8 @@ function getModalInfo (response) {
                 document.getElementById("modalMap"),{
                     center: {lat: lat, lng: lng},
                     zoom: 16,
+                    poi: false,
+                    mapTypeId: "hybrid",
                     animation: google.maps.Animation.DROP,
                     gestureHandling: "greedy",
                     streetViewControl: false})
@@ -281,56 +290,61 @@ function getModalInfo (response) {
             revContent.appendChild(commentDiv);
         }
   }
-  
-  
 
-function createModalElement (nameInfo, abstract, description, text, phone, address, website, rating) {
-    var modalbox = document.getElementById("modalBox");
-    var ratingValue = Math.round((rating/5)*10)*10; //räknar ut betyget i procent
- 
-    var modalInfo = document.createElement("span"); //Span-elem för textinformation
+  function createModalElement (nameInfo, abstract, description, text, phone, address, website, rating) {
+    var ratingValue = Math.round((rating/5)*10)*10; //räknar ut betyget i procent, för ratingIn senare i funktionen
+
+    var modalInfo = document.createElement("span"); //Span-elem för information
         modalInfo.setAttribute("class", "modalInfo");
-        modalbox.appendChild(modalInfo);
- 
-    var nameInfoModal = document.createElement("h3");//H3 för restaurangnamn
-        nameInfoModal.appendChild(document.createTextNode(nameInfo));//Skapar en textnode för h3-taggen
-        modalInfo.appendChild(nameInfoModal);//Info läggs in i div-elementet
- 
-    var ratingOut = document.createElement("div");
-        ratingOut.setAttribute("class", "rating-outer");
+
+    var nameElem = document.createElement("h3"); //H3-tagg för restaurangnamn
+        nameElem.appendChild(document.createTextNode(nameInfo)); //Lägger in namnet i H3 taggen
+        modalInfo.appendChild(nameElem); //Lägger h3-taggen/noden i span-elementet modalInfo
+
+    var ratingOut = document.createElement("div"); //Div-element för betyg/stjärnor
+        ratingOut.setAttribute("class", "rating-outer"); //Tomma stjärnor, dessa täcks över med ifyllda beroende betyget
         modalInfo.appendChild(ratingOut);
- 
-    var ratingIn = document.createElement("div");
-        ratingIn.setAttribute("class", "rating-inner");
-        ratingIn.setAttribute("style", "width:" + ratingValue + "%");
-        ratingOut.appendChild(ratingIn);
- 
-    var descAddModal = document.createElement("p");//P-elem för beskrivning och adress
-        descAddModal.appendChild(document.createTextNode(description + " - " + address));//Skapar en textnode för h5-taggen
-        modalInfo.appendChild(descAddModal);//Info läggs in i div-elementet
- 
-    var phoneModal = document.createElement("p"); //P-elem för telefonnummer
-        phoneModal.appendChild(document.createTextNode(phone));//skapar en textnode för p-taggen
-        modalInfo.appendChild(phoneModal);//Info läggs in i div-elementet
- 
-    var websiteModal = document.createElement("p"); //P-elem för webbadress
-        websiteModal.appendChild(document.createTextNode(website));
-        var link = websiteModal.firstChild.data;
-        addListener(websiteModal,"click", function() {
-            window.open(link,"_blank")
-        });
-        websiteModal.style.cursor = "pointer";
-        modalInfo.appendChild(websiteModal);//Info läggs in i div-elementet
- 
-    var abstractInfoModal = document.createElement("p");//P-elem för abstrakt
-        abstractInfoModal.appendChild(document.createTextNode(abstract));//Skapar en textnode för h5-taggen
-        modalInfo.appendChild(abstractInfoModal);//Info läggs in i div-elementet
- 
-    var textModal = document.createElement("p"); //P-elem flr text
-        textModal.appendChild(document.createTextNode(text));//skapar en textnode för p-taggen
-        modalInfo.appendChild(textModal);//Info läggs in i div-elementet
- 
-    return modalInfo;
+
+    var ratingIn = document.createElement("div"); //Div-element för betyg/stjärnor
+        ratingIn.setAttribute("class", "rating-inner"); //rating-inner är ifyllda stjärnor som ligger ovanpå rating-outer
+        ratingIn.setAttribute("style", "width:" + ratingValue + "%"); //Width bestämt av betyget (default är width 0). Eg. ett betyg på 2.5 är 50%, allstå 2,5 stjärnor
+        ratingOut.appendChild(ratingIn); //ratingIn-noden läggs under rating-outer, för att ligga ovanpå.
+
+    var descElem = document.createElement("p"); //P-tagg för beskrivning, typ av restaurang
+        descElem.setAttribute("class", "description"); //Klass för stilsättning
+        descElem.appendChild(document.createTextNode(description));
+        modalInfo.appendChild(descElem);
+
+    if (website !== "") { //Skapar endast webElem om det finns en URL
+    var webElem = document.createElement("a"); //P-elem för webbadress
+        webElem.href = website;
+        webElem.title = website;
+        webElem.target = "_blank";
+        webElem.appendChild(document.createTextNode("Restaurangens webbplats"));
+        modalInfo.appendChild(webElem);//Info läggs in i div-elementet
+      };
+
+    var addElem = document.createElement("p");//P-tagg för gatuadress
+        addElem.setAttribute("class", "address"); //Klass för stilsättning
+        addElem.appendChild(document.createTextNode(address));
+        modalInfo.appendChild(addElem);
+
+    var phoneElem = document.createElement("p"); //P-tagg för telefonnummer
+        phoneElem.setAttribute("class", "phone"); //klass för stilsättning
+        phoneElem.appendChild(document.createTextNode(phone));
+        modalInfo.appendChild(phoneElem);
+
+    var abstElem = document.createElement("p");//P-tagg för abstrakt/beskrivning
+        abstElem.setAttribute("class", "abstract");
+        abstElem.appendChild(document.createTextNode(abstract));
+        modalInfo.appendChild(abstElem);
+
+    var textElem = document.createElement("p"); //P-tagg för text
+        textElem.setAttribute("class", "text");
+        textElem.appendChild(document.createTextNode(text));
+        modalInfo.appendChild(textElem);
+
+    return modalInfo; //Skickar tillbaka informationen till func. getModalInfo
  }
 
  function createReviewElement (name, comment, rating, time) {
