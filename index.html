@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="sv">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Startida</title>
@@ -9,11 +10,11 @@
 	<script type="text/javascript" src="searchValue.js"></script>
 	<script type="text/javascript" src="indexscript.js"></script>
 	<script type="text/javascript" src="smallFunctions.js"></script>
-    <script type="text/javascript" src="events.js"></script>
+	<script type="text/javascript" src="events.js"></script>
 </head>
 
 <body class="index">
-		<div id="wrapper">
+	<div id="wrapper">
 
 		<header>
 			<h1 id="home">Snabbmatskartan</h1>
@@ -21,43 +22,51 @@
 			<div id="popup" class="popup icon-help">
 				<span id="helpPop" class="popuptext">
 					<h3>Välkommen till Skräpmatsfantasterna!</h3>
-					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta
+						restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
 					<p>(Klicka igen för att stänga)</p>
-				</span> <!-- popup fönster -->
+				</span>
+				<!-- popup fönster -->
 			</div>
 			<a href="about.html" id="contactBtn" class="icon-contact"></a>
 		</header>
 
 		<main>
 			<nav>
-			<ul>
-				<a href="index.html">Index</a>
-				<a href="results.html">Resultat</a>
-				<a href="about.html">Kontakt</a>
-			</ul>
-			</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
+				<ul>
+					<a href="index.html">Index</a>
+					<a href="results.html">Resultat</a>
+					<a href="about.html">Kontakt</a>
+				</ul>
+			</nav>
+			<!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 
-				<div id="pageContent">
+			<div id="pageContent">
 
-					<p id="locSrchTxt">Sök efter restauranger nära dig...</p>
-					<div id="btnBackground">
-						<i id="locSrchBtn" class="icon-marker"></i>
-					</div>
+				<p id="locSrchTxt">Sök efter restauranger nära dig...</p>
+				<div id="btnBackground">
+					<i id="locSrchBtn" class="icon-marker"></i>
+				</div>
 
-					<div id="txtSrch">
-						<p>...eller sök efter valfri adress eller stad</br>
-							i Småland och på Öland!</p>
-						<input type="text" name="address" id="searchbar"  placeholder="Gatunamn, stad, postnummer..." onkeydown = "if (event.keyCode == 13)
+				<div id="txtSrch">
+					<p>...eller sök efter valfri adress eller stad</br>
+						i Småland och på Öland!</p>
+					<input type="text" name="address" id="searchbar" placeholder="Gatunamn, stad, postnummer..." onkeydown="if (event.keyCode == 13)
                         document.getElementById('txtSrchBtn').click()">
-						<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="redButton">
-					</div>
+					<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="redButton">
+				</div>
 
-			</div> <!-- End pageContent -->
+			</div>
+			<!-- End pageContent -->
 		</main>
-		</div> <!-- End wrapper -->
+	</div>
+	<!-- End wrapper -->
 
-		<footer>
-			<p>Snabbmatskartan - 2018 - Kontakt: <a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a></p>
-		</footer>
-	</body>
-	</html>
+	<footer>
+		<p>Snabbmatskartan - 2018 - Kontakt:
+			<a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a>
+		</p>
+	</footer>
+</body>
+
+</html>

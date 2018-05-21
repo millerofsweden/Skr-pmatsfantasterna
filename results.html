@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="sv">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Resultat</title>
@@ -15,96 +16,111 @@
 <body>
 	<div id="wrapper">
 
-	<header>
-		<h1 id="home">Snabbmatskartan</h1>
-		<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
-		<div id="popup" class="popup icon-help">
+		<header>
+			<h1 id="home">Snabbmatskartan</h1>
+			<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
+			<div id="popup" class="popup icon-help">
 				<div id="helpPop" class="popuptext">
-				<h3>Välkommen till Skräpmatsfantasterna!</h3>
-				<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
-				<p>(Klicka igen för att stänga)</p>
-			</div> <!-- popup fönster -->
-		</div>
+					<h3>Välkommen till Skräpmatsfantasterna!</h3>
+					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta
+						restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
+					<p>(Klicka igen för att stänga)</p>
+				</div>
+				<!-- popup fönster -->
+			</div>
 			<a href="about.html" id="contactBtn" class="icon-contact"></a>
-	</header>
+		</header>
 
-	<main>
-		<nav>
-		<ul>
-			<a href="index.html">Index</a>
-			<a href="results.html">Resultat</a>
-			<a href="about.html">Kontakt</a>
-		</ul>
-		</nav><!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
+		<main>
+			<nav>
+				<ul>
+					<a href="index.html">Index</a>
+					<a href="results.html">Resultat</a>
+					<a href="about.html">Kontakt</a>
+				</ul>
+			</nav>
+			<!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 
 			<i class="icon-back" id="backBtn"></i>
 
 			<div id="pageContent">
-			<div class="column left">
-				<div id="filters">
-					<div class="typeFilter">
-						<p>Välj typ av mat</p>
-						<select id="typeList">
-							<option value="Valj mattyp..." selected>Välj mattyp...</option>
-							<option value="falafel">Falafel</option>
-							<option value="fisk">Fisk</option>
-							<option value="gyros">Gyros</option>
-							<option value="hamburgare">Hamburgare</option>
-							<option value="kebab">Kebab</option>
-							<option value="kinesiskt">Kinesiskt</option>
-							<option value="korv">Korv</option>
-							<option value="kyckling">Kyckling</option>
-							<option value="pasta">Pasta</option>
-							<option value="pizza">Pizza</option>
-							<option value="sallad">Sallad</option>
-							<option value="sushi">Sushi</option>
-							<option value="thai">Thai</option>
-							<option value="veganskt">Veganskt</option>
-							<option value="vegetariskt">Vegetariskt</option>
-						</select>
-					</div>
+				<div id="leftColumn" class="left">
+					<div id="filters">
+						<div class="typeFilter">
+							<p>Välj typ av mat</p>
+							<select id="typeList">
+								<option value="Valj mattyp..." selected>Välj mattyp...</option>
+								<option value="falafel">Falafel</option>
+								<option value="fisk">Fisk</option>
+								<option value="gyros">Gyros</option>
+								<option value="hamburgare">Hamburgare</option>
+								<option value="kebab">Kebab</option>
+								<option value="kinesiskt">Kinesiskt</option>
+								<option value="korv">Korv</option>
+								<option value="kyckling">Kyckling</option>
+								<option value="pasta">Pasta</option>
+								<option value="pizza">Pizza</option>
+								<option value="sallad">Sallad</option>
+								<option value="sushi">Sushi</option>
+								<option value="thai">Thai</option>
+								<option value="veganskt">Veganskt</option>
+								<option value="vegetariskt">Vegetariskt</option>
+							</select>
+						</div>
 
-					<div class="sliderFilter">
-						<p>Sökavstånd: <span id="valueDemo">5</span> km</p> <!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
-						<input type="range" min="1" max="30" value="5" id="distanceSlider">
-					</div> <!-- End sliderFilter -->
-				</div> <!-- End filters -->
+						<div class="sliderFilter">
+							<p>Sökavstånd:
+								<span id="valueDemo">5</span> km</p>
+							<!-- JS funktion för att visa värdet på slidern finns i Lisas JS-fil -->
+							<input type="range" min="1" max="30" value="5" id="distanceSlider">
+						</div>
+						<!-- End sliderFilter -->
+					</div>
+					<!-- End filters -->
 
 					<div id="map">
 						<img alt="loading" src="pics/pizzagif.gif">
-					</div><!-- End map -->
-					
-			</div> <!-- End column left -->
-			<div class="column right">
-				<div id="sortMenu"> Sortera:
-					<select onchange="sorting(lat, lng)" id="sortingDropDown">
-						<option value="distance" selected>Avstånd</option>
-						<option value="lowPrice">Lägst pris</option>
-						<option value="highPrice">Högst pris</option>
-						<option value="stars">Betyg</option>
-					</select>
+					</div>
+					<!-- End map -->
+				</div>
+				<!-- End column left -->
+				<div id="rightColumn" class="right">
+					<div id="sortMenu"> Sortera:
+						<select onchange="sorting(lat, lng)" id="sortingDropDown">
+							<option value="distance" selected>Avstånd</option>
+							<option value="lowPrice">Lägst pris</option>
+							<option value="highPrice">Högst pris</option>
+							<option value="stars">Betyg</option>
+						</select>
+					</div>
+
+					<ul id="resList">
+					</ul>
+					<!-- End ul resList -->
+				</div>
+				<!-- End column right -->
+
+				<!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
+				<div id="modalBox" class="modal">
+					<!-- Modal content -->
+					<div id="modalContent" class="modal-content">
+						<div id="infoContent"></div>
+						<div id="revContent"></div>
+					</div>
 				</div>
 
-				<ul id="resList">
-				</ul> <!-- End ul resList -->
-			</div> <!-- End column right -->
-
-			<!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
-			<div id="modalBox" class="modal">
-			  <!-- Modal content -->
-			  <div id="modalContent" class="modal-content">
-					<div id="infoContent"></div>
-					<div id="revContent"></div>
-				</div>
 			</div>
-
-		</div> <!-- End pageContent -->
-	</main>
-	</div> <!-- End wrapper -->
+			<!-- End pageContent -->
+		</main>
+	</div>
+	<!-- End wrapper -->
 
 	<footer>
-		<p>Snabbmatskartan - 2018 - Kontakt: <a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a></p>
+		<p>Snabbmatskartan - 2018 - Kontakt:
+			<a href="mailto:lw222me@student.lnu.se">info@snabbmatskartan.se</a>
+		</p>
 	</footer>
 
 </body>
+
 </html>

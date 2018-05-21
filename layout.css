@@ -64,10 +64,10 @@ footer p {
 #pageContent {
 	max-width: 1000px;
 	margin: 0 auto;
-	position: relative;
 }
 #pageContent a {
 	color: #C10037;
+	position: relative;
 }
 #contactBtn {
 	font-size: 4em;
@@ -77,20 +77,34 @@ footer p {
 	right: 90px;
 	top: 10px;
 }
-
 .contactInfo {
 	max-width: 400px;
 	margin: 0 auto;
 }
 /* -- Layout på results.html --*/
-.column {
-	float: left;
+.right {
+	position: relative;
+	left: 60%;
+	bottom: 490px;
+	width: 40%;
 }
-.column.left {
-	width: 55%;
+.left {
+	position: relative;
+	width: 60%;
 }
-.column.right {
-	width: 45%;
+.left.fixed {
+	position: fixed;
+	width: 600px;
+	top: 20px;
+	transition: top 0.5s;
+}
+.right.fixed {
+	bottom: 0;
+}
+#map {
+	margin: 0 20px;
+	height: 400px;
+	box-shadow: 3px 3px 5px grey;
 }
 #filters {
 	text-align: center;
@@ -110,20 +124,7 @@ footer p {
 .typeFilter {
 	width: 150px;
 }
-/*#fixedElem {
-	position: absolute;
-	top:
-}*/
-#map {
-	margin: 0 20px;
-	height: 450px;
-	box-shadow: 3px 3px 5px grey;
-}
-/*.sticky {
-	position: fixed;
-	margin: 0 20px;
-	box-shadow: 3px 3px 5px grey;
-}*/
+
 #sortMenu {
 	text-align: left;
 	padding: 8px 0;
@@ -427,3 +428,4 @@ footer p {
     from {opacity: 0;}
     to {opacity:1 ;}
 }
+/* -- MediaQueries / Responsiv design --*/

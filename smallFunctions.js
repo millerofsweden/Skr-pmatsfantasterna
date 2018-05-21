@@ -1,10 +1,11 @@
-function init(){
+function init() {
+    var homeButton = document.getElementById("home").addEventListener("click", home);
 	var backBut = document.getElementById("backBtn");//tillbakaknapp
 	if (backBut != null) {//vid tryck på tillbakaknappen anropas funktion backFunc
-		backBut.addEventListener ("click", backFunc);
+		backBut.addEventListener("click", backFunc);
 	}
 	var popUp = document.getElementById("popup");
-		popUp.addEventListener("click", popUpFunc);
+	popUp.addEventListener("click", popUpFunc);
 }
 window.addEventListener("load", init);
 
@@ -15,15 +16,19 @@ function backFunc() {
 //Funktion för att visa popupfönster
 function popUpFunc() {
 	var popup;
-		popup = document.getElementById("helpPop");
-		popup.classList.toggle("show");
+	popup = document.getElementById("helpPop");
+	popup.classList.toggle("show");
 }
 
-function about () {
+function about() {
 	var about = document.getElementById("contactBtn");
-		about.addEventListener("click", aboutPage);
+	about.addEventListener("click", aboutPage);
 }
 
 function aboutPage() {
 	location.href = "about.html";
+}
+
+function home() {
+	location.href = "index.html";
 }
