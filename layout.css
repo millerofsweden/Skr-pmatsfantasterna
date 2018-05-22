@@ -171,11 +171,11 @@ footer p {
 }
 .resBox:hover {
 	background-color: rgb(223, 223, 223);
-	-webkit-transition-duration: 0.3s; /* Safari */
+	-webkit-transition-duration: 0.2s; /* Safari */
 	transition-duration: 0.2s;
 }
 .resBox:not( :hover ){
-	-webkit-transition-duration: 0.3s; /* Safari */
+	-webkit-transition-duration: 0.2s; /* Safari */
 	transition-duration: 0.2s;
 }
 .resBox p {
