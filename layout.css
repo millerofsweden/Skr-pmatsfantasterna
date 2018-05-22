@@ -9,13 +9,14 @@ header, nav, main, footer, section {display:block;}
 body, html {
 	background-color:#fff;
 	color:#000;
-	font-family: Rounded elegance, Helvetica, verdana;
+	font-family: Helvetica, verdana;
 	font-size: 10pt;
 }
 .index {
 	background-image: url(pics/back1.jpg);
 	background-repeat: no-repeat;
   background-size: cover;
+	background-attachment: fixed;
 }
 #wrapper {
 	/* Wrapper anpassad för footer. Källa för footer-exempel: https://priteshgupta.com/2016/05/sticky-css-footer/ */
@@ -28,22 +29,19 @@ header {
 	margin: 0 -20px;
 	height: 65px;
 }
-header h1 {
-	color: #FFF;
-	font-size: 3em;
-	font-weight: 400;
+#home {
+	height: 85px;
 	position: absolute;
-	top: -15px;
+	top: 0;
 }
-header h5 {
-	color: #FFF;
-	font-size: 1.2em;
-	font-weight: 400;
-	position: relative;
-	top: 20px;
+header h1, header h5 {
+	display: none;
 }
 nav {
 	display: none;
+}
+main {
+
 }
 footer {
 	clear: both;
@@ -63,19 +61,28 @@ footer p {
 }
 #pageContent {
 	max-width: 1000px;
+	height: 100%;
 	margin: 0 auto;
+}
+.background {
+	background-color: rgba(256,256,256,0.93);
+	min-height: calc(100vh - 115px);
 }
 #pageContent a {
 	color: #C10037;
 	position: relative;
 }
 #contactBtn {
-	font-size: 4em;
+	font-size: 3.5em;
 	color: #fff;
 	text-decoration: none;
 	position: absolute;
-	right: 90px;
-	top: 10px;
+	right: 10px;
+	top: 20px;
+}
+#contactBtn:not( :hover ){
+	-webkit-transition-duration: 0.3s; /* Safari */
+	transition-duration: 0.3s;
 }
 .contactInfo {
 	max-width: 400px;
@@ -94,23 +101,24 @@ footer p {
 }
 .left.fixed {
 	position: fixed;
-	width: 600px;
+	height: 400px;
+	max-width: 600px;
+	margin-right: 20px;
 	top: 20px;
-	transition: top 0.5s;
 }
 .right.fixed {
 	bottom: 0;
 }
 #map {
-	margin: 0 20px;
+	margin-left: 20px;
 	height: 400px;
 	box-shadow: 3px 3px 5px grey;
 }
 #filters {
 	text-align: center;
-	width: 95%;
 	height: 70px;
 	padding-bottom: 20px;
+	margin: 0 auto;
 }
 .sliderFilter, .typeFilter {
 	display: inline-block;
@@ -126,13 +134,15 @@ footer p {
 }
 
 #sortMenu {
-	text-align: left;
-	padding: 8px 0;
-	margin-top: 46px;
+	text-align: right;
+	height: 30px;
+	margin-top: 40px;
+	margin-right: 20px;
+	padding-bottom: 20px;
 }
 #resList {
 	list-style: none;
-	padding: 10px 0 10px 0;
+	padding: 0 20px;
 	margin: 0;
 }
 
@@ -146,6 +156,7 @@ footer p {
 	border-width: thin;
 	border-radius: 0;
 	box-shadow: 3px 3px 5px grey;
+	background-color: #fff;
 }
 #resImg {
 	height: 80px;
@@ -155,10 +166,17 @@ footer p {
 }
 .resBox h3 {
 	max-height: 19px;
+	padding-right: 10px;
 	overflow: hidden;
 }
 .resBox:hover {
 	background-color: rgb(223, 223, 223);
+	-webkit-transition-duration: 0.3s; /* Safari */
+	transition-duration: 0.2s;
+}
+.resBox:not( :hover ){
+	-webkit-transition-duration: 0.3s; /* Safari */
+	transition-duration: 0.2s;
 }
 .resBox p {
 	margin-top: 0px;
@@ -206,7 +224,7 @@ footer p {
 	content: "\65 \65 \65 \65 \65";
 }
 .price-outer {
-	left: 50px;
+	left: 30px;
 }
 .price-outer::before {
 	color: #ccc;
@@ -256,6 +274,7 @@ footer p {
     text-decoration: none;
     cursor: pointer;
 }
+
 /* Slut på kod från modal-exempel */
 #modalMap {
 	height: 300px;
@@ -326,6 +345,10 @@ footer p {
 	transition-duration: 0.3s;
 	cursor: pointer;
 }
+#locSrchBtn:not( :hover ){
+	-webkit-transition-duration: 0.3s; /* Safari */
+	transition-duration: 0.3s;
+}
 #txtSrch {
 	text-align: center;
 	position: relative;
@@ -356,23 +379,33 @@ footer p {
 	transition-duration: 0.3s;
 	cursor: pointer;
 }
+#txtSrchBtn:not( :hover ){
+	-webkit-transition-duration: 0.3s; /* Safari */
+	transition-duration: 0.3s;
+}
 
 /* -- Övriga stilsättningar -- */
 #backBtn {
 	position: relative;
 	color: #cc0000;
-	top: 10px;
-	font-size: 4em;
+	top: 20px;
+	left: 20px;
+	font-size: 3.5em;
 	height: 40px;
 }
 #backBtn:hover {
 	cursor: pointer;
 	color:#FF0000;
+	-webkit-transition-duration: 0.2s; /* Safari */
+	transition-duration: 0.2s;
+}
+#backBtn:not( :hover ){
+	-webkit-transition-duration: 0.2s; /* Safari */
+	transition-duration: 0.2s;
 }
 #home {
 	cursor: pointer;
 }
-
 /* -- infoWindow (infobox på kartan) -- */
 .infoWindow {
 	background-color: rgba(217,63,200,1.00);
@@ -387,38 +420,48 @@ footer p {
 
 /* -- Stilsättning på popup-rutan -- */
 #popup {
-	font-size: 4em;
+	font-size: 3.5em;
 	color: #fff;
 	position: absolute;
-	top: 10px;
-	right: 150px;
-    display: inline-block;
-    cursor: pointer;
+	top: 20px;
+	right: 65px;
+  display: inline-block;
+  cursor: pointer;
 }
 #popup:hover, #contactBtn:hover {
 	color: #ffb3b3;
 	-webkit-transition-duration: 0.3s; /* Safari */
 	transition-duration: 0.3s;
 }
+.popup:not( :hover ){
+	-webkit-transition-duration: 0.3s; /* Safari */
+	transition-duration: 0.3s;
+}
+
 .popuptext {
-	font-size: 12pt;
+	font-size: 10pt;
 	visibility: hidden;
-    width: 200px;
+  width: 200px;
 	padding: 10px 15px;
-    background-color: #cc0000;
-    color: #fff;
-    text-align: left;
-    border-radius: 15px;
+  background-color: #cc0000;
+  color: #fff;
+  text-align: left;
+  border-radius: 15px;
 	z-index: 1;
-    position: absolute;
-	right: -130px;
-    top: 80px;
+  position: absolute;
+	right: -20px;
+  top: 80px;
 }
 .popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 0.5s;
     animation: fadeIn 0.5s;
 }
+.popup:not( :show ){
+	-webkit-transition-duration: 0.3s; /* Safari */
+	transition-duration: 0.3s;
+}
+
 @-webkit-keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
