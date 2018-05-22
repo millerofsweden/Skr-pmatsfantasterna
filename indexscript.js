@@ -5,11 +5,18 @@ function init() {
     yourPosition.addEventListener("click", getLocation);
     var searchBut = document.getElementById("txtSrchBtn");
     searchBut.addEventListener("click", searchInput);
-    var popUp = document.getElementById("popup");
-    popUp.addEventListener("click", popUpFunc);
 
+    var showTxtSrch = document.getElementById("showTxtSrch");
+    showTxtSrch.addEventListener("click", showSrch);
 }
 window.addEventListener("load", init);
+
+//visar textsökfältet
+function showSrch() {
+    var txtSrch = document.getElementById("txtSrch");
+    txtSrch.classList.toggle("showSrch");
+    txtSrch.classList.toggle("hideSrch");
+}
 
 //Hämtar användarens nuvarande position
 function getLocation() {

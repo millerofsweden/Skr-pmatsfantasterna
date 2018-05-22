@@ -3,11 +3,10 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="keywords" content="Snabbmat, Växjö, Öland">
-	<meta name="description" content="Karta över snabbmatsrestauranger i Småland och på Öland">
-	<title>Snabbmatskartan</title>
+	<title>Startida</title>
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<link rel="stylesheet" type="text/css" href="mycons/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
 	<script type="text/javascript" src="searchValue.js"></script>
 	<script type="text/javascript" src="indexscript.js"></script>
@@ -23,9 +22,9 @@
 			<h1>Snabbmatskartan</h1>
 			<h5>- Hitta restauranger nära dig i Småland och på Öland</h5>
 			<div id="popup" class="popup icon-help">
-				<span id="helpPop" class="popuptext">
-					<h3>Välkommen till Snabbmatsfantasterna!</h3>
-					<p>På den här sidan kan du hitta snabbmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta
+				<span id="helpPop" class="popuptext hide">
+					<h3>Välkommen till Skräpmatsfantasterna!</h3>
+					<p>På den här sidan kan du hitta skräpmatsrestauranger i hela Småland och Öland! Använd vår smarta sökfunktion och hitta
 						restauranger nära dig eller sök på en valfri adress i Småland eller Öland.</p>
 					<p>(Klicka igen för att stänga)</p>
 				</span>
@@ -45,17 +44,14 @@
 			<!-- Ska kolla upp om nav behövs, eventuellt ta bort -->
 
 			<div id="pageContent">
-
-				<p id="locSrchTxt">Sök efter restauranger nära dig...</p>
-				<div id="btnBackground">
-					<i id="locSrchBtn" class="icon-marker"></i>
+				<div id="srchBtns">
+					<p class="btnBackground" id="locSrchBtn">Sök plats</p>
+					<p class="btnBackground" id="showTxtSrch">Sök text</p>
 				</div>
 
-				<div id="txtSrch">
-					<p>...eller sök efter valfri adress eller stad</br>
-						i Småland och på Öland!</p>
+				<div id="txtSrch" class="hideSrch">
 					<input type="text" name="address" id="searchbar" placeholder="Gatunamn, stad, postnummer..." onkeydown="if (event.keyCode == 13)
-                        document.getElementById('txtSrchBtn').click()">
+												document.getElementById('txtSrchBtn').click()">
 					<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="redButton">
 				</div>
 

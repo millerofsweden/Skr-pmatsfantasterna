@@ -1,10 +1,13 @@
 function init() {
-    var homeButton = document.getElementById("home").addEventListener("click", home);
+	var about = document.getElementById("contactBtn");
+	about.setAttribute("title", "Om oss");
+	var homeButton = document.getElementById("home").addEventListener("click", home);
 	var backBut = document.getElementById("backBtn");//tillbakaknapp
 	if (backBut != null) {//vid tryck på tillbakaknappen anropas funktion backFunc
 		backBut.addEventListener("click", backFunc);
 	}
 	var popUp = document.getElementById("popup");
+	popup.setAttribute("title", "Klicka för hjälp");
 	popUp.addEventListener("click", popUpFunc);
 }
 window.addEventListener("load", init);
@@ -18,10 +21,10 @@ function popUpFunc() {
 	var popup;
 	popup = document.getElementById("helpPop");
 	popup.classList.toggle("show");
+	popup.classList.toggle("hide");
 }
 
 function about() {
-	var about = document.getElementById("contactBtn");
 	about.addEventListener("click", aboutPage);
 }
 

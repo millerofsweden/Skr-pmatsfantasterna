@@ -11,7 +11,7 @@ function searchZipcode(zipCode) {
     };
 }
 
-//funktinen hämtar ut koordinaterna från jsaon-filen och sparar värdet i variablar som sedan skickas vidare till getRestaurants
+//funktionen hämtar ut koordinaterna från jsaon-filen och sparar värdet i variablar som sedan skickas vidare till getRestaurants
 function showZip(response) {
     var responseZip = JSON.parse(response);
     lat1 = responseZip.results[0].geometry.location.lat;
@@ -41,7 +41,7 @@ function showZip(response) {
         map = new google.maps.Map(
             document.getElementById("map"), {
                 center: { lat: lat, lng: lng },
-                zoom: 12,
+                zoom: 13,
                 streetViewControl: false,
                 gestureHandling: "greedy",
                 icon: "pics/burgerPin.png"
@@ -57,5 +57,3 @@ function showZip(response) {
         getRestaurants(lat, lng);
     };
 }
-
-
