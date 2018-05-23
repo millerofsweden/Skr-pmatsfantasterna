@@ -528,26 +528,36 @@ select {
 }
 /* -- MediaQueries / Responsiv design --*/
 @media only screen and (max-width: 1200px) {
- .index{
+ #resultsIndex{
 	 background-image: none;/*Gör så att den inte tas bort på index.html*/
  }
  #pageContent{
-	 max-width:100%;
+
  }
 }
-@media only screen and (max-width: 870px) {
- .index{
+@media only screen and (max-width: 870px) {/*Kartan måste sluta följa med här, löser man det i JS?*/
+ #resultsIndex, #aboutIndex{
 	 background-image: none;
  }
- #pageContent{
-	 max-width:100%;
- }
+header{
+	content: url("pics/asian.gif");
+}
+#helpPop{
+	position: fixed;
+}
+.btnBackground{
+	display: flex;
+}
+.resImg{
+	max-width: 100%;
+	display: flex;
+}
  .left{
 	 position: static;
 	 align: center;
 	 width: 100%;
  }
- .right{
+ .right{/*Måste ha vit bakgrund på första sidan*/
 	 position: static;
 	 align: center;
 	 width: 100%;
@@ -576,4 +586,9 @@ select {
 			top: 95px;
 			color: #cc0000;
 		}
+}
+@media only screen and (max-width: 345px) {
+	#map{
+		/* kartan täcker slidern vid den här storleken*/
+	}
 }
