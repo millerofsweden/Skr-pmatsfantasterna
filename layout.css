@@ -34,7 +34,7 @@ header {
 	position: absolute;
 	top: 0;
 }
-header h1, header h5 {
+header h1, header h2 {
 	display: none;
 }
 nav {
@@ -446,7 +446,7 @@ footer p {
 .slider::-moz-range-thumb { /*Taget från:https://www.w3schools.com/howto/howto_js_rangeslider.asp*/
     width: 15px; /* Set a specific slider handle width */
     height: 15px; /* Slider handle height */
-    background: #4CAF50; /* Green background */
+    background: #cc0000; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
 select {
@@ -581,8 +581,21 @@ header img {
 			top: 95px;
 			color: #cc0000;
 		}
+		.resBox {
+			margin: 0 auto;
+			margin-bottom: 20px;
+		}
 }
-@media only screen and (max-width: 345px) {
+@media only screen and (max-width: 360px) {
+	#filters {
+		margin-bottom: 80px;
+	}
+	.rating-outer, .price-outer {
+		font-size: 1em;
+	}
+	.price-outer {
+		left: 15px;
+	}
 	#map{
 		/* kartan täcker slidern vid den här storleken*/
 	}
