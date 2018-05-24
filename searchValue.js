@@ -18,19 +18,19 @@ function showZip(response) {
     lat1 = responseZip.results[0].geometry.location.lat;
     lng1 = responseZip.results[0].geometry.location.lng;
     if (lat1 < "56.180545") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Latitude < 56.180545.");
+        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
         location.href = "index.html";
     }
     else if (lat1 > "57.386792") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Latitude > 57.386792.");
+        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
         location.href = "index.html";
     }
     else if (lng1 > "17.186522") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Longitude > 17.186522.");
+        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
         location.href = "index.html";
     }
     else if (lng1 < "13.235257") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland. Longitude < 13.235257.");
+        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
         location.href = "index.html";
     }
 
@@ -44,7 +44,6 @@ function showZip(response) {
                 center: { lat: lat, lng: lng },
                 zoom: 13,
                 streetViewControl: false,
-                gestureHandling: "greedy",
                 icon: "pics/burgerPin.png"
             })
         userMarker = new google.maps.Marker({

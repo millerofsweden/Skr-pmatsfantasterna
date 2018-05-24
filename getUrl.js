@@ -42,14 +42,14 @@ function init() {
     } else {
         location.href = "index.html";
     }
-    addListener(window, "scroll", fixedMap);//Om användaren scrollar anropas funktion för fixed-map
+    window.addEventListener("scroll", fixedMap);//Om användaren scrollar anropas funktion för fixed-map
 }
 window.addEventListener("load", init);
 //Fixerar kartan när användaren scrollar neråt
 function fixedMap() {
     var left = document.getElementById("leftColumn");
     var right = document.getElementById("rightColumn");
-    var topPosition = left.offsetTop + 75;
+    var topPosition = left.offsetTop + 37.5;
 
     if (window.matchMedia("(max-width: 870px)").matches) {
         left.classList.remove("fixed");
@@ -82,7 +82,6 @@ function showYourPosition(lat, lng) {
                 ]
             }],
             animation: google.maps.Animation.DROP,
-            gestureHandling: "greedy",
             streetViewControl: false
         })
     userMarker = new google.maps.Marker({
@@ -133,8 +132,10 @@ function restaurantObject(response) {
 }//End restaurantObject
 //Hämtar ut information om restaurangerna för att presentera den på sidan
 function showRestaurants() {
-    var i;
-    var l;
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
     var tagList = "";
     var resList = document.getElementById("resList").innerHTML = "";
     var typeList = document.getElementById("typeList").value;
@@ -167,7 +168,6 @@ function showRestaurants() {
                     clickable: true,
                     store_id: id,
                     streetViewControl: false,
-                    gestureHandling: "greedy",
                     animation: google.maps.Animation.DROP,
                     icon: "pics/burgerPin.png"
                 });
@@ -220,7 +220,7 @@ function showRestaurants() {
 function showInfoWindow(marker, content) {
     infoWindow.setContent(this.content);
     infoWindow.open(map, this);
-    google.maps.event.addListener(map, "click", function () {
+    google.maps.event.addListener(this, "mouseout", function () {
         infoWindow.close();
     });
 }//End showRestaurants
@@ -288,6 +288,10 @@ function getModalInfo(response) {
     var infoContent = document.getElementById("infoContent");
     infoContent.innerHTML = "";//tömmer infoContent för att fylla på med ny information
     var response = JSON.parse(response);
+    if (response.payload[0] === undefined) {
+        console.log("hej");
+        alert("Informationen hittades tvärr inte");
+    }
     var lat = parseFloat(response.payload[0].lat);
     var lng = parseFloat(response.payload[0].lng);
     var nameInfo = response.payload[0].name;//Sparar restaurangens namn
@@ -304,7 +308,7 @@ function getModalInfo(response) {
 
     var closeElem = document.createElement("span");//Span för kryss-ruta (för att stänga rutan)
     closeElem.setAttribute("class", "close");
-    addListener(closeElem, "click", function () { modalbox.style.display = "none", filter(); });
+    closeElem.addEventListener( "click", function () { modalbox.style.display = "none", filter(); });
     infoContent.appendChild(closeElem);
 
 
@@ -327,7 +331,6 @@ function getModalInfo(response) {
                 ]
             }],
             animation: google.maps.Animation.DROP,
-            gestureHandling: "greedy",
             streetViewControl: false
         })
     var marker = new google.maps.Marker({
@@ -474,7 +477,6 @@ function filter() {
                 ]
             }],
             streetViewControl: false,
-            gestureHandling: "greedy",
             icon: 'pics/burgerPin'
         })
     userMarker = new google.maps.Marker({
