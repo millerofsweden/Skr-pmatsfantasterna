@@ -40,15 +40,21 @@ window.addEventListener("load", init);
 function fixedMap() {
     var left = document.getElementById("leftColumn");
     var right = document.getElementById("rightColumn");
-    var topPosition = left.offsetTop + 0;
+    var topPosition = left.offsetTop + 75;
 
-    if (window.pageYOffset >= topPosition) {
-        left.classList.add("fixed");
-        right.classList.add("fixed");
-    }
-    else {
-        left.classList.remove("fixed");
-        right.classList.remove("fixed");
+if (window.matchMedia("(max-width: 870px)").matches) {
+    left.classList.remove("fixed");
+    right.classList.remove("fixed");
+}
+else {
+      if (window.pageYOffset >= topPosition) {
+          left.classList.add("fixed");
+          right.classList.add("fixed");
+      }
+      else {
+          left.classList.remove("fixed");
+          right.classList.remove("fixed");
+      }
     }
 } //End fixedMap
 //Sätter ut en markör för var användaren befinner sig just nu. koordinaterna kommer från sessionstorage från init-funktionen
@@ -179,7 +185,7 @@ function showRestaurants() {
             }//stänger if
         }//stänger if
     }//stänger for
-    //For-looparna går igenom drop-down filtreringen för att göra de val som inte finns tillgängliga disablade 
+    //For-looparna går igenom drop-down filtreringen för att göra de val som inte finns tillgängliga disablade
     //för att användaren inte ska kunna välja den typen av mat
     for (i = 1; i < document.getElementById("typeList").length; i++) {
         document.getElementsByTagName("option")[i].disabled = true;
@@ -458,7 +464,7 @@ function filter() {
     }
 }
 /**
- *  Sortera en liststruktur (Array) innehållande objekt. Sorteringen 
+ *  Sortera en liststruktur (Array) innehållande objekt. Sorteringen
  *  genomförs utifrån specifik objektegenskap.
  *
  *  @param {Array}   data Lista att sortera
