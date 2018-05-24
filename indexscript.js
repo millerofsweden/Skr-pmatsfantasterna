@@ -3,12 +3,15 @@ function init() {
     sessionStorage.clear();
     var yourPosition = document.getElementById("locSrchBtn");
     yourPosition.addEventListener("click", getLocation);
+    yourPosition.setAttribute("title", "Klicka här för att hitta restauranger nära dig");
+
     var searchBut = document.getElementById("txtSrchBtn");
     searchBut.addEventListener("click", searchInput);
 
     var showTxtSrch = document.getElementById("showTxtSrch");
     showTxtSrch.addEventListener("click", showSrch);
-}
+    showTxtSrch.setAttribute("title", "Klicka här för att söka på valfri address");
+}//End init
 window.addEventListener("load", init);
 
 //visar textsökfältet
@@ -16,7 +19,7 @@ function showSrch() {
     var txtSrch = document.getElementById("txtSrch");
     txtSrch.classList.toggle("showSrch");
     txtSrch.classList.toggle("hideSrch");
-}
+}//End showSrch
 
 //Hämtar användarens nuvarande position
 function getLocation() {
@@ -26,9 +29,9 @@ function getLocation() {
     } else {
         alert("Platsåtkomst är inte kompatibelt med din webbläsare");
     };
-}
+}//End getLocation
 
-//sparar koordinaterna från geolocation i sessionstorage
+//sparar koordinaterna från geolocation i sessionstorage om användaren sökt inom småland och öland
 function changePageLoc(e) {
     var lat;
     var lan;
@@ -49,7 +52,7 @@ function changePageLoc(e) {
         sessionStorage.setItem("lan", JSON.stringify(e.coords.longitude));
         location.href = "results.html";
     }
-}
+}//End changePageLoc
 
 //sparar det som användaren skrivit i addressfältet i sessionstorage
 function searchInput() {
@@ -60,4 +63,4 @@ function searchInput() {
     } else {
         alert("Sök på en address");
     }
-}
+}//End searchInput

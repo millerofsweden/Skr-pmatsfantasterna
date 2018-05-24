@@ -323,31 +323,39 @@ footer p {
 #srchBtns {
 	text-align: center;
 	position: relative;
-	top: 10vh;
+	top: 18vh;
 }
 .btnBackground {
-	background-color: #fff;
+	background-color: #e60000;
 	display: inline-block;
   padding: 20px 30px;
 	margin: 5px;
-	border-radius: 25px;
-	box-shadow: 3px 3px 5px black;
+	border-radius: 15px;
+	border-bottom: 5px solid #800000;
+	font-family: 'Concert One', monospace;
+	font-size: 1.5em;
+	text-shadow: 0 -2px #b30000;
+	color: #fff;
 }
-.btnBackground:hover {
-	background-color: #DFDFDF;
+.btnBackground:hover, #txtSrchBtn:hover {
 	-webkit-transition-duration: 0.3s; /* Safari */
 	transition-duration: 0.3s;
-	box-shadow: 1px 1px 5px black;
 	cursor: pointer;
+	background-color: #ff0000;
 }
-.btnBackground:not( :hover ){
+.btnBackground:active, #txtSrchBtn:active {
+	transform: translate(0px,5px);
+	-webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid #800000;
+}
+.btnBackground:not( :hover ), #txtSrchBtn:not( :hover ){
 	-webkit-transition-duration: 0.3s; /* Safari */
 	transition-duration: 0.3s;
 }
 #txtSrch {
 	text-align: center;
 	position: relative;
-	top: 20vh;
+	top: 25vh;
 }
 #txtSrch.hideSrch {
 	visibility: hidden;
@@ -362,33 +370,19 @@ footer p {
 #searchbar {
 	width: 360px;
 	height: 40px;
-	border: none;
-	border-radius: 10px 0 0px 10px;
+	border: 1px solid #d9d9d9;
+	border-radius: 10px;
 	padding: 0 12px;
-	font-size: 1.3em;
+	font-size: 1.2em;
 }
 #txtSrchBtn {
-	background-color: #CC0000;
-	color: #fff;
+	padding: 0;
+	margin: 8px;
 	height: 40px;
 	width: 80px;
-	margin: 0 -4px;
 	border: none;
-	border-radius: 0px 10px 10px 0px;
-	font-size: 1.3em;
-	display: inline-block;
+	border-bottom: 5px solid #800000;
 }
-#txtSrchBtn:hover {
-	background-color:#FF0000;
-	-webkit-transition-duration: 0.3s; /* Safari */
-	transition-duration: 0.3s;
-	cursor: pointer;
-}
-#txtSrchBtn:not( :hover ){
-	-webkit-transition-duration: 0.3s; /* Safari */
-	transition-duration: 0.3s;
-}
-
 /* -- Övriga stilsättningar -- */
 #backBtn {
 	position: relative;
@@ -499,16 +493,17 @@ select {
 	right: -20px;
   top: 80px;
 }
+.popuptext.show {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.5s;
+	animation: fadeIn 0.5s;
+}
 .popuptext.hide {
 	visibility: hidden;
 	-webkit-animation: fadeOut 0.5s;
 	animation: fadeOut 0.5s;
 }
-.popuptext.show {
-    visibility: visible;
-    -webkit-animation: fadeIn 0.5s;
-    animation: fadeIn 0.5s;
-}
+
 
 @-webkit-keyframes fadeIn {
     from {opacity: 0;}
@@ -528,26 +523,36 @@ select {
 }
 /* -- MediaQueries / Responsiv design --*/
 @media only screen and (max-width: 1200px) {
- .index{
+ #resultsIndex{
 	 background-image: none;/*Gör så att den inte tas bort på index.html*/
  }
  #pageContent{
-	 max-width:100%;
+
  }
 }
-@media only screen and (max-width: 870px) {
- .index{
+@media only screen and (max-width: 870px) {/*Kartan måste sluta följa med här, löser man det i JS?*/
+ #resultsIndex, #aboutIndex{
 	 background-image: none;
- }
- #pageContent{
-	 max-width:100%;
- }
+}
+header img {
+	content: url("pics/smallheader.gif");
+}
+#helpPop{
+	position: fixed;
+}
+.btnBackground{
+	display: flex;
+}
+.resImg{
+	max-width: 100%;
+	display: flex;
+}
  .left{
 	 position: static;
 	 align: center;
 	 width: 100%;
  }
- .right{
+ .right{/*Måste ha vit bakgrund på första sidan*/
 	 position: static;
 	 align: center;
 	 width: 100%;
@@ -576,4 +581,9 @@ select {
 			top: 95px;
 			color: #cc0000;
 		}
+}
+@media only screen and (max-width: 345px) {
+	#map{
+		/* kartan täcker slidern vid den här storleken*/
+	}
 }

@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="layout.css">
 	<link rel="stylesheet" type="text/css" href="mycons/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuDBtQhhfX6-Svdj0pf9pY3e0MXcMd-uA"></script>
 	<script type="text/javascript" src="searchValue.js"></script>
 	<script type="text/javascript" src="indexscript.js"></script>
@@ -14,7 +15,7 @@
 	<script type="text/javascript" src="events.js"></script>
 </head>
 
-<body class="index">
+<body class="index" id="indexIndex">
 	<div id="wrapper">
 
 		<header>
@@ -45,14 +46,14 @@
 
 			<div id="pageContent">
 				<div id="srchBtns">
-					<p class="btnBackground" id="locSrchBtn">Sök plats</p>
-					<p class="btnBackground" id="showTxtSrch">Sök text</p>
+					<p class="btnBackground" id="locSrchBtn">Sök med din plats</p>
+					<p class="btnBackground" id="showTxtSrch">Sök med adress</p>
 				</div>
 
 				<div id="txtSrch" class="hideSrch">
 					<input type="text" name="address" id="searchbar" placeholder="Gatunamn, stad, postnummer..." onkeydown="if (event.keyCode == 13)
 												document.getElementById('txtSrchBtn').click()">
-					<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="redButton">
+					<input type="button" value="Sök" name="textSearch" id="txtSrchBtn" class="btnBackground">
 				</div>
 
 			</div>

@@ -8,21 +8,30 @@ var idInfo;
 var markers = [];
 
 function init() {
-    var distanceSlider = document.getElementById("distanceSlider").addEventListener("input", filter);//ändra till showrestaurants
-    var typeList = document.getElementById("typeList").addEventListener("change", filter);//ändra till showrestaurants
-    var resList = document.getElementById("resList").innerHTML = "";
-    var sortMenu = document.getElementById("sortMenu");
-    //var modalContent = document.getElementById("modalContent");
+    var distanceSlider = document.getElementById("distanceSlider");//Slidern som ändrar sökradien
+    distanceSlider.setAttribute("title", "Dra för att ändra sökradien");
+    distanceSlider.addEventListener("input", filter);
+    var typeList = document.getElementById("typeList");//Listan med filtreringsalternativ på typ av mat
+    typeList.setAttribute("title", "Filtrera på typ av mat");
+    typeList.addEventListener("change", filter);
+    var resList = document.getElementById("resList").innerHTML = "";//Resultatlistan där restaurangerna visas i box-form
+    var backBut = document.getElementById("backBtn");//tillbakaknapp
+    backBut.setAttribute("title", "Tillbaka");
+    var sortMenu = document.getElementById("sortMenu");//Lista me dolika val av sorteringar
+    sortMenu.setAttribute("title", "Sortera restauranger");
     var modal = document.getElementById("modalBox");//https://www.w3schools.com/howto/howto_css_modals.asp
-    window.onclick = function (event) {
+    window.onclick = function (event) {//Vid klick utanför boxen stängs boxen ner
         if (event.target == modal) {
             modal.style.display = "none";
             filter();
         }
     }
-    var lat = sessionStorage.getItem("lat");
-    var lng = sessionStorage.getItem("lan");
-    var zipCode = sessionStorage.getItem("zipCode");
+    //Kollar ifall det inte finns något sparat i sessionstorage. 
+    //Finns det något i sessionstorage startar olika funktioner beroende på om det är plats eller sökfälts-sökning
+    //Annars kommer användaren tillbaka till startsidan
+    var lat = sessionStorage.getItem("lat");//Hämtar koordinater för latitud från sessionstorage
+    var lng = sessionStorage.getItem("lan");//Hämtar koordinater för longitud från sessionstorage
+    var zipCode = sessionStorage.getItem("zipCode");//HÄmtar den sparade informationen från sökfältet
     if (zipCode != undefined) {
         sessionStorage.setItem("zipCode", undefined);
         searchZipcode(zipCode);
@@ -33,22 +42,28 @@ function init() {
     } else {
         location.href = "index.html";
     }
-    addListener(window, "scroll", fixedMap);
+    addListener(window, "scroll", fixedMap);//Om användaren scrollar anropas funktion för fixed-map
 }
 window.addEventListener("load", init);
 //Fixerar kartan när användaren scrollar neråt
 function fixedMap() {
     var left = document.getElementById("leftColumn");
     var right = document.getElementById("rightColumn");
-    var topPosition = left.offsetTop + 0;
+    var topPosition = left.offsetTop + 75;
 
-    if (window.pageYOffset >= topPosition) {
-        left.classList.add("fixed");
-        right.classList.add("fixed");
-    }
-    else {
+    if (window.matchMedia("(max-width: 870px)").matches) {
         left.classList.remove("fixed");
         right.classList.remove("fixed");
+    }
+    else {
+        if (window.pageYOffset >= topPosition) {
+            left.classList.add("fixed");
+            right.classList.add("fixed");
+        }
+        else {
+            left.classList.remove("fixed");
+            right.classList.remove("fixed");
+        }
     }
 } //End fixedMap
 //Sätter ut en markör för var användaren befinner sig just nu. koordinaterna kommer från sessionstorage från init-funktionen
@@ -59,6 +74,13 @@ function showYourPosition(lat, lng) {
         document.getElementById("map"), {
             center: { lat: lat, lng: lng },
             zoom: 13,
+            styles: [{
+                featureType: "poi",
+                stylers: [{
+                    visibility: "off"
+                }
+                ]
+            }],
             animation: google.maps.Animation.DROP,
             gestureHandling: "greedy",
             streetViewControl: false
@@ -72,7 +94,7 @@ function showYourPosition(lat, lng) {
     userMarker.setMap(map);
     map.setOptions({ minZoom: 9, maxZoom: 18 });
     getRestaurants(lat, lng);
-}
+}//End showYourPosition
 
 //Hämtar restauranger som ligger inom en viss radie från användarens position
 function getRestaurants(lat, lng) {
@@ -85,7 +107,7 @@ function getRestaurants(lat, lng) {
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) restaurantObject(request.responseText);
     };
-}
+}//End getRestaurants
 
 //skapar ett objekt med informationen från SMAPI
 function restaurantObject(response) {
@@ -108,7 +130,7 @@ function restaurantObject(response) {
         objectLength++;
     }
     showRestaurants();
-}
+}//End restaurantObject
 //Hämtar ut information om restaurangerna för att presentera den på sidan
 function showRestaurants() {
     var i;
@@ -118,21 +140,21 @@ function showRestaurants() {
     var typeList = document.getElementById("typeList").value;
     for (var i = 0; i < objectLength; i++) {
         var resList = document.getElementById("resList");
-        var distance = resultObject[i].distance_in_km;
-        distance = Math.round(distance * 100) / 100;
-        var lat = parseFloat(resultObject[i].lat);//sparar latitude med dess decimaler
-        var lng = parseFloat(resultObject[i].lng);//sparar longitud med dess decimaler
+        var distance = resultObject[i].distance_in_km;//Sparar avståndet
+        distance = Math.round(distance * 100) / 100;//Avrundar avsåndet för att få färre decimaler
+        var lat = parseFloat(resultObject[i].lat);//sparar latitude
+        var lng = parseFloat(resultObject[i].lng);//sparar longitud
         var name = resultObject[i].name;//Sparar restaurangens namn
         var rating = resultObject[i].rating;//Sparar restaurangens betyg
         var price = resultObject[i].avg_lunch_pricing;//Sparar restaurangens snittpris
         var tags = resultObject[i].search_tags;//Sparar restaurangens sök taggar
-        var id = resultObject[i].id
+        var id = resultObject[i].id//Sparar restaurangens unika id
         var li = document.createElement("li");//skapar ett li-element
         li.dataset.id = resultObject[i].id;//sparar restaurangernas id i en variabel
         var img = document.createElement("img");//skapar img-element
 
-        if (resultObject[i].distance_in_km < distanceSlider.value) {
-            if (resultObject[i].search_tags.indexOf(typeList) >= 0 || typeList == "Valj mattyp...") {//"Valj mattyp"... borde nog ändras till något bättre
+        if (resultObject[i].distance_in_km < distanceSlider.value) {//Kollar om avstånd till restaurang är mindre än slidersn värde
+            if (resultObject[i].search_tags.indexOf(typeList) >= 0 || typeList == "Valj mattyp...") {//Kollar om någon typ av mat är vald
                 img.setAttribute("id", "resImg");
                 img.setAttribute("src", "pics/" + resultObject[i].sub_type + ".gif");//tillsätter en bild till img-taggen
                 img.setAttribute("alt", "Bild för snabbmatsrestaurangen");//tillsätter alt-kommentar för img-taggen
@@ -152,21 +174,21 @@ function showRestaurants() {
                 markers.push(marker);
                 marker.setPosition({ lat, lng });//tillsätter koordinater på markörerna
                 marker.setMap(map);//sätter ut markörer för restaurangerna
-                map.setOptions({ minZoom: 9, maxZoom: 18 });
-                google.maps.event.addListener(marker, "mouseover", showInfoWindow);
-                google.maps.event.addListener(marker, "click", getMarkerInfo);
-                google.maps.event.addListener(marker, "click", getMarkerReview);
+                map.setOptions({ minZoom: 9, maxZoom: 18 });//Min och max zoom för kartan
+                google.maps.event.addListener(marker, "mouseover", showInfoWindow);//Funktion anropas om pekaren är över en markör
+                google.maps.event.addListener(marker, "click", getMarkerInfo);//Funktion anropas vid klick på markör
+                google.maps.event.addListener(marker, "click", getMarkerReview);//Funktion anropas vid klick på markör
                 li.appendChild(img);//lägger in img i li
                 li.appendChild(contentDiv);//lägger in contentDiv i li
                 li.classList.add("resBox");//tillsätter li en class
                 resList.appendChild(li);//lägger in li i resList
-                li.addEventListener("click", getDetailedInfo);
-                li.addEventListener("click", getReviewInfo);
+                li.addEventListener("click", getDetailedInfo);//Funktion anropas vid klick på ett li-element
+                li.addEventListener("click", getReviewInfo);//Funktion anropas vid klick på ett li-element
                 li.addEventListener("mouseover", function () {//funktion för att få en marker att hoppa
                     for (var i = 0; i < markers.length; i++) {
-                        if (this.dataset.id === markers[i].store_id) {
+                        if (this.dataset.id === markers[i].store_id) {//Kollar om li-id är samma som markör-id, isf börjar en markör hoppa
                             markers[i].setAnimation(google.maps.Animation.BOUNCE)
-                            map.setCenter(markers[i]);
+                            map.setCenter(markers[i]);//Den hoppande markören centreras på kartan
                         }
                     }
                 })
@@ -193,7 +215,7 @@ function showRestaurants() {
         }
     }
     infoWindow = new google.maps.InfoWindow();
-}
+}//End showRestaurants
 //funktion för att visa inforutan
 function showInfoWindow(marker, content) {
     infoWindow.setContent(this.content);
@@ -201,8 +223,8 @@ function showInfoWindow(marker, content) {
     google.maps.event.addListener(map, "click", function () {
         infoWindow.close();
     });
-}
-
+}//End showRestaurants
+//Hämtar info från markören som användaren klickat på
 function getMarkerInfo() {
     lat = this.lat;//hämtar koordinat sparat i sessionstorage
     lng = this.lng;//hämtar koordinat sparat i sessionstorage
@@ -211,13 +233,12 @@ function getMarkerInfo() {
     else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
     else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
     request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&lat=" + lat + "&lng=" + lng + "&debug=true", true);
-    //request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&types=food&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&sort_in=DESC&order_by=distance_in_km",true,);
     request.send(null);
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) getModalInfo(request.responseText);
     };
-}
-
+}//End getMarkerInfo
+//Hämtar information för det listobjektet användaren klickat på
 function getDetailedInfo() {
     var idInfo = this.dataset.id;//sparar id i en ny variabbel som sedan förs in i smapi-anropet
     lat = sessionStorage.getItem("lat");//hämtar koordinat sparat i sessionstorage
@@ -226,14 +247,13 @@ function getDetailedInfo() {
     if (XMLHttpRequest) { request = new XMLHttpRequest(); }
     else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
     else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
-    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getAll&ids=" + idInfo, true);
-    //request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&types=food&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&sort_in=DESC&order_by=distance_in_km",true,);
+    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getAll&ids=" + idInfo + "&debug=true", true);
     request.send(null);
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) getModalInfo(request.responseText);
     };
-}
-
+}//End getDetailedInfo
+//Hämtar recensioner för restaurangen och dess markör som blivit klickad på
 function getMarkerReview() {
     var id = this.store_id;
     lat = sessionStorage.getItem("lat");//hämtar koordinat sparat i sessionstorage
@@ -242,13 +262,13 @@ function getMarkerReview() {
     if (XMLHttpRequest) { request = new XMLHttpRequest(); }
     else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
     else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
-    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getreviews&id=" + id, true);
-    //request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&types=food&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&sort_in=DESC&order_by=distance_in_km",true,);
+    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getreviews&id=" + id + "&debug=true", true);
     request.send(null);
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) reviewInfo(request.responseText);
     };
-}
+}//End getMarkerReview
+//Hämtar recensioner för restaurangen och dess listobjekt som blivit klickad på
 function getReviewInfo() {
     var idInfo = this.dataset.id;//sparar id i en ny variabbel som sedan förs in i smapi-anropet
     lat = sessionStorage.getItem("lat");//hämtar koordinat sparat i sessionstorage
@@ -257,14 +277,13 @@ function getReviewInfo() {
     if (XMLHttpRequest) { request = new XMLHttpRequest(); }
     else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
     else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
-    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getreviews&id=" + idInfo, true);
-    //request.open("GET","https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&types=food&debug=true&lat=" + lat + "&lng=" + lng + "&radius=30&sort_in=DESC&order_by=distance_in_km",true,);
+    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getreviews&id=" + idInfo + "&debug=true", true);
     request.send(null);
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) reviewInfo(request.responseText);
     };
-}
-//skapar boxarna som dyker upp vid ett klick på markörerna eller på resultatlistan
+}//End getReviewInfo
+//Skapar boxarna som dyker upp vid ett klick på markörerna eller på resultatlistan
 function getModalInfo(response) {
     var infoContent = document.getElementById("infoContent");
     infoContent.innerHTML = "";//tömmer infoContent för att fylla på med ny information
@@ -300,7 +319,13 @@ function getModalInfo(response) {
         document.getElementById("modalMap"), {
             center: { lat: lat, lng: lng },
             zoom: 16,
-            poi: false,
+            styles: [{
+                featureType: "poi",
+                stylers: [{
+                    visibility: "off"
+                }
+                ]
+            }],
             animation: google.maps.Animation.DROP,
             gestureHandling: "greedy",
             streetViewControl: false
@@ -315,8 +340,8 @@ function getModalInfo(response) {
     marker.setPosition({ lat, lng });//tillsätter koordinater på markörerna
     marker.setMap(map);//sätter ut markörer för restaurangerna
     map.setOptions({ minZoom: 9, maxZoom: 18 });
-}
-//hämtar ut recensioner av användarna för en restaurang som sedan skrivs ut i modalboxen
+}//End getModalInfo
+//Hämtar ut recensioner av användarna för en restaurang som sedan skrivs ut i modalboxen
 function reviewInfo(response) {
     var revContent = document.getElementById("revContent");
     revContent.innerHTML = "";
@@ -341,7 +366,7 @@ function reviewInfo(response) {
         commentDiv.appendChild(document.createTextNode("Tyvärr finns det inga recensioner än."));
         revContent.appendChild(commentDiv);
     }
-}
+}//End reviewInfo
 //skapar info som sedan skickas till getModalInfo där boxen skapas
 function createModalElement(nameInfo, abstract, description, text, phone, address, website, rating) {
     var ratingValue = Math.round((rating / 5) * 10) * 10; //räknar ut betyget i procent, för ratingIn senare i funktionen
@@ -397,8 +422,8 @@ function createModalElement(nameInfo, abstract, description, text, phone, addres
     modalInfo.appendChild(textElem);
 
     return modalInfo; //Skickar tillbaka informationen till func. getModalInfo
-}
-
+}//End createModalInfo
+//Funktion att skapa element där recensioner skrivs ut
 function createReviewElement(name, comment, rating, time) {
     var ratingValue = Math.round((rating / 5) * 10) * 10; //räknar ut betyget i procent
 
@@ -427,8 +452,8 @@ function createReviewElement(name, comment, rating, time) {
     commentDiv.appendChild(revComment);
 
     return commentDiv;
-}
-
+}//End createReviewElement
+//Funktion för att filtrera
 function filter() {
     resList.innerHTML = "";
     var output = document.getElementById("valueDemo");//span-elementet som visar antal km för användaren
@@ -441,6 +466,13 @@ function filter() {
         document.getElementById("map"), {
             center: { lat: lat, lng: lng },
             zoom: 13,
+            styles: [{
+                featureType: "poi",
+                stylers: [{
+                    visibility: "off"
+                }
+                ]
+            }],
             streetViewControl: false,
             gestureHandling: "greedy",
             icon: 'pics/burgerPin'
@@ -456,7 +488,7 @@ function filter() {
     if (resList.innerHTML === "") {
         resList.innerHTML = "Hoppsan, din sökning gav inga träffar. Prova att filtrera på något annat eller öka sökradien."
     }
-}
+}//End filter
 /**
  *  Sortera en liststruktur (Array) innehållande objekt. Sorteringen 
  *  genomförs utifrån specifik objektegenskap.
@@ -480,23 +512,23 @@ function m_sort(data, key, asc) {
     }
 
     return data;
-}
+}//End m-sort
 //sorterar restaurangerna i den ordning som användaren valt.
 function sorting() {
-    if (sortMenu.lastElementChild.value == "distance") {
+    if (sortMenu.lastElementChild.value == "distance") {//Om användaren valt att sortera på avstånd
         var sr = m_sort(resultObject, "distance_in_km", false);
         showRestaurants(sr);
-    } else if (sortMenu.lastElementChild.value == "lowPrice") {
+    } else if (sortMenu.lastElementChild.value == "lowPrice") {//Om användaren valt att sortera på lågt pris
         var sr = m_sort(resultObject, "avg_lunch_pricing", false);
         showRestaurants(sr);
-    } else if (sortMenu.lastElementChild.value == "highPrice") {
+    } else if (sortMenu.lastElementChild.value == "highPrice") {//Om användaren valt att sortera på högt pris
         var sr = m_sort(resultObject, "avg_lunch_pricing", true);
         showRestaurants(sr);
-    } else if (sortMenu.lastElementChild.value == "stars") {
+    } else if (sortMenu.lastElementChild.value == "stars") {//Om användaren valt att sortera på betyg
         var sr = m_sort(resultObject, "rating", true);
         showRestaurants(sr);
     }
-}
+}//End sorting
 
 //Skapar info till den ruta som visas när användaren klickar på en restaurang-marker
 function createInfoElements(name, rating, price, distance, id) {//dessa parametrar skickades med genom ett klick på en marker
@@ -539,4 +571,4 @@ function createInfoElements(name, rating, price, distance, id) {//dessa parametr
     contentDiv.appendChild(ratingOut);//Info läggs in i div-elementet
     contentDiv.appendChild(priceOut);//Info läggs in i div-elementet
     return contentDiv;
-};
+};//End createInfoElements

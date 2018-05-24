@@ -9,9 +9,10 @@ function searchZipcode(zipCode) {
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) showZip(request.responseText);
     };
-}
+}//End searchZipCode
 
-//funktionen hämtar ut koordinaterna från jsaon-filen och sparar värdet i variablar som sedan skickas vidare till getRestaurants
+//funktionen hämtar ut koordinaterna från json-filen och sparar värdet i variablar som sedan skickas vidare till getRestaurants
+//Funktionen gör även så att användaren inte kan söka utanför småland och öland
 function showZip(response) {
     var responseZip = JSON.parse(response);
     lat1 = responseZip.results[0].geometry.location.lat;
@@ -56,4 +57,4 @@ function showZip(response) {
         map.setOptions({ minZoom: 9, maxZoom: 18 });
         getRestaurants(lat, lng);
     };
-}
+}//End showZip
