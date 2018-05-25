@@ -21,7 +21,7 @@ function showZip(response) {
         alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
         location.href = "index.html";
     }
-    else if (lat1 > "57.386792") {
+    else if (lat1 > "58.055045") {
         alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
         location.href = "index.html";
     }

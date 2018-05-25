@@ -9,7 +9,8 @@ var markers = [];
 
 function init() {
     var distanceSlider = document.getElementById("distanceSlider");//Slidern som ändrar sökradien
-    distanceSlider.setAttribute("title", "Dra för att ändra sökradien");
+    distanceSlider.setAttribute("title", "Dra för att ändra sökradien");//Tooltip när pekaren är över slidern
+    distanceSlider.value = "5";//Startar alltid med 5 km
     distanceSlider.addEventListener("input", filter);
     var typeList = document.getElementById("typeList");//Listan med filtreringsalternativ på typ av mat
     typeList.setAttribute("title", "Filtrera på typ av mat");
@@ -72,7 +73,7 @@ function showYourPosition(lat, lng) {
     lng = parseFloat(lng);
     map = new google.maps.Map(
         document.getElementById("map"), {
-            center: { lat: lat, lng: lng },
+            center: {lat: lat, lng: lng},
             zoom: 13,
             styles: [{
                 featureType: "poi",
@@ -136,6 +137,7 @@ function showRestaurants() {
         markers[i].setMap(null);
     }
     markers = [];
+
     var tagList = "";
     var resList = document.getElementById("resList").innerHTML = "";
     var typeList = document.getElementById("typeList").value;
@@ -232,7 +234,7 @@ function getMarkerInfo() {
     if (XMLHttpRequest) { request = new XMLHttpRequest(); }
     else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
     else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
-    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&lat=" + lat + "&lng=" + lng + "&debug=true", true);
+    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getfromlatlng&lat=" + lat + "&lng=" + lng + "&sort_in=DESC&&order_by=distance_in_km&debug=true", true);
     request.send(null);
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) getModalInfo(request.responseText);
@@ -247,7 +249,7 @@ function getDetailedInfo() {
     if (XMLHttpRequest) { request = new XMLHttpRequest(); }
     else if (ActiveXObject) { request = new ActiveXObject("Microsoft.XMLHTTP"); }
     else { alert("Tyvärr inget stöd för AJAX, så data kan inte läsas in"); return false; }
-    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getAll&ids=" + idInfo + "&debug=true", true);
+    request.open("GET", "https://cactuar.lnu.se/smapi/api/?api_key=9rntQ3eq&controller=establishment&method=getAll&ids=" + idInfo + "&order_by=distance_in_km&sort_in=DESC&debug=true", true);
     request.send(null);
     request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
         if ((request.readyState == 4) && (request.status == 200)) getModalInfo(request.responseText);
@@ -519,16 +521,16 @@ function m_sort(data, key, asc) {
 function sorting() {
     if (sortMenu.lastElementChild.value == "distance") {//Om användaren valt att sortera på avstånd
         var sr = m_sort(resultObject, "distance_in_km", false);
-        showRestaurants(sr);
+        showRestaurants(sr)
     } else if (sortMenu.lastElementChild.value == "lowPrice") {//Om användaren valt att sortera på lågt pris
         var sr = m_sort(resultObject, "avg_lunch_pricing", false);
-        showRestaurants(sr);
+        showRestaurants(sr)
     } else if (sortMenu.lastElementChild.value == "highPrice") {//Om användaren valt att sortera på högt pris
         var sr = m_sort(resultObject, "avg_lunch_pricing", true);
-        showRestaurants(sr);
+        showRestaurants(sr)
     } else if (sortMenu.lastElementChild.value == "stars") {//Om användaren valt att sortera på betyg
         var sr = m_sort(resultObject, "rating", true);
-        showRestaurants(sr);
+        showRestaurants(sr)
     }
 }//End sorting
 
@@ -558,6 +560,7 @@ function createInfoElements(name, rating, price, distance, id) {//dessa parametr
     ratingOut.classList.add("rating-outer");
     ratingIn.classList.add("rating-inner");
     ratingIn.setAttribute("style", "width:" + ratingValue + "%");
+    ratingIn.setAttribute("title", rating);
     ratingOut.appendChild(ratingIn);
 
     priceOut.classList.add("price-outer");

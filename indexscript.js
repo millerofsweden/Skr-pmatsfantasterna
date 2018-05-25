@@ -55,12 +55,22 @@ function changePageLoc(e) {
 }//End changePageLoc
 
 //sparar det som användaren skrivit i addressfältet i sessionstorage
+//disablear Sök-knappen om ingenting står i textfältet
 function searchInput() {
-    var zipCode = document.getElementById("searchbar").value
-    if (zipCode != "") {
-        sessionStorage.setItem("zipCode", zipCode);
-        location.href = "results.html";
-    } else {
-        alert("Sök på en address");
+    var txtSrchBtn = document.getElementById("txtSrchBtn");
+      txtSrchBtn.disabled = false;
+      txtSrchBtn.classList.remove("disabled");
+    if(document.getElementById("searchbar").value == ""){
+      txtSrchBtn.disabled = true;
+      txtSrchBtn.classList.add("disabled");
     }
-}//End searchInput
+  }//End searchInput
+  
+  //sparar det som användaren skrivit i addressfältet i sessionstorage
+  function searchBtn(){
+    var zipCode = document.getElementById("searchbar").value
+      if (zipCode != "") {
+          sessionStorage.setItem("zipCode", zipCode);
+          location.href = "results.html";
+  }
+  }
