@@ -1,5 +1,5 @@
 function init() {
-	var about = document.getElementById("contactBtn");
+	var about = document.getElementById("aboutBtn");
 	about.setAttribute("title", "Om oss");
 	var homeButton = document.getElementById("home");
 	homeButton.setAttribute("title", "Till startsidan");
@@ -11,7 +11,7 @@ function init() {
 	var popUp = document.getElementById("popup");
 	popUp.addEventListener("click", popUpFunc);
 	popUp.setAttribute("title", "Klicka för hjälp");
-	var x = window.matchMedia("(max-width: 870px)")
+	var x = window.matchMedia("(max-width: 600px)")
 	changeHeader(x);
 	x.addListener(changeHeader);
 

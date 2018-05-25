@@ -34,7 +34,7 @@ header {
 	position: absolute;
 	top: 0;
 }
-header h1, header h5 {
+header h1, header h2 {
 	display: none;
 }
 nav {
@@ -62,14 +62,14 @@ footer p {
 	margin: 0 auto;
 }
 .background {
-	background-color: rgba(256,256,256,0.93);
+	background-color: rgba(255,255,255,0.93);
 	min-height: calc(100vh - 115px);
 }
 #pageContent a {
 	color: #C10037;
 	position: relative;
 }
-#contactBtn {
+#aboutBtn {
 	font-size: 3.5em;
 	color: #fff;
 	text-decoration: none;
@@ -77,8 +77,7 @@ footer p {
 	right: 10px;
 	top: 20px;
 }
-#contactBtn:not( :hover ){
-	-webkit-transition-duration: 0.3s; /* Safari */
+#aboutBtn:not( :hover ){
 	transition-duration: 0.3s;
 }
 .contactInfo {
@@ -172,11 +171,9 @@ footer p {
 }
 .resBox:hover {
 	background-color: #DFDFDF;
-	-webkit-transition-duration: 0.2s; /* Safari */
 	transition-duration: 0.2s;
 }
 .resBox:not( :hover ){
-	-webkit-transition-duration: 0.2s; /* Safari */
 	transition-duration: 0.2s;
 }
 .resBox p {
@@ -322,13 +319,12 @@ footer p {
 /* -- Stil på sökelement på index.html --*/
 #srchBtns {
 	text-align: center;
-	position: relative;
-	top: 80px;
+	margin: 0 auto;
 }
 .btnBackground {
 	background-color: #e60000;
 	display: inline-block;
-  	padding: 20px 30px;
+  padding: 20px 30px;
 	margin: 5px;
 	border-radius: 15px;
 	border-bottom: 5px solid #800000;
@@ -338,37 +334,31 @@ footer p {
 	color: #fff;
 }
 .btnBackground:hover {
-	-webkit-transition-duration: 0.3s; /* Safari */
 	transition-duration: 0.3s;
 	cursor: pointer;
 	background-color: #ff0000;
 }
 .btnBackground:active {
 	transform: translate(0px,5px);
-	-webkit-transform: translate(0px,5px);
 	border-bottom: 1px solid #800000;
 }
 .btnBackground:not( :hover ) {
-	-webkit-transition-duration: 0.3s; /* Safari */
 	transition-duration: 0.3s;
 }
 .btnBackground.disabled{
- 	background-color: #aa0000;
+ background-color: #aa0000;
 }
 #txtSrch {
 	text-align: center;
-	position: relative;
-	top: 100px;
+	margin-top: 20px;
 	margin-bottom: 30px;
 }
 #txtSrch.hideSrch {
 	visibility: hidden;
-	-webkit-animation: fadeOut 0.5s;
 	animation: fadeOut 0.5s;
 }
 #txtSrch.showSrch {
 	visibility: visible;
-	-webkit-animation: fadeIn 0.5s;
 	animation: fadeIn 0.5s;
 }
 #searchbar {
@@ -399,15 +389,31 @@ footer p {
 #backBtn:hover {
 	cursor: pointer;
 	color:#FF0000;
-	-webkit-transition-duration: 0.2s; /* Safari */
 	transition-duration: 0.2s;
 }
 #backBtn:not( :hover ){
-	-webkit-transition-duration: 0.2s; /* Safari */
 	transition-duration: 0.2s;
 }
 #home {
 	cursor: pointer;
+}
+.photo {
+	height: 150px;
+	margin: 20px;
+	display: block;
+}
+#photo {
+	height: 100px;
+	position: relative;
+	left: 75%;
+	bottom: 425px;
+}
+#indexText {
+	font-size: 2.5em;
+	font-family: 'Concert One', monospace;
+	text-align: center;
+	color: #fff;
+	text-shadow: 4px 4px 5px black;
 }
 /* -- infoWindow (infobox på kartan) -- */
 .infoWindow {
@@ -421,7 +427,7 @@ footer p {
  .infoContent .price-outer {
 	 left: 20px;
  }
- /* -- Stilsättning på slider --*/
+ /* -- Stilsättning på slider & dropdowns --*/
  .slider{ /*Taget från:https://www.w3schools.com/howto/howto_js_rangeslider.asp*/
 		-webkit-appearance: none;  /* Override default CSS styles */
 		appearance: none;
@@ -444,26 +450,26 @@ footer p {
     height: 15px; /* Slider handle height */
     background: #cc0000;
     cursor: pointer; /* Cursor on hover */
-	border-radius: 50%;
+		border-radius: 50%;
 }
 
 .slider::-moz-range-thumb { /*Taget från:https://www.w3schools.com/howto/howto_js_rangeslider.asp*/
     width: 15px; /* Set a specific slider handle width */
     height: 15px; /* Slider handle height */
-    background: #CC0000; /* Green background */
+    background: #cc0000;
     cursor: pointer; /* Cursor on hover */
 }
 select {
-  	width: 120px;
-	font-size: 14px;
-	border: 1px solid #ccc;
-	height: 22px;
+  width: 120px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  height: 22px;
 	border-radius: 5%;
 	padding-left: 3px;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	background: url(pics/pilned.png) 96% / 10% no-repeat #eee;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(pics/pilned.png) 96% / 10% no-repeat #eee;
 }
 /* -- Stilsättning på popup-rutan -- */
 #popup {
@@ -472,60 +478,38 @@ select {
 	position: absolute;
 	top: 20px;
 	right: 65px;
-  	display: inline-block;
-  	cursor: pointer;
+  display: inline-block;
+  cursor: pointer;
 }
-#popup:hover, #contactBtn:hover {
+#popup:hover, #aboutBtn:hover {
 	color: #ffb3b3;
-	-webkit-transition-duration: 0.3s; /* Safari */
 	transition-duration: 0.3s;
 }
 .popup:not( :hover ){
-	-webkit-transition-duration: 0.3s; /* Safari */
 	transition-duration: 0.3s;
 }
 .popuptext {
 	font-size: 10pt;
-  	width: 200px;
+  width: 200px;
 	padding: 10px 15px;
-  	background-color: #cc0000;
-  	color: #fff;
-  	text-align: left;
-  	border-radius: 15px;
+  background-color: #cc0000;
+  color: #fff;
+  text-align: left;
+  border-radius: 15px;
 	z-index: 1;
-  	position: absolute;
+  position: absolute;
 	right: -20px;
-  	top: 80px;
+  top: 80px;
 }
 .popuptext.show {
     visibility: visible;
-    -webkit-animation: fadeIn 0.5s;
-	animation: fadeIn 0.5s;
+		animation: fadeIn 0.5s;
 }
 .popuptext.hide {
 	visibility: hidden;
-	-webkit-animation: fadeOut 0.5s;
 	animation: fadeOut 0.5s;
 }
-.photo {
-	height: 150px;
-	margin: 20px;
-	display: block;
-}
-#photo {
-	height: 100px;
-	position: relative;
-	left: 75%;
-	bottom: 425px;
-}
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-@-webkit-keyframes fadeOut {
-    from {opacity: 1;}
-    to {opacity: 0;}
-}
+/* -- Keyframes för fadeIn/Out -- */
 @keyframes fadeOut {
     from {opacity: 1;}
     to {opacity: 0;}
@@ -540,12 +524,9 @@ select {
 	 background-image: none;/*Gör så att den inte tas bort på index.html*/
  }
 }
-@media screen and (max-width: 870px) {/*Kartan måste sluta följa med här, löser man det i JS?*/
+@media screen and (max-width: 870px) {
  #resultsIndex, #aboutIndex{
 	 background-image: none;
-}
-header img {
-	content: url("pics/smallheader.gif");
 }
 .resImg{
 	max-width: 100%;
@@ -553,12 +534,10 @@ header img {
 }
  .left{
 	 position: static;
-	 align: center;
 	 width: 100%;
  }
- .right{/*Måste ha vit bakgrund på första sidan*/
+ .right{
 	 position: static;
-	 align: center;
 	 width: 100%;
  }
  .left.fixed {
@@ -571,8 +550,6 @@ header img {
  .right.fixed {
  	bottom: 0;
  }
-}
-@media screen and (max-width: 870px){
 	#map {
 		height: 300px;
 		margin: 0;
@@ -607,8 +584,7 @@ header img {
 @media screen and (max-width: 530px){
 	#searchbar {
 		width: 80%;
-
-}
+	}
 }
 @media screen and (max-width: 360px){
 	#filters {

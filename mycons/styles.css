@@ -41,9 +41,6 @@
 .icon-back:before {
   content: "\61";
 }
-.icon-contact:before {
-  content: "\62";
-}
 .icon-dollar:before {
   content: "\63";
 }
@@ -53,12 +50,15 @@
 .icon-fullstar:before {
   content: "\65";
 }
-.icon-help:before {
-  content: "\66";
-}
 .icon-marker:before {
   content: "\67";
 }
 .icon-sort:before {
   content: "\68";
+}
+.icon-help:before {
+  content: "\62";
+}
+.icon-about:before {
+  content: "\66";
 }

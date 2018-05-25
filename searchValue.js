@@ -43,8 +43,15 @@ function showZip(response) {
             document.getElementById("map"), {
                 center: { lat: lat, lng: lng },
                 zoom: 13,
-                streetViewControl: false,
-                icon: "pics/burgerPin.png"
+                styles: [{
+                    featureType: "poi",
+                    stylers: [{
+                        visibility: "off"
+                    }
+                    ]
+                }],
+                animation: google.maps.Animation.DROP,
+                streetViewControl: false
             })
         userMarker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,

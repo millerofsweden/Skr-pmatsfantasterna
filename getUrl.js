@@ -27,7 +27,7 @@ function init() {
             filter();
         }
     }
-    //Kollar ifall det inte finns något sparat i sessionstorage. 
+    //Kollar ifall det inte finns något sparat i sessionstorage.
     //Finns det något i sessionstorage startar olika funktioner beroende på om det är plats eller sökfälts-sökning
     //Annars kommer användaren tillbaka till startsidan
     var lat = sessionStorage.getItem("lat");//Hämtar koordinater för latitud från sessionstorage
@@ -202,7 +202,7 @@ function showRestaurants() {
             }//stänger if
         }//stänger if
     }//stänger for
-    //For-looparna går igenom drop-down filtreringen för att göra de val som inte finns tillgängliga disablade 
+    //For-looparna går igenom drop-down filtreringen för att göra de val som inte finns tillgängliga disablade
     //för att användaren inte ska kunna välja den typen av mat
     for (i = 1; i < document.getElementById("typeList").length; i++) {
         document.getElementsByTagName("option")[i].disabled = true;
@@ -492,7 +492,7 @@ function filter() {
     }
 }//End filter
 /**
- *  Sortera en liststruktur (Array) innehållande objekt. Sorteringen 
+ *  Sortera en liststruktur (Array) innehållande objekt. Sorteringen
  *  genomförs utifrån specifik objektegenskap.
  *
  *  @param {Array}   data Lista att sortera
@@ -545,7 +545,7 @@ function createInfoElements(name, rating, price, distance, id) {//dessa parametr
     var priceValue;
     rating = Math.round(rating*100)/100;
     //Omvandlar pris till en procentsats
-    if (price <= 50) priceValue = 34; 
+    if (price <= 50) priceValue = 34;
     else if (price <= 85) priceValue = 67;
     else priceValue = 100;
 

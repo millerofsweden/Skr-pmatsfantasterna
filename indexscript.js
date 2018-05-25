@@ -74,5 +74,5 @@ function searchBtn(){
     if (zipCode != "") {
         sessionStorage.setItem("zipCode", zipCode);
         location.href = "results.html";
-}
-}
+      }
+}//End searchBtn
