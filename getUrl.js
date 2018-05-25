@@ -73,7 +73,7 @@ function showYourPosition(lat, lng) {
     lng = parseFloat(lng);
     map = new google.maps.Map(
         document.getElementById("map"), {
-            center: {lat: lat, lng: lng},
+            center: { lat: lat, lng: lng },
             zoom: 13,
             styles: [{
                 featureType: "poi",
@@ -137,7 +137,6 @@ function showRestaurants() {
         markers[i].setMap(null);
     }
     markers = [];
-
     var tagList = "";
     var resList = document.getElementById("resList").innerHTML = "";
     var typeList = document.getElementById("typeList").value;
