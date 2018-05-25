@@ -39,16 +39,16 @@ function changePageLoc(e) {
     var lat;
     var lan;
     if (e.coords.latitude < "56.180545") {
-        alert("Tjänsten fungerar bara om befinner dig i Småland eller på Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         return;
     } else if (e.coords.latitude > "57.386792") {
-        alert("Tjänsten fungerar bara om befinner dig i Småland eller på Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         return;
     } else if (e.coords.longitude > "17.186522") {
-        alert("Tjänsten fungerar bara om befinner dig i Småland eller på Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         return;
     } else if (e.coords.longitude < "13.235257") {
-        alert("Tjänsten fungerar bara om befinner dig i Småland eller på Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         return;
     } else {
         sessionStorage.setItem("lat", JSON.stringify(e.coords.latitude));

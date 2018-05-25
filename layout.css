@@ -328,7 +328,7 @@ footer p {
 .btnBackground {
 	background-color: #e60000;
 	display: inline-block;
-  padding: 20px 30px;
+  	padding: 20px 30px;
 	margin: 5px;
 	border-radius: 15px;
 	border-bottom: 5px solid #800000;
@@ -353,7 +353,7 @@ footer p {
 	transition-duration: 0.3s;
 }
 .btnBackground.disabled{
- background-color: #aa0000;
+ 	background-color: #aa0000;
 }
 #txtSrch {
 	text-align: center;
@@ -444,26 +444,26 @@ footer p {
     height: 15px; /* Slider handle height */
     background: #cc0000;
     cursor: pointer; /* Cursor on hover */
-		border-radius: 50%;
+	border-radius: 50%;
 }
 
 .slider::-moz-range-thumb { /*Taget från:https://www.w3schools.com/howto/howto_js_rangeslider.asp*/
     width: 15px; /* Set a specific slider handle width */
     height: 15px; /* Slider handle height */
-    background: #4CAF50; /* Green background */
+    background: #CC0000; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
 select {
-  width: 120px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  height: 22px;
+  	width: 120px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	height: 22px;
 	border-radius: 5%;
 	padding-left: 3px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: url(pics/pilned.png) 96% / 10% no-repeat #eee;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: url(pics/pilned.png) 96% / 10% no-repeat #eee;
 }
 /* -- Stilsättning på popup-rutan -- */
 #popup {
@@ -472,8 +472,8 @@ select {
 	position: absolute;
 	top: 20px;
 	right: 65px;
-  display: inline-block;
-  cursor: pointer;
+  	display: inline-block;
+  	cursor: pointer;
 }
 #popup:hover, #contactBtn:hover {
 	color: #ffb3b3;
@@ -486,16 +486,16 @@ select {
 }
 .popuptext {
 	font-size: 10pt;
-  width: 200px;
+  	width: 200px;
 	padding: 10px 15px;
-  background-color: #cc0000;
-  color: #fff;
-  text-align: left;
-  border-radius: 15px;
+  	background-color: #cc0000;
+  	color: #fff;
+  	text-align: left;
+  	border-radius: 15px;
 	z-index: 1;
-  position: absolute;
+  	position: absolute;
 	right: -20px;
-  top: 80px;
+  	top: 80px;
 }
 .popuptext.show {
     visibility: visible;
@@ -507,8 +507,17 @@ select {
 	-webkit-animation: fadeOut 0.5s;
 	animation: fadeOut 0.5s;
 }
-
-
+.photo {
+	height: 150px;
+	margin: 20px;
+	display: block;
+}
+#photo {
+	height: 100px;
+	position: relative;
+	left: 75%;
+	bottom: 425px;
+}
 @-webkit-keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
@@ -590,10 +599,16 @@ header img {
 		margin: 0;
 	}
 }
+@media screen and (max-width: 750px){
+	#photo {
+		display: none;
+	}
+}
 @media screen and (max-width: 530px){
 	#searchbar {
 		width: 80%;
 
+}
 }
 @media screen and (max-width: 360px){
 	#filters {

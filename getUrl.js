@@ -351,7 +351,6 @@ function reviewInfo(response) {
     revContent.innerHTML = "";
     var modalReviews = document.createElement("div");
     modalReviews.setAttribute("class", "modalReviews");
-
     var response = JSON.parse(response);
     if (response.payload.length > 0) {
         for (var i = 0; i < response.payload.length; i++) {
@@ -544,9 +543,9 @@ function createInfoElements(name, rating, price, distance, id) {//dessa parametr
     var distanceDiv = document.createElement("div");
     var ratingValue = Math.round((rating / 5) * 10) * 10; //räknar ut betyget i procent
     var priceValue;
-
+    rating = Math.round(rating*100)/100;
     //Omvandlar pris till en procentsats
-    if (price <= 50) priceValue = 34;
+    if (price <= 50) priceValue = 34; 
     else if (price <= 85) priceValue = 67;
     else priceValue = 100;
 
@@ -559,7 +558,7 @@ function createInfoElements(name, rating, price, distance, id) {//dessa parametr
     ratingOut.classList.add("rating-outer");
     ratingIn.classList.add("rating-inner");
     ratingIn.setAttribute("style", "width:" + ratingValue + "%");
-    ratingIn.setAttribute("title", rating);
+    ratingOut.setAttribute("title", "Restaurangens snittbetyg är " + rating);
     ratingOut.appendChild(ratingIn);
 
     priceOut.classList.add("price-outer");

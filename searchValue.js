@@ -18,25 +18,25 @@ function showZip(response) {
     lat1 = responseZip.results[0].geometry.location.lat;
     lng1 = responseZip.results[0].geometry.location.lng;
     if (lat1 < "56.180545") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         location.href = "index.html";
     }
     else if (lat1 > "58.055045") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         location.href = "index.html";
     }
     else if (lng1 > "17.186522") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         location.href = "index.html";
     }
     else if (lng1 < "13.235257") {
-        alert("Tjänsten funkar inte om du söker utanför Småland eller Öland.");
+        alert("Din sökning ligger utanför Småland och Öland. Var vänlig sök på nytt.");
         location.href = "index.html";
     }
 
     for (var i = 0; i < responseZip.results.length; i++) {
-        lat = responseZip.results[i].geometry.location.lat;
-        lng = responseZip.results[i].geometry.location.lng;
+        var lat = responseZip.results[i].geometry.location.lat;
+        var lng = responseZip.results[i].geometry.location.lng;
         sessionStorage.setItem("lat", lat);
         sessionStorage.setItem("lng", lng);
         map = new google.maps.Map(
